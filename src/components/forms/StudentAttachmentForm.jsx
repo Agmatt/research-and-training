@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { supabase } from '../../lib/supabase';
+import { getSupabase } from '../../lib/supabase';
 
 const ROTATION_TYPES = [
   'Nursing',
@@ -53,14 +53,14 @@ export default function StudentAttachmentForm() {
   const update = (key) => (e) =>
     setForm((f) => ({ ...f, [key]: e.target.value }));
 
-   const submit = async (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     setError(null);
 
     const supabase = getSupabase();
     if (!supabase) {
       setError(
-        'Inquiries are temporarily unavailable — please email partnerships@spmh.co.ke directly.'
+        'Inquiries are temporarily unavailable — please email partnerships@spmh.co.ke directly.',
       );
       return;
     }
@@ -73,7 +73,7 @@ export default function StudentAttachmentForm() {
 
     if (err) {
       setError(
-        'We could not submit your inquiry. Please email partnerships@spmh.co.ke.'
+        'We could not submit your inquiry. Please email partnerships@spmh.co.ke.',
       );
       return;
     }

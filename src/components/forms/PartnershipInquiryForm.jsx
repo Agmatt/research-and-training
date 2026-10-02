@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { supabase } from '../../lib/supabase';
+import { getSupabase } from '../../lib/supabase';
 
 const LOCATION_TYPES = [
   { value: 'local', label: 'Local (Kenya)' },
@@ -54,40 +54,40 @@ export default function PartnershipInquiryForm() {
   const update = (key) => (e) =>
     setForm((f) => ({ ...f, [key]: e.target.value }));
 
-    const submit = async (e) => {
-      e.preventDefault();
-      setError(null);
+  const submit = async (e) => {
+    e.preventDefault();
+    setError(null);
 
-      const supabase = getSupabase();
-      if (!supabase) {
-        setError(
-          'Inquiries are temporarily unavailable — please email partnerships@spmh.co.ke directly.',
-        );
-        return;
-      }
+    const supabase = getSupabase();
+    if (!supabase) {
+      setError(
+        'Inquiries are temporarily unavailable — please email partnerships@spmh.co.ke directly.',
+      );
+      return;
+    }
 
-      setLoading(true);
-      const { error: err } = await supabase
-        .from('partnership_inquiries')
-        .insert([form]);
-      setLoading(false);
+    setLoading(true);
+    const { error: err } = await supabase
+      .from('partnership_inquiries')
+      .insert([form]);
+    setLoading(false);
 
-      if (err) {
-        setError(
-          'We could not submit your inquiry. Please email partnerships@spmh.co.ke.',
-        );
-        return;
-      }
-      setSuccess(true);
-      setForm({
-        institution_name: '',
-        contact_person: '',
-        email: '',
-        location_type: 'local',
-        inquiry_type: 'student_attachment',
-        message: '',
-      });
-    };
+    if (err) {
+      setError(
+        'We could not submit your inquiry. Please email partnerships@spmh.co.ke.',
+      );
+      return;
+    }
+    setSuccess(true);
+    setForm({
+      institution_name: '',
+      contact_person: '',
+      email: '',
+      location_type: 'local',
+      inquiry_type: 'student_attachment',
+      message: '',
+    });
+  };
 
   if (success) {
     return (
