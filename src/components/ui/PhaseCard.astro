@@ -1,0 +1,72 @@
+---
+import type { Phase } from '../../data/phases';
+
+interface Props {
+  phase: Phase;
+}
+
+const { phase } = Astro.props;
+
+const tone = {
+  blue: {
+    badge: 'text-blue-700 bg-blue-50',
+    arrow: 'text-primary',
+  },
+  emerald: {
+    badge: 'text-emerald-700 bg-emerald-50',
+    arrow: 'text-emerald-600',
+  },
+}[phase.tone];
+---
+
+<article
+  class={`group relative rounded-2xl bg-white shadow-sm hover:shadow-xl
+          transition-shadow overflow-hidden flex flex-col
+          ${phase.featured ? 'ring-2 ring-primary/15' : 'border border-slate-200'}`}>
+  <!-- Image -->
+  <div class='relative aspect-[16/9] overflow-hidden bg-slate-100'>
+    <img
+      src={phase.image.src}
+      alt={phase.image.alt}
+      class='w-full h-full object-cover transition-transform duration-500 group-hover:scale-105'
+      loading='lazy'
+      decoding='async'
+    />
+    {
+      phase.badge && (
+        <span
+          class='absolute top-4 right-4 inline-flex items-center gap-1
+               rounded-full bg-primary text-white px-2.5 py-1
+               text-[10px] font-bold uppercase tracking-wider shadow-md'>
+          {phase.badge}
+        </span>
+      )
+    }
+  </div>
+
+  <!-- Body -->
+  <div class='p-6 sm:p-8 flex-1 flex flex-col'>
+    <span
+      class={`inline-block self-start text-xs font-bold uppercase tracking-wider
+              px-3 py-1 rounded-full mb-4 ${tone.badge}`}>
+      {phase.label} &middot; {phase.period}
+    </span>
+
+    <h3 class='text-xl font-bold text-secondary mb-3'>
+      {phase.title}
+    </h3>
+
+    <ul class='space-y-2 text-sm text-slate-600 leading-relaxed'>
+      {
+        phase.points.map((point) => (
+          <li class='flex gap-2.5'>
+            <span class={`font-bold shrink-0 ${tone.arrow}`} aria-hidden='true'>
+              &rarr;
+            </span>
+            <span>{point}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</article>

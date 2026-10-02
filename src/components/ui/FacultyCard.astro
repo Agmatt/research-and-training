@@ -1,0 +1,57 @@
+---
+import type { Faculty } from '../../components/seo/schema/faculty';
+interface Props {
+  member: Faculty;
+}
+const { member } = Astro.props;
+
+const initials = member.name
+  .split(' ')
+  .map((n) => n[0])
+  .join('')
+  .slice(0, 2)
+  .toUpperCase();
+---
+
+<article
+  class='group relative rounded-2xl border border-slate-200 bg-white shadow-sm
+         overflow-hidden text-center transition-all duration-300
+         hover:-translate-y-1 hover:shadow-xl hover:border-blue-200
+         flex flex-col'>
+  <span
+    class='absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-primary-dark
+           scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left'
+  ></span>
+
+  <div class='p-6 pt-8 pb-6 flex-1 flex flex-col items-center'>
+    {
+      member.photo ? (
+        <div class='w-28 h-28 rounded-full overflow-hidden bg-slate-100 ring-2 ring-blue-100'>
+          <img
+            src={member.photo}
+            alt={`Portrait of ${member.name}, ${member.title} at SPMH`}
+            class='w-full h-full object-cover object-top'
+            loading='lazy'
+            decoding='async'
+          />
+        </div>
+      ) : (
+        <div
+          class='w-28 h-28 rounded-full ring-2 ring-blue-100
+               bg-gradient-to-br from-blue-100 to-blue-200
+               flex items-center justify-center'>
+          <span class='text-3xl font-bold text-secondary'>{initials}</span>
+        </div>
+      )
+    }
+
+    <h3 class='mt-5 text-base font-bold text-secondary leading-tight'>
+      {member.name}
+    </h3>
+    <p class='text-sm text-primary font-semibold mt-1'>{member.title}</p>
+    <p class='text-xs text-slate-500 mt-2 uppercase tracking-wider font-medium'>
+      {member.specialty}
+    </p>
+    <p class='mt-4 text-xs text-slate-600 leading-relaxed'>{member.bio}</p>
+  </div>
+</article>

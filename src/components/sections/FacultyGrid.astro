@@ -1,0 +1,21 @@
+---
+import { faculty } from '../../components/seo/schema/faculty';
+import FacultyCard from '../ui/FacultyCard.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+---
+
+<section
+  id='faculty'
+  class='relative py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-slate-50'>
+  <div class='max-w-7xl mx-auto'>
+    <SectionHeader
+      eyebrow='Preceptors & Faculty'
+      title="Who You'll Learn From"
+      lead='Certified, registered, and practising clinicians who supervise every attachment and internship rotation.'
+    />
+
+    <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
+      {faculty.map((member) => <FacultyCard member={member} />)}
+    </div>
+  </div>
+</section>

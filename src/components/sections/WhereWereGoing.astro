@@ -1,0 +1,35 @@
+---
+import { phases } from '../../data/phases';
+import PhaseCard from '../ui/PhaseCard.astro';
+import { SITE } from '../../data/site';
+---
+
+<section
+  id='where-were-going'
+  class='relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-50'>
+  <div class='max-w-7xl mx-auto'>
+    <!-- Header -->
+    <div class='text-center max-w-3xl mx-auto mb-16 space-y-4'>
+      <span class='eyebrow'>Our 2030 Vision</span>
+      <h2 class='section-heading'>Where We&rsquo;re Going</h2>
+      <p class='section-lead'>
+        St. Paul&rsquo;s Mission Hospital is on a phased pathway to Level 5
+        teaching hospital accreditation by 2030. Here is the roadmap your
+        attachment, internship, or partnership will be part of.
+      </p>
+    </div>
+
+    <!-- Phase cards -->
+    <div class='grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8'>
+      {phases.map((phase) => <PhaseCard phase={phase} />)}
+    </div>
+
+    <!-- CTA -->
+    <div class='mt-12 text-center'>
+      <a href={SITE.paths.level5Roadmap} class='btn-primary px-6 py-3'>
+        Explore the Full Level 5 Roadmap
+        <i class='fas fa-arrow-right text-sm' aria-hidden='true'></i>
+      </a>
+    </div>
+  </div>
+</section>

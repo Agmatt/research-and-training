@@ -1,0 +1,142 @@
+---
+/**
+ * AcademicsFooter v2
+ * - Paths: subdomain-root-relative.
+ * - Cross-domain links: absolute to www.spmh.co.ke.
+ * - Gold used only on the closing tagline divider (sparingly, per brand decision).
+ */
+import { SITE } from '../data/site';
+import {
+  footerContacts,
+  footerColumns,
+  footerSocials,
+  footerLegal,
+} from '../data/footer';
+
+const year = new Date().getFullYear();
+---
+
+<footer class='bg-slate-950 text-slate-400'>
+  <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+    <!-- ============================================================
+         MAIN — identity + contact (left) · navigation (right)
+         ============================================================ -->
+    <div class='py-16 lg:py-20 grid grid-cols-12 gap-y-12 lg:gap-x-16'>
+      <!-- Identity + contact -->
+      <div class='col-span-12 lg:col-span-4'>
+        <p
+          class='text-xs font-semibold uppercase tracking-[0.18em] text-slate-300'>
+          {SITE.mainSite.name}
+        </p>
+        <p class='mt-5 text-sm text-slate-400 leading-relaxed'>
+          Training, research, and partnership at Homa Bay&rsquo;s Level 4
+          mission hospital &mdash; advancing toward Level 5 teaching hospital
+          accreditation by 2030 under the {SITE.diocese.name}.
+        </p>
+
+        <div class='mt-10 space-y-5'>
+          {
+            footerContacts.map((c) => (
+              <div>
+                <p class='text-[10px] uppercase tracking-[0.18em] text-slate-500'>
+                  {c.label}
+                </p>
+                <a
+                  href={`mailto:${c.email}`}
+                  class='mt-1 block text-sm text-slate-200 hover:text-white transition-colors break-all'>
+                  {c.email}
+                </a>
+              </div>
+            ))
+          }
+        </div>
+
+        <p class='mt-8 text-xs text-slate-500'>{SITE.hours}</p>
+      </div>
+
+      <!-- Navigation columns -->
+      <div
+        class='col-span-12 lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-12'>
+        {
+          footerColumns.map((col) => (
+            <div>
+              <h3 class='text-[10px] uppercase tracking-[0.18em] font-semibold text-slate-500'>
+                {col.title}
+              </h3>
+              <ul class='mt-5 space-y-3'>
+                {col.links.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      download={link.download ? true : undefined}
+                      target={link.external ? '_blank' : undefined}
+                      rel={link.external ? 'noopener noreferrer' : undefined}
+                      class='text-sm text-slate-400 hover:text-white transition-colors inline-flex items-center gap-1'>
+                      {link.label}
+                      {link.external && (
+                        <i
+                          class='fas fa-arrow-up-right-from-square text-[9px] opacity-50'
+                          aria-hidden='true'
+                        />
+                      )}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- ============================================================
+         BOTTOM — legal · tagline · socials
+         ============================================================ -->
+    <div
+      class='border-t border-slate-800/60 py-6 flex flex-col sm:flex-row items-center justify-between gap-4'>
+      <!-- Legal -->
+      <nav
+        aria-label='Legal'
+        class='flex flex-wrap items-center justify-center sm:justify-start gap-x-5 gap-y-1 text-xs'>
+        {
+          footerLegal.map((link) => (
+            <a
+              href={link.href}
+              class='text-slate-400 hover:text-slate-200 transition-colors'>
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <!-- Socials -->
+      <div class='flex items-center gap-1'>
+        {
+          footerSocials.map((s) => (
+            <a
+              href={s.href}
+              target='_blank'
+              rel='noopener noreferrer'
+              aria-label={s.label}
+              class='w-9 h-9 flex items-center justify-center text-slate-400 hover:text-white transition-colors rounded-md hover:bg-slate-900'>
+              <i class={`fab ${s.icon} text-sm`} aria-hidden='true' />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Copyright + tagline (gold used once, sparingly) -->
+    <div
+      class='border-t border-slate-800/60 py-8 flex flex-col items-center gap-4'>
+      <div class='divider-gold mx-auto'></div>
+      <p class='text-xs text-slate-400 text-center'>
+        &copy; {year}
+        {SITE.mainSite.name} &mdash; {SITE.address.town}
+      </p>
+      <p class='text-xs text-slate-500 italic tracking-widest'>
+        Safe Hands, Caring Hearts
+      </p>
+    </div>
+  </div>
+</footer>

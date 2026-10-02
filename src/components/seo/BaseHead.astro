@@ -1,0 +1,82 @@
+---
+/**
+ * BaseHead — every page uses this.
+ * Renders fonts, meta, canonical, OG/Twitter, and JSON-LD blocks.
+ */
+import { SITE } from '../../data/site';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical: string;                   // full absolute URL
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = `${SITE.url}/img/og/landing.jpg`,
+  ogType = 'website',
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+
+const blocks = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex,nofollow" />}
+
+<!-- Favicons -->
+<link rel="icon" type="image/svg+xml" href="/file.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/file.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<meta name="theme-color" content="#1565c0" />
+
+<!-- Fonts: Fraunces + Plus Jakarta Sans + IBM Plex Mono -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+/>
+
+<!-- FontAwesome (icons) -->
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  referrerpolicy="no-referrer"
+/>
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:locale" content="en_KE" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:site" content="@spmhhomabay" />
+
+<!-- JSON-LD -->
+{blocks.map((block) => (
+  <script type="application/ld+json" set:html={JSON.stringify(block)} />
+))}

@@ -1,0 +1,26 @@
+---
+interface Props {
+  quote: string;
+  attribution: string;
+}
+const {
+  quote = 'Growing not only in excellence and capacity, but also in compassion, faith, innovation, and service to humanity.',
+  attribution = "Bishop's Foreword, SPMH Strategic Plan 2026–2030",
+} = Astro.props;
+---
+
+<section class='relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-white'>
+  <div class='max-w-4xl mx-auto text-center'>
+    <i
+      class='fas fa-quote-left text-4xl sm:text-5xl text-blue-200 mb-6'
+      aria-hidden='true'></i>
+    <blockquote
+      class='text-2xl sm:text-3xl lg:text-4xl font-bold text-secondary leading-snug italic text-balance'>
+      &ldquo;{quote}&rdquo;
+    </blockquote>
+    <p
+      class='mt-8 text-xs sm:text-sm font-semibold uppercase tracking-widest text-slate-500'>
+      &mdash; {attribution}
+    </p>
+  </div>
+</section>

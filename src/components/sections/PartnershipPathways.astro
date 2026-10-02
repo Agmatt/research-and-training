@@ -1,0 +1,19 @@
+---
+import { pathways } from '../../components/seo/schema/pathway';
+import PathwayCard from '../ui/PathwayCard.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+---
+
+<section id='pathways' class='py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-slate-50'>
+  <div class='max-w-7xl mx-auto'>
+    <SectionHeader
+      eyebrow='Partnership Pathways'
+      title='Ways to Collaborate'
+      lead='Structured routes designed for students, institutions, and healthcare leaders.'
+    />
+
+    <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+      {pathways.map((pathway) => <PathwayCard pathway={pathway} />)}
+    </div>
+  </div>
+</section>

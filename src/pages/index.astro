@@ -1,0 +1,51 @@
+---
+import LandingLayout from '../layout/LandingLayout.astro';
+import BaseHead from '../components/seo/BaseHead.astro';
+import { landingSchema } from '../components/seo/schema';
+import { SITE } from '../data/site';
+
+import Hero from '../components/sections/Hero.astro';
+import WhereWereGoing from '../components/sections/WhereWereGoing.astro';
+import PullQuote from '../components/sections/PullQuote.astro';
+import PartnershipPathways from '../components/sections/PartnershipPathways.astro';
+import ResearchAtSPMH from '../components/sections/ResearchAtSPMH.astro';
+import FacultyGrid from '../components/sections/FacultyGrid.astro';
+import HowItWorks from '../components/sections/HowItWorks.astro';
+import StudentApplication from '../components/sections/StudentApplication.astro';
+import InstitutionalPartnership from '../components/sections/InstitutionalPartnership.astro';
+import PartnershipInquiry from '../components/sections/PartnershipInquiry.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import CTAFooter from '../components/sections/CTAFooter.astro';
+
+const title =
+  'Clinical Attachment & Medical Internship in Kenya | SPMH Homa Bay';
+const description =
+  "Clinical attachment, internship, and research collaboration at St. Paul's Mission Hospital, Homa Bay. Structured rotations, certified preceptors, 6–12 week programmes. Apply online.";
+
+const canonical = `${SITE.url}/`;
+const schema = landingSchema({ title, description });
+---
+
+<LandingLayout currentPage='Home'>
+  <BaseHead
+    slot='head'
+    title={title}
+    description={description}
+    canonical={canonical}
+    ogImage={`${SITE.url}/img/og/landing.jpg`}
+    jsonLd={schema}
+  />
+
+  <Hero />
+  <WhereWereGoing />
+  <PullQuote />
+  <PartnershipPathways />
+  <ResearchAtSPMH />
+  <FacultyGrid />
+  <HowItWorks />
+  <StudentApplication />
+  <InstitutionalPartnership />
+  <PartnershipInquiry />
+  <FAQ />
+  <CTAFooter />
+</LandingLayout>

@@ -1,0 +1,128 @@
+---
+interface Props {
+  imageSrc?: string;
+  imageAlt?: string;
+}
+
+const {
+  imageSrc = '/img/40.jpg',
+  imageAlt = "Clinical students in a training session at St. Paul's Mission Hospital",
+} = Astro.props;
+
+---
+
+<section
+  class='relative min-h-[92vh] flex flex-col overflow-hidden bg-slate-950'>
+  <!-- ============================================================
+       BACKGROUND — image + layered gradients + grain
+       ============================================================ -->
+  <div class='absolute inset-0' aria-hidden='true'>
+    <img
+      src={imageSrc}
+      alt=''
+      class='w-full h-full object-cover brightness-[0.55]'
+      loading='eager'
+      fetchpriority='high'
+      decoding='async'
+    />
+
+    <!-- Diagonal gradient: strongest at bottom-left where the copy sits -->
+    <div
+      class='absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-950/50 to-primary-dark/40'>
+    </div>
+
+    <!-- Vertical gradient: locks the top for the indicator, seals the bottom -->
+    <div
+      class='absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/40'>
+    </div>
+
+    <!-- Subtle grain — SVG noise, tiny payload, adds warmth -->
+    <div
+      class='absolute inset-0 opacity-[0.12] mix-blend-overlay'
+      style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E&quot;);">
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MAIN CONTENT — anchored bottom-left
+       ============================================================ -->
+  <div class='relative flex-1 flex items-end'>
+    <div
+      class='w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pb-14 sm:pb-20 lg:pb-24'>
+      <div class='max-w-4xl'>
+        <!-- Headline — Fraunces light, editorial size -->
+        <h1
+          class='font-display font-light text-white
+                 text-[2.75rem] leading-[1.02] sm:text-6xl lg:text-7xl xl:text-[5.5rem]
+                 tracking-[-0.02em] text-balance'>
+          Formed in
+          <em class='not-italic font-normal text-primary-light'>skill</em>.<br
+            class='hidden sm:block'
+          />
+          <span class='sm:hidden'> </span>
+          Grounded in
+          <span class='relative inline-block'>
+            <span class='font-normal'>service</span>
+            <svg
+              class='absolute -bottom-1 sm:-bottom-2 left-0 w-full'
+              height='14'
+              viewBox='0 0 300 14'
+              fill='none'
+              preserveAspectRatio='none'
+              aria-hidden='true'>
+              <path
+                d='M2 10.5C70 5 150 3.5 298 7'
+                stroke='#c8a951'
+                stroke-width='2.5'
+                stroke-linecap='round'
+                opacity='0.9'></path>
+            </svg>
+          </span>
+          <span class='text-primary-light'>.</span>
+        </h1>
+
+        <!-- Subhead -->
+        <p
+          class='mt-8 sm:mt-10 text-base sm:text-lg lg:text-xl
+                 text-blue-100/90 leading-relaxed max-w-2xl'>
+          Structured clinical attachments, internship placements, and health
+          research at St. Paul&rsquo;s Mission Hospital &mdash; a faith-based
+          Level 4 referral facility advancing toward Level 5 teaching hospital
+          accreditation by 2030.
+        </p>
+
+        <!-- CTAs -->
+        <div class='mt-10 sm:mt-12 flex flex-wrap items-center gap-3 sm:gap-4'>
+          <a
+            href='#student-application'
+            class='group inline-flex items-center gap-3
+                   pl-6 sm:pl-7 pr-2 py-2 rounded-full
+                   bg-white text-primary-dark
+                   font-semibold text-sm sm:text-base
+                   shadow-2xl shadow-black/30
+                   hover:bg-blue-50
+                   hover:scale-[1.02] active:scale-[0.98]
+                   transition-all duration-200'>
+            <span>Apply for attachment</span>
+            <span
+              class='inline-flex items-center justify-center w-9 h-9 rounded-full
+                     bg-primary-dark text-white
+                     group-hover:translate-x-0.5 transition-transform'>
+              <i class='fas fa-arrow-right text-xs' aria-hidden='true'></i>
+            </span>
+          </a>
+
+          <a
+            href='#pathways'
+            class='inline-flex items-center gap-2 px-6 sm:px-7 py-3.5
+                   rounded-full border border-white/25 text-white
+                   font-medium text-sm sm:text-base
+                   hover:bg-white/10 hover:border-white/50
+                   transition-all duration-200 backdrop-blur-sm'>
+            Explore pathways
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>

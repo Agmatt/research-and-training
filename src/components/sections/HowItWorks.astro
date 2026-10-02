@@ -1,0 +1,62 @@
+---
+import { steps } from '../../components/seo/schema/steps';
+import SectionHeader from '../ui/SectionHeader.astro';
+---
+
+<section
+  id="how-it-works"
+  class="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8
+         bg-gradient-to-b from-slate-50 to-slate-200 overflow-hidden"
+>
+  <!-- Decorative blurs -->
+  <div class="absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true">
+    <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-300 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-300 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto">
+    <SectionHeader
+      eyebrow="How It Works"
+      title="Your Path to Clinical Training"
+      lead="A simple, transparent process designed to get you into the clinic quickly and confidently."
+    />
+
+    <div class="relative">
+      <!-- Desktop connector line -->
+      <div
+        class="hidden lg:block absolute top-8 left-8 right-8 h-0.5 bg-blue-200"
+        aria-hidden="true"
+      ></div>
+
+      <ol class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-4">
+        {steps.map((step) => (
+          <li class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-6 lg:text-center">
+            <div
+              class={`relative z-10 w-16 h-16 shrink-0 rounded-full flex items-center justify-center
+                      text-2xl font-bold text-white shadow-lg
+                      ${step.tone === 'success' ? 'bg-emerald-500' : 'bg-primary'}`}
+            >
+              {step.tone === 'success' ? (
+                <i class="fas fa-check" aria-hidden="true" />
+              ) : (
+                step.number
+              )}
+            </div>
+            <div class="pt-0 lg:pt-2">
+              <h3 class="text-lg lg:text-xl font-bold text-secondary mb-1">
+                {step.title}
+              </h3>
+              <p class="text-sm lg:text-base text-slate-600">{step.description}</p>
+              {step.timing && (
+                <p class="text-xs lg:text-sm text-slate-400 mt-2 font-medium">
+                  <i class="far fa-clock mr-1.5" aria-hidden="true" />
+                  {step.timing}
+                </p>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

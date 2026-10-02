@@ -1,0 +1,45 @@
+---
+import { landingFaq } from '../seo/schema/faq';
+import SectionHeader from '../ui/SectionHeader.astro';
+
+// Defensive: if the schema module ever changes shape, the section
+// degrades to a friendly empty state instead of crashing the page.
+const faqs = Array.isArray(landingFaq) ? landingFaq : [];
+---
+
+<section id='faq' class='relative py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white'>
+  <div class='max-w-3xl mx-auto'>
+    <SectionHeader eyebrow='Frequently Asked' title='Questions We Get' />
+
+    {
+      faqs.length === 0 ? (
+        <p class='text-center text-sm text-slate-500'>
+          FAQs are loading. Please check back shortly.
+        </p>
+      ) : (
+        <div class='space-y-3'>
+          {faqs.map((item) => (
+            <details
+              class='group rounded-xl border border-slate-200 bg-slate-50
+                   open:bg-white open:shadow-md transition-all'>
+              <summary
+                class='flex items-center justify-between gap-4 cursor-pointer
+                     px-6 py-4 font-semibold text-secondary list-none
+                     [&::-webkit-details-marker]:hidden'>
+                <span>{item.q}</span>
+                <i
+                  class='fas fa-chevron-down text-xs text-slate-400 shrink-0
+                       transition-transform group-open:rotate-180'
+                  aria-hidden='true'
+                />
+              </summary>
+              <div class='px-6 pb-5 text-sm text-slate-600 leading-relaxed'>
+                {item.a}
+              </div>
+            </details>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</section>

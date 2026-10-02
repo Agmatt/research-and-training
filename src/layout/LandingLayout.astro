@@ -1,0 +1,38 @@
+---
+/**
+ * LandingLayout — Navbar + slot + Footer.
+ * Every page on the subdomain wraps in this.
+ */
+import AcademicsNavbar from '../components/AcademicsNavbar.astro';
+import AcademicsFooter from '../components/AcademicsFooter.astro';
+import '../styles/global.css';
+
+export interface Props {
+  currentPage?: string;
+}
+
+const { currentPage } = Astro.props;
+---
+
+<!doctype html>
+<html lang='en-KE' class='scroll-smooth'>
+  <head>
+    <slot name='head' />
+  </head>
+  <body class='bg-white text-slate-900 antialiased'>
+    <a
+      href='#main'
+      class='sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100]
+             focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg'>
+      Skip to main content
+    </a>
+
+    <AcademicsNavbar currentPage={currentPage} />
+
+    <main id='main'>
+      <slot />
+    </main>
+
+    <AcademicsFooter />
+  </body>
+</html>

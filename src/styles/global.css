@@ -1,0 +1,246 @@
+/* ============================================================
+   SPMH TRAINING & RESEARCH — GLOBAL STYLES
+   Tailwind v4 · Fraunces + Plus Jakarta Sans + IBM Plex Mono
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
+
+@import 'tailwindcss';
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
+
+@theme {
+  /* ---- Brand palette (shared with main site) ---- */
+  --color-primary:        #1565c0;
+  --color-secondary:      #125276;
+  --color-accent:         #860f0f;
+  --color-primary-dark:   #0d47a1;
+  --color-primary-light:  #90caf9;
+  --color-surface:        #f4f8ff;
+  --color-surface-2:      #e8f0fc;
+  --color-muted:          #5a6f8c;
+  --color-border:         #c5d8f7;
+
+  /* ---- Sub-brand accents (used sparingly) ---- */
+  --color-gold:           #c8a951;   /* Diocese cross / accreditation seals only */
+  --color-success:        #059669;
+  --color-earth:          #7a6f5a;
+
+  /* ---- Typography ---- */
+  --font-display: 'Fraunces', 'Playfair Display', Georgia, serif;
+  --font-body:    'Plus Jakarta Sans', 'Lato', system-ui, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'JetBrains Mono', ui-monospace, monospace;
+
+  /* ---- Rhythm ---- */
+  --radius-card: 1rem;    /* 16px  — standard card radius */
+  --radius-hero: 1.5rem;  /* 24px  — large blocks */
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.04);
+  --shadow-hover: 0 12px 28px rgba(21, 101, 192, 0.14);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-feature-settings: 'ss01', 'cv11';  /* Jakarta stylistic set */
+    color: #0f172a;
+    background-color: #ffffff;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-secondary);
+    font-optical-sizing: auto;
+    /* Fraunces variable axes — softer, less "wonky" for medical context */
+    font-variation-settings: 'SOFT' 40, 'WONK' 0, 'opsz' 24;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  h1 { font-variation-settings: 'SOFT' 40, 'WONK' 0, 'opsz' 96; }
+  h2 { font-variation-settings: 'SOFT' 40, 'WONK' 0, 'opsz' 48; }
+
+  code, pre, kbd, samp, .font-mono {
+    font-family: var(--font-mono);
+    font-feature-settings: 'zero'; /* slashed zero for reference codes */
+  }
+
+  /* Respect reduced-motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Focus ring — accessible, on-brand */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+
+/* Alpine.js — hide elements until it boots. */
+[x-cloak] { display: none !important; }
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+@layer components {
+  /* ---- Buttons ---- */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
+           text-white bg-primary hover:bg-primary-dark
+           font-medium text-sm
+           transition duration-300 ease-in-out shadow-sm
+           focus-visible:outline-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
+           border-2 border-secondary text-secondary
+           hover:bg-secondary hover:text-white
+           font-medium text-sm
+           transition duration-300 ease-in-out shadow-sm;
+  }
+
+  .btn-tertiary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
+           bg-accent text-white hover:bg-accent/90
+           font-medium text-sm
+           transition duration-300 ease-in-out shadow-sm;
+  }
+
+  .btn-ghost-light {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
+           border border-white/30 text-white
+           hover:bg-white/10 hover:border-white/50
+           font-medium text-sm
+           transition duration-300 ease-in-out backdrop-blur-sm;
+  }
+
+  /* ---- Typography helpers ---- */
+  .eyebrow {
+    @apply block text-xs font-bold uppercase tracking-[0.18em] text-secondary;
+  }
+
+  .eyebrow-light {
+    @apply block text-xs font-bold uppercase tracking-[0.18em] text-primary-light;
+  }
+
+  .section-heading {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900;
+  }
+
+  .section-lead {
+    @apply text-base sm:text-lg text-slate-600 max-w-2xl mx-auto;
+  }
+
+  .lead {
+    @apply text-base sm:text-lg md:text-xl text-slate-600 leading-relaxed;
+  }
+
+  /* ---- Cards ---- */
+  .card-base {
+    @apply relative rounded-2xl border border-slate-200 bg-white shadow-sm
+           transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:-translate-y-1 hover:shadow-xl hover:border-blue-200;
+  }
+
+  /* ---- Code / Reference ---- */
+  .reference-code {
+    @apply inline-block font-mono text-sm tracking-wider
+           bg-surface-2 text-secondary px-3 py-1 rounded-md;
+  }
+
+  /* ---- Prose (for markdown-rendered content) ---- */
+  .prose-spmh {
+    @apply max-w-none text-slate-700 leading-relaxed;
+  }
+  .prose-spmh h2 {
+    @apply mt-12 mb-4 text-2xl font-bold text-secondary;
+  }
+  .prose-spmh h3 {
+    @apply mt-8 mb-3 text-xl font-bold text-secondary;
+  }
+  .prose-spmh p {
+    @apply my-4;
+  }
+  .prose-spmh a {
+    @apply text-primary underline underline-offset-2 hover:text-primary-dark;
+  }
+  .prose-spmh ul {
+    @apply my-4 list-disc pl-6 space-y-1;
+  }
+  .prose-spmh ol {
+    @apply my-4 list-decimal pl-6 space-y-1;
+  }
+  .prose-spmh blockquote {
+    @apply border-l-4 border-gold pl-4 italic text-slate-600 my-6;
+  }
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+@layer utilities {
+  .text-balance  { text-wrap: balance; }
+  .text-pretty   { text-wrap: pretty; }
+
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Gold divider — for accreditation/faith moments */
+  .divider-gold {
+    @apply h-px w-16 bg-gold/60;
+  }
+}
+
+/* ============================================================
+   SELF-HOSTED FONTS
+   Drop .woff2 files in /public/fonts/ and uncomment below.
+   Until then, Google Fonts loads via BaseHead.
+   ============================================================ */
+/*
+@font-face {
+  font-family: 'Fraunces';
+  src: url('/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/fonts/PlusJakartaSans[wght].woff2') format('woff2-variations');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/fonts/IBMPlexMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+*/
+@import "tailwindcss";
