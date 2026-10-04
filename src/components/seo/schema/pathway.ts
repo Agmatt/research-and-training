@@ -13,7 +13,7 @@ export const pathways: Pathway[] = [
     description:
       'Structured rotations across nursing, lab, pharmacy, and outpatient departments under certified preceptors.',
     image: {
-      src: '/img/pathways/clinical-training.jpg',
+      src: '/gallery/training.jpg',
       alt: 'Student and preceptor at a patient bedside',
     },
     icon: 'stethoscope',
@@ -25,7 +25,7 @@ export const pathways: Pathway[] = [
     description:
       'Joint studies in community health, epidemiology, and quality improvement initiatives.',
     image: {
-      src: '/img/pathways/research.jpg',
+      src: '/gallery/research.jpg',
       alt: 'Research team reviewing data in the laboratory',
     },
     icon: 'microscope',
@@ -37,7 +37,7 @@ export const pathways: Pathway[] = [
     description:
       'Faculty exchange, case-based teaching, and continuing medical education sessions.',
     image: {
-      src: '/img/pathways/cme.jpg',
+      src: '/gallery/cme.jpg',
       alt: 'Continuing medical education session in progress',
     },
     icon: 'graduation-cap',
@@ -49,7 +49,7 @@ export const pathways: Pathway[] = [
     description:
       'Hands-on experience in HR, finance, procurement, and health information systems.',
     image: {
-      src: '/img/pathways/admin.jpg',
+      src: '/gallery/admin.jpg',
       alt: 'Health records and administration staff at work',
     },
     icon: 'building',
@@ -61,7 +61,7 @@ export const pathways: Pathway[] = [
     description:
       'Formal MOUs with regional and international institutions for sustainable collaboration.',
     image: {
-      src: '/img/pathways/international.jpg',
+      src: '/gallery/partnership.jpg',
       alt: 'MOU signing with international partner institution',
     },
     icon: 'globe',
@@ -73,7 +73,7 @@ export const pathways: Pathway[] = [
     description:
       'Student involvement in outreach and public health initiatives across Western Kenya.',
     image: {
-      src: '/img/pathways/community.jpg',
+      src: '/gallery/2.jpg',
       alt: 'Community Health Promoter during a field outreach visit',
     },
     icon: 'people-group',

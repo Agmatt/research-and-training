@@ -19,7 +19,7 @@ export const phases: Phase[] = [
     period: '2026–2027',
     title: 'Stabilization',
     image: {
-      src: '/img/phases/stabilization.jpg',
+      src: '/gallery/scan.jpg',
       alt: 'Emergency triage and stabilization services at SPMH',
     },
     tone: 'blue',
@@ -37,7 +37,7 @@ export const phases: Phase[] = [
     period: '2028–2029',
     title: 'Expansion',
     image: {
-      src: '/img/phases/expansion.jpg',
+      src: '/gallery/lab.jpg',
       alt: 'Expansion of critical care and diagnostic infrastructure at SPMH',
     },
     tone: 'blue',
@@ -57,7 +57,7 @@ export const phases: Phase[] = [
     period: '2030',
     title: 'Consolidation & Excellence',
     image: {
-      src: '/img/phases/consolidation.jpg',
+      src: '/gallery/accreditation.jpg',
       alt: 'SPMH 2030 vision — accredited Level 5 teaching hospital',
     },
     tone: 'emerald',
