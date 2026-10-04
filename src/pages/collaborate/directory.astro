@@ -5,101 +5,155 @@ import { buildWebPage } from '../../components/seo/schema/webpage';
 import { buildBreadcrumbs } from '../../components/seo/schema/breadcrumbs';
 import { SITE } from '../../data/site';
 
-const title = "Partner Directory";
-const description = "Academic, health system, and development partners working with St. Paul's Mission Hospital.";
-const path = "/collaborate/directory";
+const title = 'Partner Directory — Institutional Partners | SPMH';
+const description =
+  "Academic, health system, and development partners working with St. Paul's Mission Hospital, Homa Bay.";
+const path = '/collaborate/directory';
 const canonical = `${SITE.url}${path}`;
-
-const breadcrumbCrumbs = [
-  { name: 'Home', item: `${SITE.mainSite.url}/` },
-  { name: 'Training & Research', item: `${SITE.url}/` },
-  { name: "Collaborate", item: `${SITE.url}/collaborate` },
-];
 
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     buildWebPage({ title, description, path }),
-    buildBreadcrumbs(breadcrumbCrumbs),
+    buildBreadcrumbs([
+      { name: 'Home', item: `${SITE.mainSite.url}/` },
+      { name: 'Training & Research', item: `${SITE.url}/` },
+      { name: 'Collaborate', item: `${SITE.url}/collaborate` },
+      { name: 'Directory', item: `${SITE.url}/collaborate/directory` },
+    ]),
   ],
 };
+
+const categories = [
+  {
+    icon: 'building-columns',
+    title: 'Academic Institutions',
+    detail:
+      'Universities, medical schools, and health training colleges partnering on student pipelines and joint research.',
+    count: 'Growing',
+  },
+  {
+    icon: 'landmark',
+    title: 'Health System',
+    detail:
+      'Ministry of Health, Homa Bay County Department of Health, and referral facilities within the regional network.',
+    count: 'Active',
+  },
+  {
+    icon: 'church',
+    title: 'Faith-Based Networks',
+    detail:
+      'Catholic Diocese of Homa Bay, Catholic Health Commission of Kenya, and CHAK.',
+    count: 'Foundational',
+  },
+  {
+    icon: 'globe',
+    title: 'Development Partners',
+    detail:
+      'NGOs, foundations, and multilateral agencies supporting health system strengthening.',
+    count: 'Active',
+  },
+];
 ---
 
-<LandingLayout currentPage="Collaborate">
+<LandingLayout currentPage='Collaborate'>
   <BaseHead
-    slot="head"
+    slot='head'
     title={title}
     description={description}
     canonical={canonical}
     jsonLd={schema}
-    noindex={true}
   />
 
-  <section class="relative bg-slate-50 border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      <nav aria-label="Breadcrumb" class="text-xs uppercase tracking-wider text-slate-500 mb-6">
-        <ol class="flex flex-wrap items-center gap-2">
-          {breadcrumbCrumbs.map((crumb, i) => (
-            <li class="flex items-center gap-2">
-              {i === breadcrumbCrumbs.length - 1 ? (
-                <span class="text-secondary font-semibold">{crumb.name}</span>
-              ) : (
-                <a
-                  href={crumb.item.startsWith(SITE.url) ? crumb.item.replace(SITE.url, '') || '/' : crumb.item}
-                  class="hover:text-primary transition-colors"
-                >
-                  {crumb.name}
-                </a>
-              )}
-              {i < breadcrumbCrumbs.length - 1 && (
-                <span aria-hidden="true" class="text-slate-300">/</span>
-              )}
-            </li>
-          ))}
+  <section class='relative bg-[#0A1730] text-white'>
+    <div
+      class='absolute inset-0 bg-gradient-to-br from-[#0A1730] via-[#0B1E3A] to-[#0E2549]'>
+    </div>
+    <div
+      class='relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-20 pb-16 sm:pt-28 sm:pb-20'>
+      <nav aria-label='Breadcrumb' class='mb-12'>
+        <ol
+          class='flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.24em] font-medium text-slate-500'>
+          <li><a href='/' class='hover:text-white'>Home</a></li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li>
+            <a href='/collaborate' class='hover:text-white'>Collaborate</a>
+          </li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li class='text-gold'>Directory</li>
         </ol>
       </nav>
-
-      <div class="max-w-3xl">
-        <span class="eyebrow">Collaborate</span>
-        <h1 class="mt-4 text-4xl sm:text-5xl font-bold text-secondary text-balance">
-          Partner Directory
-        </h1>
-        <p class="mt-6 text-lg text-slate-600 leading-relaxed">
-          Academic, health system, and development partners working with St. Paul's Mission Hospital.
-        </p>
+      <div
+        class='grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-10 items-end'>
+        <div class='lg:col-span-7'>
+          <div class='flex items-center gap-4 mb-6'>
+            <span class='h-px w-12 bg-gold/70'></span>
+            <span
+              class='text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-gold'
+              >Our Partners</span
+            >
+          </div>
+          <h1
+            class='font-display font-light text-white text-[2.5rem] leading-[1.02] sm:text-5xl lg:text-7xl tracking-[-0.03em] text-balance'>
+            Who we work<br />
+            with, and <em class='not-italic font-normal text-primary-light'
+              >why</em
+            >.
+          </h1>
+          <div class='mt-8 h-px w-16 bg-gold/80'></div>
+        </div>
+        <aside class='lg:col-span-5'>
+          <p
+            class='text-[15px] sm:text-base text-slate-300 leading-[1.75] max-w-md'>
+            Partner categories we actively collaborate with. Individual partners
+            are listed within each category &mdash; we publish these as
+            agreements are formalised.
+          </p>
+        </aside>
       </div>
     </div>
   </section>
 
-  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 text-primary mb-6">
-        <i class="fas fa-hard-hat text-2xl" aria-hidden="true"></i>
+  <section class='py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-50'>
+    <div class='max-w-7xl mx-auto'>
+      <div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
+        {
+          categories.map((c) => (
+            <article class='rounded-2xl border border-slate-200 bg-white p-8'>
+              <div class='flex items-center justify-between mb-6'>
+                <div class='w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center'>
+                  <i class={`fas fa-${c.icon} text-lg`} aria-hidden='true' />
+                </div>
+                <span
+                  class='inline-flex items-center px-3 py-1 rounded-full bg-slate-50 border border-slate-200
+                           text-[10px] font-semibold uppercase tracking-wider text-slate-500'>
+                  {c.count}
+                </span>
+              </div>
+              <h3 class='text-xl font-bold text-secondary'>{c.title}</h3>
+              <p class='mt-3 text-sm text-slate-600 leading-relaxed'>
+                {c.detail}
+              </p>
+            </article>
+          ))
+        }
       </div>
-      <h2 class="text-2xl sm:text-3xl font-bold text-secondary">
-        This page is being built
-      </h2>
-      <p class="mt-4 text-slate-600 leading-relaxed">
-        We're actively building out the <strong>Collaborate</strong> section of
-        this site. The content you're looking for will land here shortly.
-      </p>
 
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a href="/" class="btn-primary px-5 py-2.5">
-          <i class="fas fa-arrow-left text-xs" aria-hidden="true"></i>
-          Back to home
-        </a>
-        <a href="/faq" class="btn-secondary px-5 py-2.5">
-          Check the FAQ
+      <div class='mt-14 rounded-2xl bg-slate-900 text-white p-8 sm:p-10'>
+        <h3 class='text-2xl font-bold text-white'>
+          Interested in being listed?
+        </h3>
+        <p class='mt-3 text-slate-300 max-w-2xl'>
+          We list partners once an MOU or formal agreement is signed. To start
+          that conversation, submit a partnership inquiry.
+        </p>
+        <a
+          href='/collaborate/inquiry'
+          class='mt-6 inline-flex btn-primary px-6 py-3'>
+          Start inquiry <i class='fas fa-arrow-right text-xs' aria-hidden='true'
+          ></i>
         </a>
       </div>
-
-      <p class="mt-8 text-xs text-slate-400">
-        Need this urgently? Email
-        <a href="mailto:academics@spmh.co.ke" class="text-primary hover:underline">
-          academics@spmh.co.ke
-        </a>.
-      </p>
     </div>
   </section>
 </LandingLayout>

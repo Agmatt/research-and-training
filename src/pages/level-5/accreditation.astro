@@ -5,101 +5,249 @@ import { buildWebPage } from '../../components/seo/schema/webpage';
 import { buildBreadcrumbs } from '../../components/seo/schema/breadcrumbs';
 import { SITE } from '../../data/site';
 
-const title = "MoH & KMPDC Accreditation Standards";
-const description = "How SPMH is aligning to Kenya's Ministry of Health and KMPDC standards for Level 5 teaching hospital accreditation.";
-const path = "/level-5/accreditation";
+const title = 'MoH & KMPDC Accreditation Standards — SPMH';
+const description =
+  "How SPMH is aligning to Kenya's Ministry of Health and KMPDC standards for Level 5 teaching hospital accreditation.";
+const path = '/level-5/accreditation';
 const canonical = `${SITE.url}${path}`;
-
-const breadcrumbCrumbs = [
-  { name: 'Home', item: `${SITE.mainSite.url}/` },
-  { name: 'Training & Research', item: `${SITE.url}/` },
-  { name: "Level 5", item: `${SITE.url}/level-5` },
-];
 
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     buildWebPage({ title, description, path }),
-    buildBreadcrumbs(breadcrumbCrumbs),
+    buildBreadcrumbs([
+      { name: 'Home', item: `${SITE.mainSite.url}/` },
+      { name: 'Training & Research', item: `${SITE.url}/` },
+      { name: 'Level 5', item: `${SITE.url}/level-5` },
+      { name: 'Accreditation', item: `${SITE.url}/level-5/accreditation` },
+    ]),
   ],
 };
+
+const standards = [
+  {
+    requirement: 'ICU — minimum 12-bed unit',
+    status: 'planned',
+    label: 'Planned · 2028',
+  },
+  {
+    requirement: 'HDU — minimum 12-bed unit',
+    status: 'planned',
+    label: 'Planned · 2028',
+  },
+  {
+    requirement: '7 fully equipped theatres',
+    status: 'progress',
+    label: 'Expanding',
+  },
+  { requirement: 'CT and MRI imaging', status: 'progress', label: 'CT · 2027' },
+  {
+    requirement: 'Advanced laboratory (PCR, histopathology)',
+    status: 'planned',
+    label: 'Planned · 2028',
+  },
+  {
+    requirement: 'OPD and A&E separation',
+    status: 'progress',
+    label: '2026–2027',
+  },
+  {
+    requirement: 'Accredited internship training hospital',
+    status: 'planned',
+    label: 'Target · 2030',
+  },
+  {
+    requirement: 'Fully integrated hospital information system',
+    status: 'progress',
+    label: 'EMR in rollout',
+  },
+  {
+    requirement: 'Functional medicine, surgery, O&G, paediatrics departments',
+    status: 'met',
+    label: 'Present',
+  },
+  {
+    requirement: 'Community health linkage',
+    status: 'met',
+    label: 'Operational',
+  },
+  {
+    requirement: 'Student-to-bed ratio of 1:4 minimum',
+    status: 'progress',
+    label: 'Capacity building',
+  },
+  {
+    requirement: 'Bed occupancy of at least 80%',
+    status: 'met',
+    label: 'Currently 71%',
+  },
+  {
+    requirement: 'Theatre-to-bed ratio of 1:50 maximum',
+    status: 'planned',
+    label: 'After expansion',
+  },
+  {
+    requirement: 'Tutorial rooms and side labs in clinical units',
+    status: 'progress',
+    label: 'Planned with expansion',
+  },
+  {
+    requirement: 'CPD provider accreditation',
+    status: 'progress',
+    label: 'In application',
+  },
+];
+
+const statusStyle = {
+  met: 'bg-emerald-50 text-emerald-700 ring-emerald-200',
+  progress: 'bg-blue-50 text-primary ring-blue-200',
+  planned: 'bg-amber-50 text-amber-700 ring-amber-200',
+};
+
+const referenceDocs = [
+  {
+    title: 'Kenya Primary Care Hospital Standards (MoH)',
+    detail: 'Ministry of Health reference for Level 5 standards.',
+  },
+  {
+    title: 'KMPDC Teaching Hospital Guidelines',
+    detail:
+      'Kenya Medical Practitioners and Dentists Council requirements for teaching hospitals.',
+  },
+  {
+    title: 'SPMH Strategic Plan 2026–2030',
+    detail: 'Internal readiness assessment and transformation roadmap.',
+  },
+];
 ---
 
-<LandingLayout currentPage="Level 5">
+<LandingLayout currentPage='Level 5'>
   <BaseHead
-    slot="head"
+    slot='head'
     title={title}
     description={description}
     canonical={canonical}
     jsonLd={schema}
-    noindex={true}
   />
 
-  <section class="relative bg-slate-50 border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      <nav aria-label="Breadcrumb" class="text-xs uppercase tracking-wider text-slate-500 mb-6">
-        <ol class="flex flex-wrap items-center gap-2">
-          {breadcrumbCrumbs.map((crumb, i) => (
-            <li class="flex items-center gap-2">
-              {i === breadcrumbCrumbs.length - 1 ? (
-                <span class="text-secondary font-semibold">{crumb.name}</span>
-              ) : (
-                <a
-                  href={crumb.item.startsWith(SITE.url) ? crumb.item.replace(SITE.url, '') || '/' : crumb.item}
-                  class="hover:text-primary transition-colors"
-                >
-                  {crumb.name}
-                </a>
-              )}
-              {i < breadcrumbCrumbs.length - 1 && (
-                <span aria-hidden="true" class="text-slate-300">/</span>
-              )}
-            </li>
-          ))}
+  <section class='relative bg-[#0A1730] text-white'>
+    <div
+      class='absolute inset-0 bg-gradient-to-br from-[#0A1730] via-[#0B1E3A] to-[#0E2549]'>
+    </div>
+    <div
+      class='relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-20 pb-16 sm:pt-28 sm:pb-20'>
+      <nav aria-label='Breadcrumb' class='mb-12'>
+        <ol
+          class='flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.24em] font-medium text-slate-500'>
+          <li><a href='/' class='hover:text-white'>Home</a></li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li><a href='/level-5' class='hover:text-white'>Level 5</a></li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li class='text-gold'>Accreditation</li>
         </ol>
       </nav>
-
-      <div class="max-w-3xl">
-        <span class="eyebrow">Level 5</span>
-        <h1 class="mt-4 text-4xl sm:text-5xl font-bold text-secondary text-balance">
-          MoH & KMPDC Accreditation Standards
-        </h1>
-        <p class="mt-6 text-lg text-slate-600 leading-relaxed">
-          How SPMH is aligning to Kenya's Ministry of Health and KMPDC standards for Level 5 teaching hospital accreditation.
-        </p>
+      <div
+        class='grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-10 items-end'>
+        <div class='lg:col-span-7'>
+          <div class='flex items-center gap-4 mb-6'>
+            <span class='h-px w-12 bg-gold/70'></span>
+            <span
+              class='text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-gold'
+              >MoH · KMPDC</span
+            >
+          </div>
+          <h1
+            class='font-display font-light text-white text-[2.5rem] leading-[1.02] sm:text-5xl lg:text-7xl tracking-[-0.03em] text-balance'>
+            Measured<br />
+            against the <em class='not-italic font-normal text-primary-light'
+              >standard</em
+            >.
+          </h1>
+          <div class='mt-8 h-px w-16 bg-gold/80'></div>
+        </div>
+        <aside class='lg:col-span-5'>
+          <p
+            class='text-[15px] sm:text-base text-slate-300 leading-[1.75] max-w-md'>
+            Kenya&rsquo;s Ministry of Health and KMPDC define what a Level 5
+            teaching hospital must have. This is where SPMH currently sits
+            against each requirement.
+          </p>
+        </aside>
       </div>
     </div>
   </section>
 
-  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 text-primary mb-6">
-        <i class="fas fa-hard-hat text-2xl" aria-hidden="true"></i>
-      </div>
-      <h2 class="text-2xl sm:text-3xl font-bold text-secondary">
-        This page is being built
-      </h2>
-      <p class="mt-4 text-slate-600 leading-relaxed">
-        We're actively building out the <strong>Level 5</strong> section of
-        this site. The content you're looking for will land here shortly.
-      </p>
-
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a href="/" class="btn-primary px-5 py-2.5">
-          <i class="fas fa-arrow-left text-xs" aria-hidden="true"></i>
-          Back to home
-        </a>
-        <a href="/faq" class="btn-secondary px-5 py-2.5">
-          Check the FAQ
-        </a>
+  <section class='py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-50'>
+    <div class='max-w-7xl mx-auto'>
+      <div
+        class='flex flex-wrap items-center gap-4 sm:gap-6 mb-8 pb-6 border-b border-slate-200'>
+        <span class='flex items-center gap-2 text-xs text-slate-500'>
+          <span class='h-2 w-2 rounded-full bg-emerald-500'></span> Met
+        </span>
+        <span class='flex items-center gap-2 text-xs text-slate-500'>
+          <span class='h-2 w-2 rounded-full bg-primary'></span> In progress
+        </span>
+        <span class='flex items-center gap-2 text-xs text-slate-500'>
+          <span class='h-2 w-2 rounded-full bg-amber-500'></span> Planned
+        </span>
       </div>
 
-      <p class="mt-8 text-xs text-slate-400">
-        Need this urgently? Email
-        <a href="mailto:academics@spmh.co.ke" class="text-primary hover:underline">
-          academics@spmh.co.ke
-        </a>.
-      </p>
+      <ul
+        class='divide-y divide-slate-200 bg-white rounded-2xl border border-slate-200 overflow-hidden'>
+        {
+          standards.map((s) => (
+            <li class='grid grid-cols-1 sm:grid-cols-12 gap-3 sm:gap-6 items-center px-6 py-5'>
+              <div class='sm:col-span-1 flex sm:justify-center'>
+                <span
+                  class={`inline-flex items-center justify-center w-6 h-6 rounded-full ${statusStyle[s.status as keyof typeof statusStyle]} ring-1`}>
+                  {s.status === 'met' && (
+                    <i class='fas fa-check text-[10px]' aria-hidden='true' />
+                  )}
+                  {s.status === 'progress' && (
+                    <span class='h-2 w-2 rounded-full bg-primary' />
+                  )}
+                  {s.status === 'planned' && (
+                    <span class='h-2 w-2 rounded-full bg-amber-500' />
+                  )}
+                </span>
+              </div>
+              <p class='sm:col-span-7 text-sm sm:text-base text-slate-700 leading-snug'>
+                {s.requirement}
+              </p>
+              <div class='sm:col-span-4 flex sm:justify-end'>
+                <span
+                  class={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider ${statusStyle[s.status as keyof typeof statusStyle]} ring-1`}>
+                  {s.label}
+                </span>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class='py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-white'>
+    <div class='max-w-7xl mx-auto'>
+      <div class='max-w-3xl mb-14'>
+        <span class='eyebrow'>Reference Documents</span>
+        <h2
+          class='mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance'>
+          The standards we work against.
+        </h2>
+      </div>
+      <ul class='grid grid-cols-1 md:grid-cols-3 gap-5'>
+        {
+          referenceDocs.map((d) => (
+            <li class='rounded-2xl border border-slate-200 bg-white p-6'>
+              <h3 class='text-base font-bold text-secondary'>{d.title}</h3>
+              <p class='mt-2 text-sm text-slate-600 leading-relaxed'>
+                {d.detail}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 </LandingLayout>

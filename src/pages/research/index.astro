@@ -5,101 +5,500 @@ import { buildWebPage } from '../../components/seo/schema/webpage';
 import { buildBreadcrumbs } from '../../components/seo/schema/breadcrumbs';
 import { SITE } from '../../data/site';
 
-const title = "Research at SPMH — Collaboration & Ethics";
-const description = "Collaborative health research across four Key Result Areas: community health, epidemiology, quality improvement, and maternal & child health.";
-const path = "/research";
+const title = 'Research at SPMH — Collaboration, Ethics & Four KRAs';
+const description =
+  "Collaborative health research at St. Paul's Mission Hospital across four Key Result Areas: community health, epidemiology, quality improvement, and maternal & child health.";
+const path = '/research';
 const canonical = `${SITE.url}${path}`;
-
-const breadcrumbCrumbs = [
-  { name: 'Home', item: `${SITE.mainSite.url}/` },
-  { name: 'Training & Research', item: `${SITE.url}/` },
-  { name: "Research", item: `${SITE.url}/research` },
-];
 
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     buildWebPage({ title, description, path }),
-    buildBreadcrumbs(breadcrumbCrumbs),
+    buildBreadcrumbs([
+      { name: 'Home', item: `${SITE.mainSite.url}/` },
+      { name: 'Training & Research', item: `${SITE.url}/` },
+      { name: 'Research', item: `${SITE.url}/research` },
+    ]),
   ],
 };
+
+const areas = [
+  {
+    number: '01',
+    icon: 'people-group',
+    title: 'Community Health',
+    summary:
+      'CHP-led systems, referral coordination, and continuum-of-care integration within Homa Bay County.',
+    questions: [
+      'How do Community Health Promoters drive early detection?',
+      'What referral patterns predict avoidable admissions?',
+      'How does household-level follow-up affect chronic care retention?',
+    ],
+  },
+  {
+    number: '02',
+    icon: 'virus',
+    title: 'Epidemiology',
+    summary:
+      'Communicable and non-communicable disease burden, surveillance, and outbreak preparedness.',
+    questions: [
+      'What is the local burden of NCDs in our catchment?',
+      'How does climate variability shape disease patterns?',
+      'What surveillance improvements are feasible at Level 4?',
+    ],
+  },
+  {
+    number: '03',
+    icon: 'chart-line',
+    title: 'Quality Improvement',
+    summary:
+      'Patient safety, infection prevention, and accreditation-aligned care standards.',
+    questions: [
+      'Which IPC interventions reduce hospital-acquired infection?',
+      'How can clinical audit culture be strengthened?',
+      'What QI methods translate from theory to practice?',
+    ],
+  },
+  {
+    number: '04',
+    icon: 'baby',
+    title: 'Maternal & Child Health',
+    summary:
+      'Maternal, newborn, child, and adolescent health outcomes with focus on preventable mortality.',
+    questions: [
+      'Where are the critical delays in emergency obstetric care?',
+      'What drives neonatal outcomes in our newborn unit?',
+      'How effective are adolescent reproductive health services?',
+    ],
+  },
+];
+
+const process = [
+  {
+    number: '01',
+    title: 'Proposal submission',
+    detail:
+      'Submit a research proposal aligned with one of our four Key Result Areas. Include objectives, methodology, and expected outputs.',
+  },
+  {
+    number: '02',
+    title: 'Ethics review',
+    detail:
+      'The SPMH Research Ethics Committee reviews all proposals. Institutional approval is required before any data collection begins.',
+  },
+  {
+    number: '03',
+    title: 'Collaboration agreement',
+    detail:
+      'We formalise the collaboration through a standard research agreement — data handling, publication rights, and IP are clarified up front.',
+  },
+  {
+    number: '04',
+    title: 'Fieldwork & analysis',
+    detail:
+      'Data collection proceeds with SPMH support. We provide access to clinical, operational, and community data within agreed ethical limits.',
+  },
+  {
+    number: '05',
+    title: 'Publication & feedback',
+    detail:
+      'We co-publish where appropriate, share findings with the hospital, and translate results into clinical or operational improvement.',
+  },
+];
+
+const domains = [
+  {
+    icon: 'building-columns',
+    label: 'Academic institutions',
+    detail: 'Universities, medical schools, and research institutes',
+  },
+  {
+    icon: 'landmark',
+    label: 'Government & health agencies',
+    detail: 'County and national health departments',
+  },
+  {
+    icon: 'globe',
+    label: 'Development partners',
+    detail: 'NGOs, foundations, and multilateral agencies',
+  },
+  {
+    icon: 'church',
+    label: 'Faith-based networks',
+    detail: 'CHAK, Catholic Health Commission, and diocesan partners',
+  },
+];
 ---
 
-<LandingLayout currentPage="Research">
+<LandingLayout currentPage='Research'>
   <BaseHead
-    slot="head"
+    slot='head'
     title={title}
     description={description}
     canonical={canonical}
     jsonLd={schema}
-    noindex={true}
   />
 
-  <section class="relative bg-slate-50 border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      <nav aria-label="Breadcrumb" class="text-xs uppercase tracking-wider text-slate-500 mb-6">
-        <ol class="flex flex-wrap items-center gap-2">
-          {breadcrumbCrumbs.map((crumb, i) => (
-            <li class="flex items-center gap-2">
-              {i === breadcrumbCrumbs.length - 1 ? (
-                <span class="text-secondary font-semibold">{crumb.name}</span>
-              ) : (
-                <a
-                  href={crumb.item.startsWith(SITE.url) ? crumb.item.replace(SITE.url, '') || '/' : crumb.item}
-                  class="hover:text-primary transition-colors"
-                >
-                  {crumb.name}
-                </a>
-              )}
-              {i < breadcrumbCrumbs.length - 1 && (
-                <span aria-hidden="true" class="text-slate-300">/</span>
-              )}
-            </li>
-          ))}
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class='relative overflow-hidden bg-[#0A1730] text-white'>
+    <div class='absolute inset-0 pointer-events-none' aria-hidden='true'>
+      <div
+        class='absolute inset-0 bg-gradient-to-br from-[#0A1730] via-[#0B1E3A] to-[#0E2549]'>
+      </div>
+      <div
+        class='absolute -top-[30%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-[#1565c0]/[0.10] blur-[140px]'>
+      </div>
+      <div
+        class='absolute -bottom-[30%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-[#c8a951]/[0.05] blur-[140px]'>
+      </div>
+    </div>
+
+    <div
+      class='relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-20 pb-16 sm:pt-28 sm:pb-24'>
+      <nav aria-label='Breadcrumb' class='mb-12'>
+        <ol
+          class='flex flex-wrap items-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.24em] font-medium text-slate-500'>
+          <li>
+            <a href='/' class='hover:text-white transition-colors'>Home</a>
+          </li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li class='text-gold'>Research</li>
         </ol>
       </nav>
 
-      <div class="max-w-3xl">
-        <span class="eyebrow">Research</span>
-        <h1 class="mt-4 text-4xl sm:text-5xl font-bold text-secondary text-balance">
-          Research at SPMH
-        </h1>
-        <p class="mt-6 text-lg text-slate-600 leading-relaxed">
-          Collaborative health research across four Key Result Areas: community health, epidemiology, quality improvement, and maternal & child health.
-        </p>
+      <div
+        class='grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-10 items-end'>
+        <div class='lg:col-span-7'>
+          <div class='flex items-center gap-4 mb-6 sm:mb-8'>
+            <span class='h-px w-10 sm:w-14 bg-gold/70'></span>
+            <span
+              class='text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-gold'>
+              Research Hub
+            </span>
+          </div>
+
+          <h1
+            class='font-display font-light text-white
+                     text-[2.75rem] leading-[1] sm:text-6xl lg:text-7xl xl:text-[5rem]
+                     tracking-[-0.03em] text-balance'>
+            Questions that<br />
+            change <em class='not-italic font-normal text-primary-light'
+              >practice</em
+            >.
+          </h1>
+
+          <div class='mt-8 sm:mt-10 h-px w-14 sm:w-20 bg-gold/80'></div>
+        </div>
+
+        <aside class='lg:col-span-5'>
+          <p
+            class='text-[15px] sm:text-base text-slate-300 leading-[1.75] max-w-md'>
+            Collaborative health research across four Key Result Areas, aligned
+            to Kenya&rsquo;s Universal Health Coverage agenda, WHO health system
+            standards, and Catholic Social Teaching.
+          </p>
+
+          <div class='mt-10 flex flex-wrap gap-3'>
+            <a
+              href='/research/propose'
+              class='group inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full
+                      bg-white text-[#0A1730] font-semibold text-sm
+                      hover:bg-blue-50 transition-colors shadow-lg shadow-black/30'>
+              <span>Propose a project</span>
+              <span
+                class='inline-flex items-center justify-center w-9 h-9 rounded-full
+                           bg-[#0A1730] text-white group-hover:translate-x-0.5 transition-transform'>
+                <i class='fas fa-arrow-right text-xs' aria-hidden='true'></i>
+              </span>
+            </a>
+            <a
+              href='/research/ethics'
+              class='inline-flex items-center px-6 py-3 rounded-full
+                      border border-white/20 text-white text-sm font-medium
+                      hover:bg-white/[0.06] hover:border-white/40 transition-colors'>
+              Ethics process
+            </a>
+          </div>
+        </aside>
       </div>
     </div>
   </section>
 
-  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 text-primary mb-6">
-        <i class="fas fa-hard-hat text-2xl" aria-hidden="true"></i>
+  <!-- ============================================================
+       FOUR KEY RESULT AREAS
+       ============================================================ -->
+  <section class='py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-50'>
+    <div class='max-w-7xl mx-auto'>
+      <div class='max-w-3xl mb-14'>
+        <span class='eyebrow'>Key Result Areas</span>
+        <h2
+          class='mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance'>
+          Four questions we&rsquo;re actively researching.
+        </h2>
+        <p class='mt-5 text-base sm:text-lg text-slate-600 leading-relaxed'>
+          Our research agenda is not abstract. Each Key Result Area addresses a
+          real operational or clinical question within our catchment. We welcome
+          proposals that extend any of these lines of inquiry.
+        </p>
       </div>
-      <h2 class="text-2xl sm:text-3xl font-bold text-secondary">
-        This page is being built
+
+      <div class='grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7'>
+        {
+          areas.map((a) => (
+            <article
+              class='group flex flex-col rounded-2xl border border-slate-200 bg-white
+                          p-6 sm:p-8 shadow-sm hover:-translate-y-1 hover:shadow-xl
+                          hover:border-blue-200 transition-all duration-300'>
+              <div class='flex items-center justify-between mb-6'>
+                <div
+                  class='w-12 h-12 rounded-xl bg-primary/10 text-primary
+                          flex items-center justify-center'>
+                  <i class={`fas fa-${a.icon} text-lg`} aria-hidden='true' />
+                </div>
+                <span class='font-mono text-xs text-slate-400 tracking-wider'>
+                  {a.number}
+                </span>
+              </div>
+
+              <h3 class='text-xl font-bold text-secondary'>{a.title}</h3>
+              <p class='mt-3 text-sm text-slate-600 leading-relaxed'>
+                {a.summary}
+              </p>
+
+              <div class='mt-6 pt-6 border-t border-slate-100 flex-1'>
+                <p class='text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400 mb-3'>
+                  Sample research questions
+                </p>
+                <ul class='space-y-2'>
+                  {a.questions.map((q) => (
+                    <li class='flex gap-2.5 text-sm text-slate-600 leading-relaxed'>
+                      <span class='shrink-0 mt-1.5 h-1 w-1 rounded-full bg-primary' />
+                      <span class='italic'>&ldquo;{q}&rdquo;</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COLLABORATION PROCESS
+       ============================================================ -->
+  <section class='py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-white'>
+    <div class='max-w-7xl mx-auto'>
+      <div class='max-w-3xl mb-14'>
+        <span class='eyebrow'>How We Collaborate</span>
+        <h2
+          class='mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance'>
+          From proposal to publication.
+        </h2>
+        <p class='mt-5 text-base sm:text-lg text-slate-600 leading-relaxed'>
+          Every collaboration follows the same transparent process. Ethics and
+          data governance are non-negotiable; the rest is designed to keep
+          research moving.
+        </p>
+      </div>
+
+      <ol class='relative space-y-6 sm:space-y-8'>
+        <span
+          class='hidden md:block absolute left-[27px] top-4 bottom-4 w-px bg-slate-200'
+          aria-hidden='true'></span>
+
+        {
+          process.map((s) => (
+            <li class='relative md:pl-20'>
+              <div
+                class='hidden md:flex absolute left-0 top-2 w-14 h-14 rounded-full
+                        bg-white border border-slate-200 items-center justify-center
+                        font-mono text-sm text-primary'>
+                {s.number}
+              </div>
+              <div
+                class='rounded-2xl border border-slate-200 bg-white p-6 sm:p-7
+                        hover:border-primary/30 transition-colors'>
+                <h3 class='text-lg font-bold text-secondary mb-2'>{s.title}</h3>
+                <p class='text-sm text-slate-600 leading-relaxed'>{s.detail}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COLLABORATION DOMAINS
+       ============================================================ -->
+  <section
+    class='py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-900 text-white overflow-hidden relative'>
+    <div class='absolute inset-0 pointer-events-none' aria-hidden='true'>
+      <div
+        class='absolute -top-40 -right-40 w-96 h-96 rounded-full bg-primary/10 blur-3xl'>
+      </div>
+      <div
+        class='absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-gold/[0.04] blur-3xl'>
+      </div>
+    </div>
+
+    <div class='relative max-w-7xl mx-auto'>
+      <div class='grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-16'>
+        <div class='lg:col-span-5'>
+          <span class='eyebrow-light'>Collaboration Domains</span>
+          <h2
+            class='mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-white text-balance'>
+            Who we work with.
+          </h2>
+          <p class='mt-5 text-base text-slate-300 leading-relaxed'>
+            We partner across the health system &mdash; from academic
+            institutions conducting longitudinal studies, to county agencies
+            working on disease surveillance, to faith-based networks supporting
+            community health.
+          </p>
+
+          <div class='mt-10 h-px w-16 bg-gold/70'></div>
+        </div>
+
+        <div class='lg:col-span-7'>
+          <ul class='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+            {
+              domains.map((d) => (
+                <li
+                  class='rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm
+                          p-5 hover:bg-white/[0.06] transition-colors'>
+                  <div
+                    class='w-10 h-10 rounded-lg bg-primary/20 text-primary-light
+                            flex items-center justify-center mb-4'>
+                    <i class={`fas fa-${d.icon} text-sm`} aria-hidden='true' />
+                  </div>
+                  <h3 class='text-sm font-bold text-white'>{d.label}</h3>
+                  <p class='mt-1.5 text-xs text-slate-400 leading-relaxed'>
+                    {d.detail}
+                  </p>
+                </li>
+              ))
+            }
+          </ul>
+
+          <div class='mt-8 pt-8 border-t border-white/10'>
+            <p class='text-sm text-slate-300 leading-relaxed'>
+              Not sure where you fit? Submit a proposal anyway &mdash;
+              we&rsquo;ll help you find the right frame.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       RESOURCES
+       ============================================================ -->
+  <section class='py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-slate-50'>
+    <div class='max-w-7xl mx-auto'>
+      <div class='grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-16'>
+        <div class='lg:col-span-4'>
+          <span class='eyebrow'>Resources</span>
+          <h2
+            class='mt-4 text-3xl sm:text-4xl font-bold text-secondary text-balance'>
+            Before you propose.
+          </h2>
+          <p class='mt-5 text-base text-slate-600 leading-relaxed'>
+            These documents guide our collaboration process. Reading them first
+            will speed up review.
+          </p>
+        </div>
+
+        <ul
+          class='lg:col-span-8 divide-y divide-slate-200 border-y border-slate-200'>
+          {
+            [
+              {
+                title: 'Research Protocols & Templates',
+                href: '/research/protocols',
+                detail:
+                  'Standard formats for study design, consent forms, and data collection tools.',
+              },
+              {
+                title: 'Ethics Review Process',
+                href: '/research/ethics',
+                detail:
+                  'The full submission pathway to the SPMH Research Ethics Committee.',
+              },
+              {
+                title: 'Researcher Guidelines',
+                href: '/files/research-guidelines.pdf',
+                detail: 'Standards, expectations, and author responsibilities.',
+                download: true,
+              },
+              {
+                title: 'Data Management Framework',
+                href: '/research/protocols#data-management',
+                detail:
+                  'How data is stored, shared, and protected within SPMH.',
+              },
+            ].map((r) => (
+              <li>
+                <a
+                  href={r.href}
+                  download={r.download ? true : undefined}
+                  class='group flex items-start gap-6 py-5 hover:bg-slate-100/60 -mx-3 px-3 rounded-md transition-colors'>
+                  <div class='flex-1 min-w-0'>
+                    <h3 class='text-base font-semibold text-secondary group-hover:text-primary transition-colors'>
+                      {r.title}
+                    </h3>
+                    <p class='mt-1 text-sm text-slate-500 leading-relaxed'>
+                      {r.detail}
+                    </p>
+                  </div>
+                  <i
+                    class={`mt-1 text-slate-400 group-hover:text-primary transition-colors
+                           ${r.download ? 'fas fa-download' : 'fas fa-arrow-right'} text-xs`}
+                    aria-hidden='true'
+                  />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CLOSING CTA
+       ============================================================ -->
+  <section
+    class='py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-t border-slate-100'>
+    <div class='max-w-3xl mx-auto text-center'>
+      <div class='mx-auto h-px w-16 bg-gold/70 mb-10'></div>
+
+      <h2
+        class='text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance'>
+        Have a question worth asking?
       </h2>
-      <p class="mt-4 text-slate-600 leading-relaxed">
-        We're actively building out the <strong>Research</strong> section of
-        this site. The content you're looking for will land here shortly.
+      <p class='mt-5 text-base sm:text-lg text-slate-600 leading-relaxed'>
+        If your work intersects with any of our four Key Result Areas &mdash; or
+        addresses a clinical or operational gap we haven&rsquo;t thought of
+        &mdash; we&rsquo;d like to hear about it.
       </p>
 
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a href="/" class="btn-primary px-5 py-2.5">
-          <i class="fas fa-arrow-left text-xs" aria-hidden="true"></i>
-          Back to home
+      <div
+        class='mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4'>
+        <a href='/research/propose' class='btn-primary px-6 py-3.5'>
+          Propose a research project
+          <i class='fas fa-arrow-right text-xs' aria-hidden='true'></i>
         </a>
-        <a href="/faq" class="btn-secondary px-5 py-2.5">
-          Check the FAQ
+        <a href='mailto:research@spmh.co.ke' class='btn-secondary px-6 py-3.5'>
+          Email research@spmh.co.ke
         </a>
       </div>
-
-      <p class="mt-8 text-xs text-slate-400">
-        Need this urgently? Email
-        <a href="mailto:academics@spmh.co.ke" class="text-primary hover:underline">
-          academics@spmh.co.ke
-        </a>.
-      </p>
     </div>
   </section>
 </LandingLayout>

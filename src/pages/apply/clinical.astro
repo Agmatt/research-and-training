@@ -4,102 +4,634 @@ import BaseHead from '../../components/seo/BaseHead.astro';
 import { buildWebPage } from '../../components/seo/schema/webpage';
 import { buildBreadcrumbs } from '../../components/seo/schema/breadcrumbs';
 import { SITE } from '../../data/site';
+import { faculty } from '../../components/seo/schema/faculty';
 
-const title = "Clinical Training & Attachment";
-const description = "Structured clinical rotations across nursing, laboratory, pharmacy, and outpatient departments at SPMH Homa Bay.";
-const path = "/apply/clinical";
+const title =
+  'Clinical Attachment — Nursing, Lab, Pharmacy & Outpatient | SPMH Homa Bay';
+const description =
+  "Structured 4–12 week clinical attachments at St. Paul's Mission Hospital, Homa Bay. Nursing, laboratory, pharmacy, and outpatient rotations under certified preceptors.";
+const path = '/apply/clinical';
 const canonical = `${SITE.url}${path}`;
-
-const breadcrumbCrumbs = [
-  { name: 'Home', item: `${SITE.mainSite.url}/` },
-  { name: 'Training & Research', item: `${SITE.url}/` },
-  { name: "Apply", item: `${SITE.url}/apply` },
-];
 
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     buildWebPage({ title, description, path }),
-    buildBreadcrumbs(breadcrumbCrumbs),
+    buildBreadcrumbs([
+      { name: 'Home', item: `${SITE.mainSite.url}/` },
+      { name: 'Training & Research', item: `${SITE.url}/` },
+      { name: 'Apply', item: `${SITE.url}/apply` },
+      { name: 'Clinical Attachment', item: `${SITE.url}/apply/clinical` },
+    ]),
   ],
 };
+
+const rotations = [
+  {
+    icon: 'heart-pulse',
+    title: 'Nursing',
+    duration: '6–12 weeks',
+    summary:
+      'Rotations across medical, surgical, paediatric, and maternity wards, with supervised bedside care.',
+    highlights: [
+      'Ward rounds and patient monitoring',
+      'Medication administration under supervision',
+      'Maternal and newborn care exposure',
+      'Weekly case presentations with preceptor',
+    ],
+  },
+  {
+    icon: 'flask-vial',
+    title: 'Laboratory & Diagnostics',
+    duration: '4–12 weeks',
+    summary:
+      'Hands-on experience in haematology, microbiology, chemistry, and quality assurance.',
+    highlights: [
+      'Specimen collection and processing',
+      'Haematology and chemistry analysers',
+      'Microbiology and culture techniques',
+      'Quality control and biosafety protocols',
+    ],
+  },
+  {
+    icon: 'prescription-bottle-medical',
+    title: 'Pharmacy',
+    duration: '4–12 weeks',
+    summary:
+      'Dispensing, inventory, and clinical pharmacy exposure within a busy Level 4 facility.',
+    highlights: [
+      'Prescription review and dispensing',
+      'Inventory and stock management',
+      'Medication counselling observation',
+      'Rational drug use and pharmacovigilance',
+    ],
+  },
+  {
+    icon: 'stethoscope',
+    title: 'Outpatient & Community',
+    duration: '4–12 weeks',
+    summary:
+      'Exposure to outpatient flow, chronic disease clinics, and community-linked care.',
+    highlights: [
+      'Triage and clinic flow',
+      'Chronic disease follow-up (HTN, DM)',
+      'Community outreach observation',
+      'Referral and continuity of care',
+    ],
+  },
+];
+
+const eligibility = [
+  {
+    label: 'Enrolled student',
+    detail: 'Currently registered at a recognised health training institution.',
+  },
+  {
+    label: 'Institutional letter',
+    detail: 'Current letter from your school confirming attachment request.',
+  },
+  { label: 'Student ID', detail: 'A valid student identification document.' },
+  {
+    label: 'National ID or passport',
+    detail: 'Required for all applicants, including international students.',
+  },
+  {
+    label: 'Medical insurance',
+    detail:
+      'Proof of current medical cover for the duration of the attachment.',
+  },
+  {
+    label: 'Completed form',
+    detail: 'The SPMH attachment application form, submitted online.',
+  },
+];
+
+const steps = [
+  {
+    number: '01',
+    title: 'Submit your application',
+    detail:
+      'Complete the online form with your academic details and preferred rotation dates.',
+    timing: 'About 15 minutes',
+  },
+  {
+    number: '02',
+    title: 'HR verification',
+    detail:
+      'We verify your academic status and confirm placement availability in your chosen rotation.',
+    timing: '3–5 working days',
+  },
+  {
+    number: '03',
+    title: 'Preceptor matching',
+    detail:
+      'You are assigned a certified clinical mentor for your department and start date.',
+    timing: '1–2 weeks before start',
+  },
+  {
+    number: '04',
+    title: 'Begin your rotation',
+    detail:
+      'Hands-on clinical training with direct patient care under supervision.',
+    timing: 'Duration of attachment',
+  },
+  {
+    number: '05',
+    title: 'Certification',
+    detail:
+      'You receive a certificate of completion and a written evaluation from your preceptor.',
+    timing: 'On completion',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How long can my attachment be?',
+    a: 'Attachments range from 4 to 12 weeks depending on your academic programme. Nursing attachments are typically 6–12 weeks; laboratory, pharmacy, and outpatient rotations can be arranged for 4–12 weeks.',
+  },
+  {
+    q: 'Do I need to bring my own equipment?',
+    a: 'You will need a clean clinical coat, closed shoes, and a stethoscope (for clinical roles). SPMH provides access to all diagnostic and clinical equipment you will use under supervision.',
+  },
+  {
+    q: 'Is accommodation provided?',
+    a: 'SPMH does not currently provide student accommodation. Our team can advise on nearby options in Homa Bay town once your placement is confirmed.',
+  },
+  {
+    q: 'Will I be paid during my attachment?',
+    a: 'Clinical attachments are unpaid educational placements. There is no fee to apply, and no stipend is provided.',
+  },
+  {
+    q: 'Can I request a specific department?',
+    a: 'Yes. You indicate your preferred rotation during application. We confirm departmental availability during HR verification, and where possible we match your request.',
+  },
+  {
+    q: 'What happens if I need to change my dates?',
+    a: 'Contact academics@spmh.co.ke as early as possible. We can usually reschedule within the same academic year, subject to departmental capacity.',
+  },
+];
 ---
 
-<LandingLayout currentPage="Apply">
+<LandingLayout currentPage='Apply'>
   <BaseHead
-    slot="head"
+    slot='head'
     title={title}
     description={description}
     canonical={canonical}
     jsonLd={schema}
-    noindex={true}
   />
 
-  <section class="relative bg-slate-50 border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      <nav aria-label="Breadcrumb" class="text-xs uppercase tracking-wider text-slate-500 mb-6">
-        <ol class="flex flex-wrap items-center gap-2">
-          {breadcrumbCrumbs.map((crumb, i) => (
-            <li class="flex items-center gap-2">
-              {i === breadcrumbCrumbs.length - 1 ? (
-                <span class="text-secondary font-semibold">{crumb.name}</span>
-              ) : (
-                <a
-                  href={crumb.item.startsWith(SITE.url) ? crumb.item.replace(SITE.url, '') || '/' : crumb.item}
-                  class="hover:text-primary transition-colors"
-                >
-                  {crumb.name}
-                </a>
-              )}
-              {i < breadcrumbCrumbs.length - 1 && (
-                <span aria-hidden="true" class="text-slate-300">/</span>
-              )}
-            </li>
-          ))}
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class='relative overflow-hidden bg-[#0A1730] text-white'>
+    <div class='absolute inset-0 pointer-events-none' aria-hidden='true'>
+      <div
+        class='absolute inset-0 bg-gradient-to-br from-[#0A1730] via-[#0B1E3A] to-[#0E2549]'>
+      </div>
+      <div
+        class='absolute -top-[30%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-[#1565c0]/[0.10] blur-[140px]'>
+      </div>
+    </div>
+
+    <div
+      class='relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-20 pb-16 sm:pt-28 sm:pb-24'>
+      <nav aria-label='Breadcrumb' class='mb-12'>
+        <ol
+          class='flex flex-wrap items-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.24em] font-medium text-slate-500'>
+          <li>
+            <a href='/' class='hover:text-white transition-colors'>Home</a>
+          </li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li>
+            <a href='/apply' class='hover:text-white transition-colors'
+              >Apply</a>
+          </li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li class='text-gold'>Clinical</li>
         </ol>
       </nav>
 
-      <div class="max-w-3xl">
-        <span class="eyebrow">Apply</span>
-        <h1 class="mt-4 text-4xl sm:text-5xl font-bold text-secondary text-balance">
-          Clinical Training & Attachment
-        </h1>
-        <p class="mt-6 text-lg text-slate-600 leading-relaxed">
-          Structured clinical rotations across nursing, laboratory, pharmacy, and outpatient departments at SPMH Homa Bay.
-        </p>
+      <div
+        class='grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-10 items-end'>
+        <div class='lg:col-span-7'>
+          <div class='flex items-center gap-4 mb-6 sm:mb-8'>
+            <span class='h-px w-10 sm:w-14 bg-gold/70'></span>
+            <span
+              class='text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-gold'>
+              Clinical Attachment
+            </span>
+          </div>
+
+          <h1
+            class='font-display font-light text-white
+                     text-[2.75rem] leading-[1] sm:text-6xl lg:text-7xl xl:text-[5rem]
+                     tracking-[-0.03em] text-balance'>
+            Where classroom<br />
+            becomes <em class='not-italic font-normal text-primary-light'
+              >clinic</em
+            >.
+          </h1>
+
+          <div class='mt-8 sm:mt-10 h-px w-14 sm:w-20 bg-gold/80'></div>
+        </div>
+
+        <aside class='lg:col-span-5'>
+          <p
+            class='text-[15px] sm:text-base text-slate-300 leading-[1.75] max-w-md'>
+            Structured 4&ndash;12 week attachments across nursing, laboratory,
+            pharmacy, and outpatient departments. Certified preceptors, real
+            patient care, and a certificate on completion.
+          </p>
+
+          <div
+            class='mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 pt-6 border-t border-white/10'>
+            <div class='flex items-baseline gap-2'>
+              <span class='font-display text-2xl text-white'>6–12</span>
+              <span
+                class='text-[10px] uppercase tracking-[0.18em] text-slate-400'
+                >Weeks typical</span
+              >
+            </div>
+            <div class='flex items-baseline gap-2'>
+              <span class='font-display text-2xl text-white'>4</span>
+              <span
+                class='text-[10px] uppercase tracking-[0.18em] text-slate-400'
+                >Rotations</span
+              >
+            </div>
+            <div class='flex items-baseline gap-2'>
+              <span class='font-display text-2xl text-white'>3–5</span>
+              <span
+                class='text-[10px] uppercase tracking-[0.18em] text-slate-400'
+                >Days to verify</span
+              >
+            </div>
+          </div>
+
+          <div class='mt-10'>
+            <a
+              href='#apply'
+              class='group inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full
+                      bg-white text-[#0A1730] font-semibold text-sm
+                      hover:bg-blue-50 transition-colors shadow-lg shadow-black/30'>
+              <span>Start your application</span>
+              <span
+                class='inline-flex items-center justify-center w-9 h-9 rounded-full
+                           bg-[#0A1730] text-white group-hover:translate-x-0.5 transition-transform'>
+                <i class='fas fa-arrow-right text-xs' aria-hidden='true'></i>
+              </span>
+            </a>
+          </div>
+        </aside>
       </div>
     </div>
   </section>
 
-  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 text-primary mb-6">
-        <i class="fas fa-hard-hat text-2xl" aria-hidden="true"></i>
-      </div>
-      <h2 class="text-2xl sm:text-3xl font-bold text-secondary">
-        This page is being built
-      </h2>
-      <p class="mt-4 text-slate-600 leading-relaxed">
-        We're actively building out the <strong>Apply</strong> section of
-        this site. The content you're looking for will land here shortly.
-      </p>
-
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a href="/" class="btn-primary px-5 py-2.5">
-          <i class="fas fa-arrow-left text-xs" aria-hidden="true"></i>
-          Back to home
-        </a>
-        <a href="/faq" class="btn-secondary px-5 py-2.5">
-          Check the FAQ
-        </a>
+  <!-- ============================================================
+       ROTATIONS
+       ============================================================ -->
+  <section class='py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-50'>
+    <div class='max-w-7xl mx-auto'>
+      <div class='max-w-3xl mb-14'>
+        <span class='eyebrow'>Rotations</span>
+        <h2
+          class='mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance'>
+          Four departments. One deliberate pathway.
+        </h2>
+        <p class='mt-5 text-base sm:text-lg text-slate-600 leading-relaxed'>
+          Each rotation has its own structure, preceptor, and learning
+          objectives. You choose your primary rotation during application, and
+          complete it within our clinical teams.
+        </p>
       </div>
 
-      <p class="mt-8 text-xs text-slate-400">
-        Need this urgently? Email
-        <a href="mailto:academics@spmh.co.ke" class="text-primary hover:underline">
-          academics@spmh.co.ke
-        </a>.
+      <div class='grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7'>
+        {
+          rotations.map((r) => (
+            <article
+              class='flex flex-col rounded-2xl border border-slate-200 bg-white
+                          p-6 sm:p-8 shadow-sm hover:shadow-lg transition-shadow'>
+              <div class='flex items-start justify-between gap-4 mb-6'>
+                <div
+                  class='w-12 h-12 rounded-xl bg-primary/10 text-primary
+                          flex items-center justify-center shrink-0'>
+                  <i class={`fas fa-${r.icon} text-lg`} aria-hidden='true' />
+                </div>
+                <span
+                  class='inline-flex items-center px-3 py-1 rounded-full
+                           bg-slate-50 border border-slate-200
+                           text-[10px] font-semibold uppercase tracking-wider text-slate-500'>
+                  {r.duration}
+                </span>
+              </div>
+
+              <h3 class='text-xl font-bold text-secondary'>{r.title}</h3>
+              <p class='mt-2 text-sm text-slate-600 leading-relaxed'>
+                {r.summary}
+              </p>
+
+              <ul class='mt-6 space-y-2 flex-1'>
+                {r.highlights.map((h) => (
+                  <li class='flex gap-2.5 text-sm text-slate-600 leading-relaxed'>
+                    <i
+                      class='fas fa-check text-[10px] text-primary mt-1.5 shrink-0'
+                      aria-hidden='true'
+                    />
+                    <span>{h}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ELIGIBILITY
+       ============================================================ -->
+  <section class='py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-white'>
+    <div
+      class='max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-16'>
+      <div class='lg:col-span-5'>
+        <span class='eyebrow'>Eligibility</span>
+        <h2
+          class='mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance'>
+          What you&rsquo;ll need.
+        </h2>
+        <p class='mt-5 text-base sm:text-lg text-slate-600 leading-relaxed'>
+          We keep requirements clear so there are no surprises. Assemble these
+          before you apply &mdash; it speeds up verification and gets you into
+          the clinic sooner.
+        </p>
+
+        <div class='mt-10 h-px w-16 bg-gold/70'></div>
+
+        <p class='mt-8 text-sm text-slate-500 leading-relaxed'>
+          Missing a document? Apply anyway and contact
+          <a
+            href='mailto:academics@spmh.co.ke'
+            class='text-primary hover:underline'>academics@spmh.co.ke</a
+          >
+          &mdash; we&rsquo;ll advise on alternatives.
+        </p>
+      </div>
+
+      <div class='lg:col-span-7'>
+        <ul class='divide-y divide-slate-100 border-y border-slate-100'>
+          {
+            eligibility.map((e, i) => (
+              <li class='py-5 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start'>
+                <span class='sm:col-span-1 font-mono text-xs text-slate-400 pt-0.5'>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <p class='sm:col-span-4 text-sm font-semibold text-secondary leading-snug'>
+                  {e.label}
+                </p>
+                <p class='sm:col-span-7 text-sm text-slate-600 leading-relaxed'>
+                  {e.detail}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HOW IT WORKS
+       ============================================================ -->
+  <section class='py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-50'>
+    <div class='max-w-7xl mx-auto'>
+      <div class='max-w-3xl mb-14'>
+        <span class='eyebrow'>Process</span>
+        <h2
+          class='mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance'>
+          From application to certification.
+        </h2>
+        <p class='mt-5 text-base sm:text-lg text-slate-600 leading-relaxed'>
+          Total turnaround from submission to confirmed placement is typically
+          two to three weeks.
+        </p>
+      </div>
+
+      <ol class='relative space-y-6 sm:space-y-8'>
+        <span
+          class='hidden md:block absolute left-[27px] top-4 bottom-4 w-px bg-slate-200'
+          aria-hidden='true'></span>
+
+        {
+          steps.map((s) => (
+            <li class='relative md:pl-20'>
+              <div
+                class='hidden md:flex absolute left-0 top-2 w-14 h-14 rounded-full
+                        bg-white border border-slate-200 items-center justify-center
+                        font-mono text-sm text-primary'>
+                {s.number}
+              </div>
+
+              <div class='rounded-2xl border border-slate-200 bg-white p-6 sm:p-7'>
+                <div class='flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 mb-3'>
+                  <h3 class='text-lg font-bold text-secondary'>{s.title}</h3>
+                  <span class='font-mono text-xs text-slate-400'>
+                    {s.timing}
+                  </span>
+                </div>
+                <p class='text-sm text-slate-600 leading-relaxed'>{s.detail}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PRECEPTORS
+       ============================================================ -->
+  <section class='py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-white'>
+    <div class='max-w-7xl mx-auto'>
+      <div class='max-w-3xl mb-14'>
+        <span class='eyebrow'>Your Preceptors</span>
+        <h2
+          class='mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance'>
+          Who you&rsquo;ll learn from.
+        </h2>
+        <p class='mt-5 text-base sm:text-lg text-slate-600 leading-relaxed'>
+          Every attachment is supervised by a registered, practising clinician.
+          This is a small sample of the preceptor team.
+        </p>
+      </div>
+
+      <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
+        {
+          faculty.map((member) => {
+            const initials = member.name
+              .split(' ')
+              .map((n) => n[0])
+              .join('')
+              .slice(0, 2);
+            return (
+              <article
+                class='rounded-2xl border border-slate-200 bg-white p-6 text-center
+                            hover:shadow-lg transition-shadow'>
+                {member.photo ? (
+                  <div class='w-20 h-20 rounded-full overflow-hidden bg-slate-100 mx-auto'>
+                    <img
+                      src={member.photo}
+                      alt={`Portrait of ${member.name}`}
+                      class='w-full h-full object-cover object-top'
+                      loading='lazy'
+                      decoding='async'
+                    />
+                  </div>
+                ) : (
+                  <div
+                    class='w-20 h-20 rounded-full bg-gradient-to-br from-blue-100 to-blue-200
+                            flex items-center justify-center mx-auto'>
+                    <span class='text-2xl font-bold text-secondary'>
+                      {initials}
+                    </span>
+                  </div>
+                )}
+                <h3 class='mt-4 text-base font-bold text-secondary leading-tight'>
+                  {member.name}
+                </h3>
+                <p class='text-sm text-primary font-semibold mt-1'>
+                  {member.title}
+                </p>
+                <p class='text-xs text-slate-500 mt-2 uppercase tracking-wider'>
+                  {member.specialty}
+                </p>
+              </article>
+            );
+          })
+        }
+      </div>
+
+      <div class='mt-10 text-center'>
+        <a
+          href='/teach/faculty-directory'
+          class='inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all'>
+          See the full faculty directory
+          <i class='fas fa-arrow-right text-xs' aria-hidden='true'></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       APPLICATION FORM
+       ============================================================ -->
+  <section
+    id='apply'
+    class='py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-50 border-t border-slate-100'>
+    <div class='max-w-4xl mx-auto'>
+      <div class='text-center mb-12'>
+        <span class='eyebrow'>Application</span>
+        <h2
+          class='mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance'>
+          Apply for attachment.
+        </h2>
+        <p
+          class='mt-5 text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl mx-auto'>
+          Complete the form below. You&rsquo;ll receive a reference code on
+          submission and hear from HR within 3&ndash;5 working days.
+        </p>
+      </div>
+
+      <div
+        class='bg-white rounded-3xl border border-slate-200 shadow-lg overflow-hidden'>
+        <div class='bg-primary px-8 py-6'>
+          <h3 class='text-white text-xl font-bold'>
+            Clinical Attachment Application
+          </h3>
+          <p class='text-blue-100 text-sm mt-1'>
+            All fields marked with * are required.
+          </p>
+        </div>
+        <div class='p-6 sm:p-10'>
+          <div id='student-attachment-form-root' data-form='student-attachment'>
+          </div>
+          <noscript>
+            <p class='text-sm text-slate-500'>
+              JavaScript is required to submit this form. Please email
+              <a
+                href='mailto:academics@spmh.co.ke'
+                class='text-primary underline'>academics@spmh.co.ke</a
+              >
+              to apply.
+            </p>
+          </noscript>
+          <iframe
+            src='/forms/student-attachment'
+            title='Clinical attachment application form'
+            class='w-full min-h-[820px] border-0'
+            loading='lazy'></iframe>
+        </div>
+      </div>
+
+      <p class='mt-6 text-center text-xs text-slate-500'>
+        By submitting this form you agree to our
+        <a href='/terms-of-attachment' class='text-primary hover:underline'
+          >terms of attachment</a
+        >.
       </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAQ
+       ============================================================ -->
+  <section class='py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-white'>
+    <div class='max-w-3xl mx-auto'>
+      <div class='mb-14'>
+        <span class='eyebrow'>Questions</span>
+        <h2
+          class='mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance'>
+          Before you apply.
+        </h2>
+      </div>
+
+      <div class='space-y-3'>
+        {
+          faqs.map((item) => (
+            <details
+              class='group rounded-xl border border-slate-200 bg-slate-50
+                          open:bg-white open:shadow-md transition-all'>
+              <summary
+                class='flex items-center justify-between gap-4 cursor-pointer
+                            px-6 py-4 font-semibold text-secondary list-none
+                            [&::-webkit-details-marker]:hidden'>
+                <span>{item.q}</span>
+                <i
+                  class='fas fa-chevron-down text-xs text-slate-400 shrink-0
+                        transition-transform group-open:rotate-180'
+                  aria-hidden='true'
+                />
+              </summary>
+              <div class='px-6 pb-5 text-sm text-slate-600 leading-relaxed'>
+                {item.a}
+              </div>
+            </details>
+          ))
+        }
+      </div>
+
+      <div class='mt-10 text-center'>
+        <p class='text-sm text-slate-500'>
+          Still unsure? Email
+          <a
+            href='mailto:academics@spmh.co.ke'
+            class='text-primary hover:underline'>
+            academics@spmh.co.ke
+          </a>
+          &mdash; we respond within two working days.
+        </p>
+      </div>
     </div>
   </section>
 </LandingLayout>

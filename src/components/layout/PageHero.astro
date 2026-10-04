@@ -1,0 +1,154 @@
+---
+export interface Props {
+  eyebrow?: string;
+  title: string;
+  titleAccent?: string; // rendered italic in primary-light
+  lead?: string;
+  breadcrumbs: { name: string; href?: string }[];
+  ctas?: { label: string; href: string; variant?: 'primary' | 'ghost' }[];
+  stats?: { value: string; label: string }[];
+}
+
+const {
+  eyebrow,
+  title,
+  titleAccent,
+  lead,
+  breadcrumbs,
+  ctas = [],
+  stats = [],
+} = Astro.props;
+---
+
+<section class='relative overflow-hidden bg-[#0A1730] text-white'>
+  <div class='absolute inset-0 pointer-events-none' aria-hidden='true'>
+    <div
+      class='absolute inset-0 bg-gradient-to-br from-[#0A1730] via-[#0B1E3A] to-[#0E2549]'>
+    </div>
+    <div
+      class='absolute -top-[30%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-[#1565c0]/[0.10] blur-[140px]'>
+    </div>
+    <div
+      class='absolute -bottom-[30%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-[#c8a951]/[0.05] blur-[140px]'>
+    </div>
+  </div>
+
+  <div
+    class='relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24'>
+    <nav aria-label='Breadcrumb' class='mb-12'>
+      <ol
+        class='flex flex-wrap items-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.24em] font-medium text-slate-500'>
+        {
+          breadcrumbs.map((b, i) => (
+            <li class='flex items-center gap-2'>
+              {b.href ? (
+                <a href={b.href} class='hover:text-white transition-colors'>
+                  {b.name}
+                </a>
+              ) : (
+                <span class='text-gold'>{b.name}</span>
+              )}
+              {i < breadcrumbs.length - 1 && (
+                <span aria-hidden='true' class='text-slate-700'>
+                  /
+                </span>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    <div
+      class='grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-10 items-end'>
+      <div class='lg:col-span-7'>
+        {
+          eyebrow && (
+            <div class='flex items-center gap-4 mb-6 sm:mb-8'>
+              <span class='h-px w-10 sm:w-14 bg-gold/70' />
+              <span class='text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-gold'>
+                {eyebrow}
+              </span>
+            </div>
+          )
+        }
+
+        <h1
+          class='font-display font-light text-white
+                   text-[2.5rem] leading-[1.02] sm:text-5xl lg:text-6xl xl:text-[4.75rem]
+                   tracking-[-0.03em] text-balance'>
+          {title}
+          {
+            titleAccent && (
+              <em class='not-italic font-normal text-primary-light'>
+                {' '}
+                {titleAccent}
+              </em>
+            )
+          }
+        </h1>
+
+        <div class='mt-8 h-px w-14 sm:w-20 bg-gold/80'></div>
+      </div>
+
+      {
+        (lead || ctas.length > 0 || stats.length > 0) && (
+          <aside class='lg:col-span-5'>
+            {lead && (
+              <p class='text-[15px] sm:text-base text-slate-300 leading-[1.75] max-w-md'>
+                {lead}
+              </p>
+            )}
+
+            {stats.length > 0 && (
+              <div class='mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 pt-6 border-t border-white/10'>
+                {stats.map((s) => (
+                  <div class='flex items-baseline gap-2'>
+                    <span class='font-display text-2xl text-white'>
+                      {s.value}
+                    </span>
+                    <span class='text-[10px] uppercase tracking-[0.18em] text-slate-400'>
+                      {s.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {ctas.length > 0 && (
+              <div class='mt-10 flex flex-wrap gap-3'>
+                {ctas.map((c) =>
+                  c.variant === 'ghost' ? (
+                    <a
+                      href={c.href}
+                      class='inline-flex items-center px-6 py-3 rounded-full
+                            border border-white/20 text-white text-sm font-medium
+                            hover:bg-white/[0.06] hover:border-white/40 transition-colors'>
+                      {c.label}
+                    </a>
+                  ) : (
+                    <a
+                      href={c.href}
+                      class='group inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full
+                            bg-white text-[#0A1730] font-semibold text-sm
+                            hover:bg-blue-50 transition-colors shadow-lg shadow-black/30'>
+                      <span>{c.label}</span>
+                      <span
+                        class='inline-flex items-center justify-center w-9 h-9 rounded-full
+                                 bg-[#0A1730] text-white group-hover:translate-x-0.5 transition-transform'>
+                        <i
+                          class='fas fa-arrow-right text-xs'
+                          aria-hidden='true'
+                        />
+                      </span>
+                    </a>
+                  ),
+                )}
+              </div>
+            )}
+          </aside>
+        )
+      }
+    </div>
+  </div>
+</section>

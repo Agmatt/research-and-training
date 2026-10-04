@@ -5,23 +5,187 @@ import { buildWebPage } from '../../components/seo/schema/webpage';
 import { buildBreadcrumbs } from '../../components/seo/schema/breadcrumbs';
 import { SITE } from '../../data/site';
 
-const title = "Strategic Roadmap 2026–2030";
-const description = "Phased roadmap: Stabilization (2026–27), Expansion (2028–29), Consolidation & Excellence (2030).";
-const path = "/level-5/roadmap";
+/* ============================================================
+   PAGE META
+   ============================================================ */
+const title = 'Strategic Roadmap 2026–2030 — The Pathway to Level 5';
+const description =
+  'The phased pathway taking St. Paul\'s Mission Hospital from Level 4 to accredited Level 5 teaching hospital status by 2030 — Stabilization, Expansion, and Consolidation & Excellence.';
+const path = '/level-5/roadmap';
 const canonical = `${SITE.url}${path}`;
-
-const breadcrumbCrumbs = [
-  { name: 'Home', item: `${SITE.mainSite.url}/` },
-  { name: 'Training & Research', item: `${SITE.url}/` },
-  { name: "Level 5", item: `${SITE.url}/level-5` },
-];
 
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     buildWebPage({ title, description, path }),
-    buildBreadcrumbs(breadcrumbCrumbs),
+    buildBreadcrumbs([
+      { name: 'Home', item: `${SITE.mainSite.url}/` },
+      { name: 'Training & Research', item: `${SITE.url}/` },
+      { name: 'Level 5', item: `${SITE.url}/level-5` },
+      { name: 'Roadmap', item: `${SITE.url}/level-5/roadmap` },
+    ]),
   ],
+};
+
+/* ============================================================
+   PHASE DATA — from SPMH Strategic Plan §4.1
+   ============================================================ */
+const phases = [
+  {
+    number: '01',
+    label: 'Stabilization',
+    period: '2026 — 2027',
+    tagline: 'Restore. Rebuild. Ready the foundations.',
+    summary:
+      'Establishing the foundational systems required for safe, reliable, and accountable service delivery. Closing the critical gaps that block everything downstream.',
+    focus: [
+      'Emergency triage strengthened; MNCAH services stabilized',
+      'Critical clinical cadres recruited; CPD framework operational',
+      'EMR baseline deployed; CT scanner installed',
+      'ICU readiness established; IPC systems strengthened',
+      'Board restructuring; ethics & risk systems operationalized',
+    ],
+    status: 'current' as const,
+  },
+  {
+    number: '02',
+    label: 'Expansion',
+    period: '2028 — 2029',
+    tagline: 'Scale. Specialize. Integrate.',
+    summary:
+      'Structured growth into Level 5 service scope — critical care, advanced diagnostics, specialist recruitment, and full digital integration.',
+    focus: [
+      'Dialysis unit operational; NICU established',
+      'Theatre expansion; advanced diagnostics (MRI) online',
+      'Specialist recruitment scaled; leadership pipeline launched',
+      'Full EMR integration hospital-wide; telemedicine scaled',
+      'PPP investments activated; donor diversification',
+    ],
+    status: 'future' as const,
+  },
+  {
+    number: '03',
+    label: 'Consolidation & Excellence',
+    period: '2030',
+    tagline: 'Accredit. Institutionalize. Sustain.',
+    summary:
+      'Embedding institutional maturity, sustainability, and accreditation readiness — positioning SPMH as a high-performing, Level 5-ready referral institution.',
+    focus: [
+      'Full Level 5 readiness and accreditation compliance',
+      'Accredited internship training hospital status',
+      'Fully integrated digital hospital ecosystem',
+      'Leadership succession institutionalized',
+      'Population health impact demonstrated across catchment',
+    ],
+    status: 'target' as const,
+  },
+];
+
+/* ============================================================
+   CROSS-PILLAR DEPENDENCIES — from Strategic Plan Table 4.2
+   ============================================================ */
+const dependencies = [
+  {
+    outcome: 'ICU and Critical Care Services',
+    requires: ['Clinical Services', 'Workforce', 'Infrastructure'],
+  },
+  {
+    outcome: 'MNCAH Service Expansion',
+    requires: ['Clinical Services', 'Workforce', 'Community Health'],
+  },
+  {
+    outcome: 'EMR Full Deployment',
+    requires: ['Infrastructure & Digital', 'Governance'],
+  },
+  {
+    outcome: 'Dialysis & Specialized Services',
+    requires: ['Financing', 'Workforce', 'Infrastructure'],
+  },
+  {
+    outcome: 'Referral System Optimization',
+    requires: ['Community Health', 'Governance', 'Digital'],
+  },
+  {
+    outcome: 'Financial Sustainability',
+    requires: ['Financing', 'PPP Development', 'Revenue Cycle'],
+  },
+];
+
+/* ============================================================
+   BASELINE READINESS — from Strategic Plan §1.5
+   ============================================================ */
+const readiness = [
+  { domain: 'Clinical Services',           status: 'Moderate',    note: 'Functional OPD, maternity, inpatient, basic surgery' },
+  { domain: 'Critical Care (ICU / HDU)',   status: 'Not available', note: 'Major barrier to Level 5 accreditation' },
+  { domain: 'Theatre Complex',             status: 'Critical',    note: '1–2 functional vs 7 required' },
+  { domain: 'Inpatient Capacity',          status: 'Critical',    note: 'Significantly below 500-bed Level 5 requirement' },
+  { domain: 'Radiology & Imaging',         status: 'Basic',       note: 'X-ray only; no CT, MRI, EEG, or mammography' },
+  { domain: 'Laboratory Services',         status: 'Basic',       note: 'No PCR, histopathology, or advanced diagnostics' },
+  { domain: 'Specialist Services',         status: 'Partial',     note: 'No dialysis, oncology, or radiotherapy' },
+  { domain: 'Training Status',             status: 'Development', note: 'Not yet accredited internship training hospital' },
+  { domain: 'Digital Systems',             status: 'Fragmented',  note: 'No integrated hospital information system' },
+  { domain: 'Governance Systems',          status: 'Moderate',    note: 'Functional board; execution systems need strengthening' },
+];
+
+/* ============================================================
+   MoH / KMPDC STANDARDS — from Strategic Plan Table 1.16
+   ============================================================ */
+const standards = [
+  { standard: 'ICU — minimum 12-bed unit',                status: 'planned',  label: 'Planned · 2028' },
+  { standard: 'HDU — minimum 12-bed unit',                status: 'planned',  label: 'Planned · 2028' },
+  { standard: '7 fully equipped theatres',                status: 'progress', label: 'Expanding' },
+  { standard: 'CT and MRI imaging',                       status: 'progress', label: 'CT · 2027' },
+  { standard: 'Advanced laboratory (PCR, histopathology)',status: 'planned',  label: 'Planned · 2028' },
+  { standard: 'OPD and A&E separation',                   status: 'progress', label: '2026–2027' },
+  { standard: 'Accredited internship training hospital',  status: 'planned',  label: 'Target · 2030' },
+  { standard: 'Fully integrated hospital information system', status: 'progress', label: 'EMR in rollout' },
+  { standard: 'Functional medicine, surgery, O&G, paeds depts', status: 'met', label: 'Present' },
+  { standard: 'Community health linkage',                 status: 'met',      label: 'Operational' },
+];
+
+/* ============================================================
+   AUDIENCE IMPACT — what the pathway means for each visitor
+   ============================================================ */
+const audiences = [
+  {
+    icon: 'user-graduate',
+    title: 'For Students',
+    lead: 'A training pathway that grows with the hospital.',
+    points: [
+      'Early cohorts train in a facility actively building toward Level 5',
+      'Preceptors are recruited and certified as the pathway progresses',
+      'Certificates are issued under an accreditation-aligned framework',
+    ],
+    cta: { label: 'Explore attachment programmes', href: '/apply/clinical' },
+  },
+  {
+    icon: 'handshake',
+    title: 'For Partner Institutions',
+    lead: 'A partner whose growth is documented and defensible.',
+    points: [
+      'Phased infrastructure roadmap — no overclaiming, no surprises',
+      'Clear MoH and KMPDC standards as the reference frame',
+      'Formal MOU framework with measurable milestones',
+    ],
+    cta: { label: 'Start a partnership', href: '/collaborate/inquiry' },
+  },
+  {
+    icon: 'microscope',
+    title: 'For Researchers',
+    lead: 'A setting where the research agenda is grounded in care.',
+    points: [
+      'Four Key Result Areas aligned to Kenya UHC and WHO standards',
+      'Ethics review through SPMH Research Ethics Committee',
+      'Access to community-linked data across Homa Bay County',
+    ],
+    cta: { label: 'Propose a research project', href: '/research/propose' },
+  },
+];
+
+const statusStyle = {
+  met:      { pill: 'bg-emerald-50 text-emerald-700 ring-emerald-200',   dot: 'bg-emerald-500' },
+  progress: { pill: 'bg-blue-50 text-primary ring-blue-200',              dot: 'bg-primary' },
+  planned:  { pill: 'bg-amber-50 text-amber-700 ring-amber-200',          dot: 'bg-amber-500' },
 };
 ---
 
@@ -32,74 +196,457 @@ const schema = {
     description={description}
     canonical={canonical}
     jsonLd={schema}
-    noindex={true}
   />
 
-  <section class="relative bg-slate-50 border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      <nav aria-label="Breadcrumb" class="text-xs uppercase tracking-wider text-slate-500 mb-6">
-        <ol class="flex flex-wrap items-center gap-2">
-          {breadcrumbCrumbs.map((crumb, i) => (
-            <li class="flex items-center gap-2">
-              {i === breadcrumbCrumbs.length - 1 ? (
-                <span class="text-secondary font-semibold">{crumb.name}</span>
-              ) : (
-                <a
-                  href={crumb.item.startsWith(SITE.url) ? crumb.item.replace(SITE.url, '') || '/' : crumb.item}
-                  class="hover:text-primary transition-colors"
-                >
-                  {crumb.name}
-                </a>
-              )}
-              {i < breadcrumbCrumbs.length - 1 && (
-                <span aria-hidden="true" class="text-slate-300">/</span>
-              )}
-            </li>
-          ))}
+  <style>
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { animation: fadeUp 700ms cubic-bezier(.22,.61,.36,1) both; }
+    .reveal-1 { animation-delay: 100ms; }
+    .reveal-2 { animation-delay: 200ms; }
+    .reveal-3 { animation-delay: 300ms; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { animation: none !important; }
+    }
+  </style>
+
+  <!-- ============================================================
+       SECTION 1 — PAGE HERO
+       Deep ink blue, typographic, no image.
+       ============================================================ -->
+  <section class="relative overflow-hidden bg-[#0A1730] text-white">
+    <!-- Ambient glows -->
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#0A1730] via-[#0B1E3A] to-[#0E2549]"></div>
+      <div class="absolute -top-[30%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-[#1565c0]/[0.10] blur-[140px]"></div>
+      <div class="absolute -bottom-[30%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-[#c8a951]/[0.05] blur-[140px]"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-20 pb-16 sm:pt-28 sm:pb-24 lg:pt-32 lg:pb-28">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-12">
+        <ol class="flex flex-wrap items-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.24em] font-medium text-slate-500">
+          <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+          <li aria-hidden="true" class="text-slate-700">/</li>
+          <li><a href="/level-5" class="hover:text-white transition-colors">Level 5</a></li>
+          <li aria-hidden="true" class="text-slate-700">/</li>
+          <li class="text-gold">Roadmap</li>
         </ol>
       </nav>
 
-      <div class="max-w-3xl">
-        <span class="eyebrow">Level 5</span>
-        <h1 class="mt-4 text-4xl sm:text-5xl font-bold text-secondary text-balance">
-          Strategic Roadmap 2026–2030
-        </h1>
-        <p class="mt-6 text-lg text-slate-600 leading-relaxed">
-          Phased roadmap: Stabilization (2026–27), Expansion (2028–29), Consolidation & Excellence (2030).
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-10 items-end">
+        <div class="lg:col-span-8">
+          <!-- Eyebrow -->
+          <div class="flex items-center gap-4 mb-6 sm:mb-8 reveal reveal-1">
+            <span class="h-px w-10 sm:w-14 bg-gold/70"></span>
+            <span class="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-gold">
+              2026 &rarr; 2030
+            </span>
+          </div>
+
+          <!-- Headline -->
+          <h1 class="font-display font-light text-white
+                     text-[2.75rem] leading-[0.98] sm:text-6xl lg:text-7xl xl:text-[5.5rem]
+                     tracking-[-0.03em] text-balance">
+            A pathway, not<br />
+            a promise.
+          </h1>
+
+          <div class="mt-8 sm:mt-10 h-px w-14 sm:w-20 bg-gold/80"></div>
+        </div>
+
+        <aside class="lg:col-span-4 reveal reveal-2">
+          <p class="text-[15px] sm:text-base text-slate-300 leading-[1.75] max-w-sm">
+            Three phases. Six strategic pillars. One accreditation target.
+            This is how St. Paul&rsquo;s Mission Hospital moves from a
+            Level&nbsp;4 referral facility to an accredited Level&nbsp;5
+            teaching hospital by 2030.
+          </p>
+        </aside>
+      </div>
+
+      <!-- Timeline rail -->
+      <div class="mt-16 sm:mt-20 reveal reveal-3">
+        <div class="flex flex-wrap items-center gap-3 sm:gap-6">
+          {phases.map((p, i) => (
+            <>
+              <div class="flex items-center gap-3">
+                <span class={`h-2 w-2 rounded-full ${
+                  p.status === 'current' ? 'bg-emerald-400' :
+                  p.status === 'future'  ? 'bg-slate-500' : 'bg-gold'
+                }`}></span>
+                <span class="font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em] text-slate-400">
+                  {p.period}
+                </span>
+              </div>
+              {i < phases.length - 1 && (
+                <span class="hidden sm:block flex-1 h-px bg-white/10 min-w-[40px]" aria-hidden="true"></span>
+              )}
+            </>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2 — THE PHASES (vertical timeline)
+       ============================================================ -->
+  <section class="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-50">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="max-w-3xl mb-16">
+        <span class="eyebrow">The Pathway</span>
+        <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance">
+          Three phases, each one earned.
+        </h2>
+        <p class="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
+          Each phase builds on the previous. Expansion depends on
+          stabilization. Consolidation depends on expansion. No phase is
+          skipped — the sequencing is the strategy.
         </p>
       </div>
+
+      <ol class="relative space-y-8 sm:space-y-12">
+        <!-- Vertical spine (desktop) -->
+        <span class="hidden lg:block absolute left-6 top-4 bottom-4 w-px bg-slate-200" aria-hidden="true"></span>
+
+        {phases.map((phase) => (
+          <li class="relative lg:pl-20">
+            <!-- Number node -->
+            <div class={`hidden lg:flex absolute left-0 top-8 w-12 h-12 rounded-full items-center justify-center font-mono text-sm
+                          ${phase.status === 'current'
+                            ? 'bg-primary text-white shadow-lg shadow-primary/30'
+                            : phase.status === 'target'
+                              ? 'bg-gold text-[#0A1730] shadow-lg shadow-gold/30'
+                              : 'bg-white text-slate-400 border border-slate-200'}`}>
+              {phase.number}
+            </div>
+
+            <article class={`relative rounded-2xl border bg-white shadow-sm overflow-hidden
+                             ${phase.status === 'current'
+                               ? 'border-primary/30 ring-1 ring-primary/10'
+                               : 'border-slate-200'}`}>
+              <div class="grid grid-cols-1 lg:grid-cols-12">
+                <!-- Left: period + tagline -->
+                <div class="lg:col-span-4 p-6 sm:p-8 lg:p-10 border-b lg:border-b-0 lg:border-r border-slate-100">
+                  <div class="flex items-center gap-3 mb-4">
+                    <span class={`lg:hidden inline-flex items-center justify-center w-8 h-8 rounded-full font-mono text-xs
+                                  ${phase.status === 'current' ? 'bg-primary text-white' :
+                                    phase.status === 'target' ? 'bg-gold text-[#0A1730]' :
+                                    'bg-slate-100 text-slate-500'}`}>
+                      {phase.number}
+                    </span>
+                    <span class="font-mono text-xs uppercase tracking-[0.2em] text-slate-500">
+                      Phase {phase.number}
+                    </span>
+                  </div>
+
+                  <p class="font-mono text-sm text-primary mb-3">{phase.period}</p>
+                  <h3 class="text-2xl sm:text-3xl font-bold text-secondary leading-tight">
+                    {phase.label}
+                  </h3>
+                  <p class="mt-3 text-sm italic text-slate-500 leading-relaxed">
+                    {phase.tagline}
+                  </p>
+
+                  {phase.status === 'current' && (
+                    <span class="mt-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-semibold uppercase tracking-wider ring-1 ring-emerald-200">
+                      <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                      Currently in motion
+                    </span>
+                  )}
+                  {phase.status === 'target' && (
+                    <span class="mt-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 text-[#7a6410] text-[10px] font-semibold uppercase tracking-wider ring-1 ring-gold/30">
+                      Accreditation target
+                    </span>
+                  )}
+                </div>
+
+                <!-- Right: summary + focus -->
+                <div class="lg:col-span-8 p-6 sm:p-8 lg:p-10">
+                  <p class="text-base text-slate-700 leading-relaxed mb-6">
+                    {phase.summary}
+                  </p>
+
+                  <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400 mb-4">
+                    Milestones
+                  </p>
+                  <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
+                    {phase.focus.map((item) => (
+                      <li class="flex gap-3 text-sm text-slate-600 leading-relaxed">
+                        <span class={`shrink-0 mt-1.5 h-1.5 w-1.5 rounded-full
+                                       ${phase.status === 'current' ? 'bg-primary' :
+                                         phase.status === 'target' ? 'bg-gold' : 'bg-slate-300'}`}></span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </article>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 
-  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+  <!-- ============================================================
+       SECTION 3 — CROSS-PILLAR DEPENDENCIES
+       ============================================================ -->
+  <section class="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-16">
+
+        <!-- Left: copy -->
+        <div class="lg:col-span-5">
+          <span class="eyebrow">Sequencing Logic</span>
+          <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance">
+            Nothing happens alone.
+          </h2>
+          <p class="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
+            An ICU is not equipment. It is staffed beds, trained nurses,
+            reliable oxygen, an EMR that tracks vitals, and a governance
+            system that audits them. The pathway only holds if the pillars
+            move together.
+          </p>
+          <p class="mt-4 text-sm text-slate-500 leading-relaxed">
+            The dependencies below are drawn from the SPMH Strategic Plan
+            2026&ndash;2030, Table 4.2.
+          </p>
+
+          <div class="mt-10 h-px w-16 bg-gold/70"></div>
+        </div>
+
+        <!-- Right: dependency matrix -->
+        <div class="lg:col-span-7">
+          <ul class="divide-y divide-slate-100 border-y border-slate-100">
+            {dependencies.map((dep) => (
+              <li class="py-5 grid grid-cols-1 sm:grid-cols-12 gap-3 items-start">
+                <p class="sm:col-span-5 text-sm font-semibold text-secondary leading-snug">
+                  {dep.outcome}
+                </p>
+                <div class="sm:col-span-7 flex flex-wrap gap-2">
+                  {dep.requires.map((req) => (
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-md
+                                 text-[11px] font-medium text-slate-600 bg-slate-50
+                                 border border-slate-200">
+                      {req}
+                    </span>
+                  ))}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4 — WHERE WE ARE NOW (honest baseline)
+       ============================================================ -->
+  <section class="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-900 text-white overflow-hidden">
+    <!-- Ambient -->
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div class="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-primary/10 blur-3xl"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto">
+      <div class="max-w-3xl mb-16">
+        <span class="eyebrow-light">Our Honest Baseline</span>
+        <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-white text-balance">
+          Where we are now.
+        </h2>
+        <p class="mt-5 text-base sm:text-lg text-slate-300 leading-relaxed">
+          The SPMH Strategic Plan places current Level 5 readiness at
+          <span class="text-white font-semibold">30&ndash;40%</span>. We publish
+          that number because the pathway is only credible if the starting
+          point is honest. Here is the assessment, domain by domain.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+        {readiness.map((r) => {
+          const tone =
+            r.status === 'Not available' || r.status === 'Critical'
+              ? { dot: 'bg-red-400', text: 'text-red-300' }
+              : r.status === 'Basic' || r.status === 'Fragmented'
+                ? { dot: 'bg-amber-400', text: 'text-amber-300' }
+                : { dot: 'bg-emerald-400', text: 'text-emerald-300' };
+
+          return (
+            <article class="flex gap-4 p-5 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm">
+              <span class={`shrink-0 mt-1.5 h-2 w-2 rounded-full ${tone.dot}`} aria-hidden="true"></span>
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1.5">
+                  <h3 class="text-sm font-semibold text-white">{r.domain}</h3>
+                  <span class={`text-[10px] font-semibold uppercase tracking-wider ${tone.text}`}>
+                    {r.status}
+                  </span>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed">{r.note}</p>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <p class="mt-12 text-xs text-slate-500 italic max-w-2xl">
+        Source: SPMH Strategic Plan 2026&ndash;2030, Chapter&nbsp;1 &mdash;
+        Institutional Baseline and Operational Context.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5 — ACCREDITATION STANDARDS (MoH / KMPDC checklist)
+       ============================================================ -->
+  <section class="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="max-w-3xl mb-14">
+        <span class="eyebrow">Accreditation Standards</span>
+        <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance">
+          Against the standard.
+        </h2>
+        <p class="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
+          The Ministry of Health and the Kenya Medical Practitioners and
+          Dentists Council define what a Level 5 teaching hospital must
+          have. This is where SPMH currently sits against each requirement.
+        </p>
+      </div>
+
+      <!-- Legend -->
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6 mb-8 pb-6 border-b border-slate-100">
+        <span class="flex items-center gap-2 text-xs text-slate-500">
+          <span class="h-2 w-2 rounded-full bg-emerald-500"></span> Met
+        </span>
+        <span class="flex items-center gap-2 text-xs text-slate-500">
+          <span class="h-2 w-2 rounded-full bg-primary"></span> In progress
+        </span>
+        <span class="flex items-center gap-2 text-xs text-slate-500">
+          <span class="h-2 w-2 rounded-full bg-amber-500"></span> Planned
+        </span>
+      </div>
+
+      <ul class="divide-y divide-slate-100">
+        {standards.map((s) => {
+          const style = statusStyle[s.status as keyof typeof statusStyle];
+          return (
+            <li class="py-4 sm:py-5 grid grid-cols-1 sm:grid-cols-12 gap-3 sm:gap-6 items-center">
+              <div class="sm:col-span-1 flex sm:justify-center">
+                <span class={`inline-flex items-center justify-center w-6 h-6 rounded-full ${style.pill} ring-1`}>
+                  {s.status === 'met' && <i class="fas fa-check text-[10px]" aria-hidden="true"></i>}
+                  {s.status === 'progress' && <span class="h-2 w-2 rounded-full bg-primary"></span>}
+                  {s.status === 'planned' && <span class="h-2 w-2 rounded-full bg-amber-500"></span>}
+                </span>
+              </div>
+              <p class="sm:col-span-7 text-sm sm:text-base text-slate-700 leading-snug">
+                {s.standard}
+              </p>
+              <div class="sm:col-span-4 flex sm:justify-end">
+                <span class={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider ${style.pill} ring-1`}>
+                  {s.label}
+                </span>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+
+      <p class="mt-10 text-xs text-slate-500 italic max-w-2xl">
+        Standards reference: Kenya Primary Care Hospital Standards (MoH)
+        and Level 5 tertiary hospital requirements. Assessment from SPMH
+        Strategic Plan 2026&ndash;2030, Table&nbsp;1.16.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6 — WHAT THIS MEANS FOR YOU
+       ============================================================ -->
+  <section class="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-50">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="max-w-3xl mb-16">
+        <span class="eyebrow">What It Means For You</span>
+        <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance">
+          Be part of the pathway.
+        </h2>
+        <p class="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
+          Whether you are a student, an institution, or a researcher — the
+          pathway changes what you can do here. Here is what it means, and
+          what you can do today.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        {audiences.map((a) => (
+          <article class="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm
+                          hover:-translate-y-1 hover:shadow-xl hover:border-blue-200
+                          transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5">
+              <i class={`fas fa-${a.icon} text-lg`} aria-hidden="true"></i>
+            </div>
+
+            <h3 class="text-xl font-bold text-secondary">{a.title}</h3>
+            <p class="mt-2 text-sm text-slate-500 italic leading-relaxed">{a.lead}</p>
+
+            <ul class="mt-5 space-y-2.5 flex-1">
+              {a.points.map((p) => (
+                <li class="flex gap-2.5 text-sm text-slate-600 leading-relaxed">
+                  <span class="shrink-0 mt-1.5 h-1 w-1 rounded-full bg-primary"></span>
+                  <span>{p}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a href={a.cta.href}
+               class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-primary
+                      group-hover:gap-3 transition-all">
+              {a.cta.label}
+              <i class="fas fa-arrow-right text-xs" aria-hidden="true"></i>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CLOSING CTA
+       ============================================================ -->
+  <section class="relative py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-t border-slate-100">
     <div class="max-w-3xl mx-auto text-center">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 text-primary mb-6">
-        <i class="fas fa-hard-hat text-2xl" aria-hidden="true"></i>
-      </div>
-      <h2 class="text-2xl sm:text-3xl font-bold text-secondary">
-        This page is being built
+      <div class="mx-auto h-px w-16 bg-gold/70 mb-10"></div>
+
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance">
+        A record of where we are going.
       </h2>
-      <p class="mt-4 text-slate-600 leading-relaxed">
-        We're actively building out the <strong>Level 5</strong> section of
-        this site. The content you're looking for will land here shortly.
+      <p class="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
+        We update this page as each milestone lands. If your work — teaching,
+        research, or partnership — aligns with where the pathway is heading,
+        we want to hear from you.
       </p>
 
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a href="/" class="btn-primary px-5 py-2.5">
-          <i class="fas fa-arrow-left text-xs" aria-hidden="true"></i>
-          Back to home
+      <div class="mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+        <a href="/collaborate/inquiry" class="btn-primary px-6 py-3.5">
+          Start a partnership conversation
+          <i class="fas fa-arrow-right text-xs" aria-hidden="true"></i>
         </a>
-        <a href="/faq" class="btn-secondary px-5 py-2.5">
-          Check the FAQ
+        <a href="/level-5" class="btn-secondary px-6 py-3.5">
+          Back to Level 5 overview
         </a>
       </div>
 
-      <p class="mt-8 text-xs text-slate-400">
-        Need this urgently? Email
-        <a href="mailto:academics@spmh.co.ke" class="text-primary hover:underline">
-          academics@spmh.co.ke
-        </a>.
+      <p class="mt-10 text-xs text-slate-400 italic">
+        Safe Hands, Caring Hearts
       </p>
     </div>
   </section>
+
 </LandingLayout>

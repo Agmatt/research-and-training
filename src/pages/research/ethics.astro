@@ -5,101 +5,238 @@ import { buildWebPage } from '../../components/seo/schema/webpage';
 import { buildBreadcrumbs } from '../../components/seo/schema/breadcrumbs';
 import { SITE } from '../../data/site';
 
-const title = "Ethics Review Process";
-const description = "How to submit a research proposal to the SPMH Research Ethics Committee, and what to expect during review.";
-const path = "/research/ethics";
+const title = 'Ethics Review Process — SPMH Research Ethics Committee';
+const description =
+  'How to submit a research proposal to the SPMH Research Ethics Committee, and what to expect during review.';
+const path = '/research/ethics';
 const canonical = `${SITE.url}${path}`;
-
-const breadcrumbCrumbs = [
-  { name: 'Home', item: `${SITE.mainSite.url}/` },
-  { name: 'Training & Research', item: `${SITE.url}/` },
-  { name: "Research", item: `${SITE.url}/research` },
-];
 
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     buildWebPage({ title, description, path }),
-    buildBreadcrumbs(breadcrumbCrumbs),
+    buildBreadcrumbs([
+      { name: 'Home', item: `${SITE.mainSite.url}/` },
+      { name: 'Training & Research', item: `${SITE.url}/` },
+      { name: 'Research', item: `${SITE.url}/research` },
+      { name: 'Ethics', item: `${SITE.url}/research/ethics` },
+    ]),
   ],
 };
+
+const steps = [
+  {
+    number: '01',
+    title: 'Pre-submission consultation',
+    detail:
+      'Contact the Research Office to discuss your proposal and confirm it aligns with our Key Result Areas.',
+    timing: '1–2 weeks before submission',
+  },
+  {
+    number: '02',
+    title: 'Formal submission',
+    detail:
+      'Submit your full protocol, consent forms, and any data collection tools to the Research Office.',
+    timing: 'Rolling',
+  },
+  {
+    number: '03',
+    title: 'Administrative screening',
+    detail:
+      'The Research Office reviews completeness and confirms the protocol is ready for committee review.',
+    timing: '3–5 working days',
+  },
+  {
+    number: '04',
+    title: 'Ethics Committee review',
+    detail:
+      'The SPMH Research Ethics Committee reviews the proposal at its monthly meeting. Expedited review is available for minimal-risk studies.',
+    timing: '2–4 weeks',
+  },
+  {
+    number: '05',
+    title: 'Determination & approval',
+    detail:
+      'Approval, conditional approval, or revision requested. Approvals are valid for 12 months and renewable.',
+    timing: 'Within 5 working days of meeting',
+  },
+  {
+    number: '06',
+    title: 'Data collection begins',
+    detail:
+      'Once approved, fieldwork can begin. Progress reports are submitted quarterly.',
+    timing: 'Ongoing',
+  },
+];
+
+const principles = [
+  {
+    title: 'Informed Consent',
+    detail:
+      'All participants must provide voluntary, informed, and documented consent.',
+  },
+  {
+    title: 'Vulnerable Populations',
+    detail:
+      'Additional safeguards apply to research involving children, pregnant women, or incapacitated adults.',
+  },
+  {
+    title: 'Risk-Benefit Balance',
+    detail:
+      'Potential benefits must justify any risks to participants or communities.',
+  },
+  {
+    title: 'Confidentiality',
+    detail: 'Personal identifiers are removed, and data is stored securely.',
+  },
+  {
+    title: 'Community Engagement',
+    detail:
+      'Research involving communities must demonstrate prior consultation and community benefit.',
+  },
+  {
+    title: 'Catholic Social Teaching',
+    detail:
+      'Research must uphold human dignity and align with the mission of the hospital.',
+  },
+];
 ---
 
-<LandingLayout currentPage="Research">
+<LandingLayout currentPage='Research'>
   <BaseHead
-    slot="head"
+    slot='head'
     title={title}
     description={description}
     canonical={canonical}
     jsonLd={schema}
-    noindex={true}
   />
 
-  <section class="relative bg-slate-50 border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      <nav aria-label="Breadcrumb" class="text-xs uppercase tracking-wider text-slate-500 mb-6">
-        <ol class="flex flex-wrap items-center gap-2">
-          {breadcrumbCrumbs.map((crumb, i) => (
-            <li class="flex items-center gap-2">
-              {i === breadcrumbCrumbs.length - 1 ? (
-                <span class="text-secondary font-semibold">{crumb.name}</span>
-              ) : (
-                <a
-                  href={crumb.item.startsWith(SITE.url) ? crumb.item.replace(SITE.url, '') || '/' : crumb.item}
-                  class="hover:text-primary transition-colors"
-                >
-                  {crumb.name}
-                </a>
-              )}
-              {i < breadcrumbCrumbs.length - 1 && (
-                <span aria-hidden="true" class="text-slate-300">/</span>
-              )}
-            </li>
-          ))}
+  <section class='relative bg-[#0A1730] text-white'>
+    <div
+      class='absolute inset-0 bg-gradient-to-br from-[#0A1730] via-[#0B1E3A] to-[#0E2549]'>
+    </div>
+    <div
+      class='relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-20 pb-16 sm:pt-28 sm:pb-20'>
+      <nav aria-label='Breadcrumb' class='mb-12'>
+        <ol
+          class='flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.24em] font-medium text-slate-500'>
+          <li><a href='/' class='hover:text-white'>Home</a></li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li><a href='/research' class='hover:text-white'>Research</a></li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li class='text-gold'>Ethics</li>
         </ol>
       </nav>
-
-      <div class="max-w-3xl">
-        <span class="eyebrow">Research</span>
-        <h1 class="mt-4 text-4xl sm:text-5xl font-bold text-secondary text-balance">
-          Ethics Review Process
-        </h1>
-        <p class="mt-6 text-lg text-slate-600 leading-relaxed">
-          How to submit a research proposal to the SPMH Research Ethics Committee, and what to expect during review.
-        </p>
+      <div
+        class='grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-10 items-end'>
+        <div class='lg:col-span-7'>
+          <div class='flex items-center gap-4 mb-6'>
+            <span class='h-px w-12 bg-gold/70'></span>
+            <span
+              class='text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-gold'
+              >Ethics Review</span
+            >
+          </div>
+          <h1
+            class='font-display font-light text-white text-[2.5rem] leading-[1.02] sm:text-5xl lg:text-7xl tracking-[-0.03em] text-balance'>
+            Ethical<br />
+            by <em class='not-italic font-normal text-primary-light'>design</em
+            >.
+          </h1>
+          <div class='mt-8 h-px w-16 bg-gold/80'></div>
+        </div>
+        <aside class='lg:col-span-5'>
+          <p
+            class='text-[15px] sm:text-base text-slate-300 leading-[1.75] max-w-md'>
+            All research involving SPMH facilities, staff, patients, or
+            community data requires ethics committee approval before fieldwork
+            begins.
+          </p>
+        </aside>
       </div>
     </div>
   </section>
 
-  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 text-primary mb-6">
-        <i class="fas fa-hard-hat text-2xl" aria-hidden="true"></i>
+  <section class='py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-50'>
+    <div class='max-w-7xl mx-auto'>
+      <div class='max-w-3xl mb-14'>
+        <span class='eyebrow'>Process</span>
+        <h2
+          class='mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance'>
+          Six steps to approval.
+        </h2>
       </div>
-      <h2 class="text-2xl sm:text-3xl font-bold text-secondary">
-        This page is being built
+      <ol class='relative space-y-6'>
+        <span
+          class='hidden md:block absolute left-[27px] top-4 bottom-4 w-px bg-slate-200'
+          aria-hidden='true'></span>
+        {
+          steps.map((s) => (
+            <li class='relative md:pl-20'>
+              <div class='hidden md:flex absolute left-0 top-2 w-14 h-14 rounded-full bg-white border border-slate-200 items-center justify-center font-mono text-sm text-primary'>
+                {s.number}
+              </div>
+              <div class='rounded-2xl border border-slate-200 bg-white p-6'>
+                <div class='flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 mb-2'>
+                  <h3 class='text-lg font-bold text-secondary'>{s.title}</h3>
+                  <span class='font-mono text-xs text-slate-400'>
+                    {s.timing}
+                  </span>
+                </div>
+                <p class='text-sm text-slate-600 leading-relaxed'>{s.detail}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class='py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-white'>
+    <div class='max-w-7xl mx-auto'>
+      <div class='max-w-3xl mb-14'>
+        <span class='eyebrow'>Review Principles</span>
+        <h2
+          class='mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-balance'>
+          What we look for.
+        </h2>
+      </div>
+      <ul class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
+        {
+          principles.map((p) => (
+            <li class='rounded-2xl border border-slate-200 bg-white p-6'>
+              <h3 class='text-base font-bold text-secondary'>{p.title}</h3>
+              <p class='mt-2 text-sm text-slate-600 leading-relaxed'>
+                {p.detail}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section
+    class='py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-slate-100'>
+    <div class='max-w-3xl mx-auto text-center'>
+      <div class='mx-auto h-px w-16 bg-gold/70 mb-10'></div>
+      <h2 class='text-3xl sm:text-4xl font-bold text-secondary text-balance'>
+        Ready to submit?
       </h2>
-      <p class="mt-4 text-slate-600 leading-relaxed">
-        We're actively building out the <strong>Research</strong> section of
-        this site. The content you're looking for will land here shortly.
+      <p class='mt-5 text-base text-slate-600 leading-relaxed'>
+        Contact the Research Office to start the process.
       </p>
-
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a href="/" class="btn-primary px-5 py-2.5">
-          <i class="fas fa-arrow-left text-xs" aria-hidden="true"></i>
-          Back to home
+      <div
+        class='mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4'>
+        <a href='mailto:research@spmh.co.ke' class='btn-primary px-6 py-3.5'>
+          Email research@spmh.co.ke <i
+            class='fas fa-arrow-right text-xs'
+            aria-hidden='true'></i>
         </a>
-        <a href="/faq" class="btn-secondary px-5 py-2.5">
-          Check the FAQ
-        </a>
+        <a href='/research/protocols' class='btn-secondary px-6 py-3.5'
+          >Download templates</a
+        >
       </div>
-
-      <p class="mt-8 text-xs text-slate-400">
-        Need this urgently? Email
-        <a href="mailto:academics@spmh.co.ke" class="text-primary hover:underline">
-          academics@spmh.co.ke
-        </a>.
-      </p>
     </div>
   </section>
 </LandingLayout>
