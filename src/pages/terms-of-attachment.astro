@@ -1,0 +1,170 @@
+---
+import LandingLayout from '../layout/LandingLayout.astro';
+import BaseHead from '../components/seo/BaseHead.astro';
+import { buildWebPage } from '../components/seo/schema/webpage';
+import { buildBreadcrumbs } from '../components/seo/schema/breadcrumbs';
+import { SITE } from '../data/site';
+
+const title = 'Terms of Attachment — Clinical Placements | SPMH';
+const description =
+  "Terms and conditions governing clinical attachment and internship placements at St. Paul's Mission Hospital, Homa Bay.";
+const path = '/terms-of-attachment';
+const canonical = `${SITE.url}${path}`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    buildWebPage({ title, description, path }),
+    buildBreadcrumbs([
+      { name: 'Home', item: `${SITE.mainSite.url}/` },
+      { name: 'Training & Research', item: `${SITE.url}/` },
+      { name: 'Terms of Attachment', item: `${SITE.url}/terms-of-attachment` },
+    ]),
+  ],
+};
+
+const lastUpdated = 'October 2026';
+
+const sections = [
+  {
+    title: '1. Scope',
+    body: `These terms govern all clinical attachment, internship, and community health placements at St. Paul's Mission Hospital (SPMH). By submitting an application, you confirm that you accept these terms. If you apply on behalf of an institution, you confirm you have authority to accept these terms on its behalf.`,
+  },
+  {
+    title: '2. Eligibility',
+    body: `To be eligible for a placement you must:
+
+- Be currently enrolled at, or a graduate of, a recognised health training institution.
+- Provide a current letter from your academic institution confirming the request.
+- Provide a valid student ID (or professional registration for interns).
+- Provide a valid national ID or passport.
+- Provide proof of current medical insurance covering the duration of the placement.
+- Meet any additional requirements specified by the SPMH Human Resources department.`,
+  },
+  {
+    title: '3. Application and verification',
+    body: `Applications are submitted online. SPMH HR verifies your academic status and confirms availability in your preferred rotation. Verification typically takes 3–5 working days. Preceptor matching is confirmed 1–2 weeks before your start date. SPMH reserves the right to decline any application without obligation to provide reasons.`,
+  },
+  {
+    title: '4. Placement conditions',
+    body: `While on placement you agree to:
+
+- Comply with all SPMH policies, including clinical protocols, infection prevention and control, and patient confidentiality.
+- Wear appropriate professional attire and identification at all times while on duty.
+- Follow the direction of your assigned preceptor and departmental supervisors.
+- Maintain professional conduct toward patients, staff, and fellow students.
+- Report any accident, incident, needle-stick injury, or exposure immediately to your supervisor.
+- Not to publish or share patient information in any form, including on social media.
+
+SPMH may terminate a placement without notice if a student breaches these conditions, presents a risk to patient safety, or engages in professional misconduct.`,
+  },
+  {
+    title: '5. Fees',
+    body: `There is no fee to apply for clinical attachment or internship at SPMH. Placements are unpaid educational arrangements. You are responsible for your own transport, accommodation, meals, and personal protective equipment not provided by the hospital.`,
+  },
+  {
+    title: '6. Insurance and liability',
+    body: `You are required to maintain current medical insurance for the duration of your placement. SPMH is not liable for personal injury, illness, or loss of personal property during a placement, except where required by Kenyan law. You are expected to act with reasonable care and to follow all safety instructions.`,
+  },
+  {
+    title: '7. Confidentiality',
+    body: `All patient information you encounter during your placement is confidential. You may not disclose patient information to any third party, retain copies of patient records, or include identifiable patient details in academic work without documented ethics approval. This obligation continues after your placement ends.`,
+  },
+  {
+    title: '8. Intellectual property',
+    body: `Any research, teaching materials, or clinical protocols developed using SPMH resources or data during your placement are jointly owned by you (or your institution) and SPMH unless otherwise agreed in writing. Publication of research findings must acknowledge SPMH and comply with our research and ethics policies.`,
+  },
+  {
+    title: '9. Certification',
+    body: `On satisfactory completion of your placement, SPMH issues a certificate of attachment or internship completion and a written evaluation from your preceptor. Certificates are issued subject to full attendance, satisfactory conduct, and completion of required assessments.`,
+  },
+  {
+    title: '10. Termination',
+    body: `You may terminate your placement by giving written notice to your preceptor and SPMH HR. SPMH may terminate a placement for breach of these terms, professional misconduct, patient safety concerns, or at its reasonable discretion.`,
+  },
+  {
+    title: '11. Data protection',
+    body: `Personal data collected during your application and placement is handled in line with our Privacy Policy, which is compliant with the Kenya Data Protection Act 2019.`,
+  },
+  {
+    title: '12. Governing law',
+    body: `These terms are governed by the laws of the Republic of Kenya. Any disputes arising are subject to the exclusive jurisdiction of the courts of Kenya.`,
+  },
+  {
+    title: '13. Changes to these terms',
+    body: `We may update these terms from time to time. The version in force at the time of your application governs your placement. Material changes will be announced on the site.`,
+  },
+];
+---
+
+<LandingLayout>
+  <BaseHead
+    slot='head'
+    title={title}
+    description={description}
+    canonical={canonical}
+    jsonLd={schema}
+  />
+
+  <section class='relative bg-[#0A1730] text-white'>
+    <div
+      class='absolute inset-0 bg-gradient-to-br from-[#0A1730] via-[#0B1E3A] to-[#0E2549]'>
+    </div>
+    <div
+      class='relative max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 pt-20 pb-16 sm:pt-24 sm:pb-20'>
+      <nav aria-label='Breadcrumb' class='mb-10'>
+        <ol
+          class='flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.24em] font-medium text-slate-500'>
+          <li><a href='/' class='hover:text-white'>Home</a></li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li class='text-gold'>Terms</li>
+        </ol>
+      </nav>
+      <div class='flex items-center gap-4 mb-6'>
+        <span class='h-px w-12 bg-gold/70'></span>
+        <span
+          class='text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-gold'>
+          Last updated · {lastUpdated}
+        </span>
+      </div>
+      <h1
+        class='font-display font-light text-white text-4xl sm:text-5xl lg:text-6xl tracking-[-0.03em] text-balance'>
+        Terms of attachment.
+      </h1>
+      <p
+        class='mt-6 text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed'>
+        The conditions governing clinical attachment, internship, and community
+        health placements at SPMH.
+      </p>
+    </div>
+  </section>
+
+  <section class='py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white'>
+    <div class='max-w-4xl mx-auto'>
+      <div class='prose-spmh'>
+        {
+          sections.map((s) => (
+            <div class='mb-10'>
+              <h2 class='!mt-0 text-2xl font-bold text-secondary mb-4'>
+                {s.title}
+              </h2>
+              <p class='text-slate-700 leading-relaxed whitespace-pre-line'>
+                {s.body}
+              </p>
+            </div>
+          ))
+        }
+
+        <div class='mt-12 pt-8 border-t border-slate-200'>
+          <p class='text-sm text-slate-600'>
+            Questions about these terms? Contact
+            <a
+              href='mailto:academics@spmh.co.ke'
+              class='text-primary hover:underline'> academics@spmh.co.ke</a
+            >.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</LandingLayout>

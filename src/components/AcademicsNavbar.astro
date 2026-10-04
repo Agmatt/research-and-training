@@ -1,10 +1,9 @@
 ---
 /**
- * AcademicsNavbar v2
- * - Fonts: Fraunces for the wordmark, Plus Jakarta Sans for all UI/nav.
- * - Paths: subdomain-root-relative (from src/data/nav.ts).
- * - Cross-domain links: absolute to www.spmh.co.ke.
- * - Alpine owns drawer + dropdown state; x-cloak prevents flash.
+ * AcademicsNavbar v2 — responsive
+ * - lg (1024-1279): compact nav, narrow search, icon-only admin
+ * - xl+ (1280+): full spacing
+ * - < lg: hamburger drawer
  */
 import { SITE } from '../data/site';
 import { navItems, megamenus, colsFor } from '../data/nav';
@@ -15,19 +14,19 @@ const isActive = (href: string) => {
   return currentPath === href || currentPath.startsWith(href + '/');
 };
 
+const socials = [
+  { label: 'Facebook', href: SITE.socials.facebook, icon: 'fa-facebook',  color: 'hover:text-[#1877F2]' },
+  { label: 'X',        href: SITE.socials.x,        icon: 'fa-x-twitter', color: 'hover:text-black' },
+  { label: 'TikTok',   href: SITE.socials.tiktok,   icon: 'fa-tiktok',    color: 'hover:text-[#FE2C55]' },
+  { label: 'LinkedIn', href: SITE.socials.linkedin, icon: 'fa-linkedin',  color: 'hover:text-[#0A66C2]' },
+];
+
 const adminLinks = [
   { label: 'Dashboard',            href: '/admin/academics/dashboard',    icon: 'chart-line' },
   { label: 'Applicant Management', href: '/admin/academics/applicants',   icon: 'users' },
   { label: 'Supervisor Tools',     href: '/admin/academics/supervisors',  icon: 'user-tie' },
   { label: 'Partnership Tracking', href: '/admin/academics/partnerships', icon: 'handshake' },
   { label: 'Settings',             href: '/admin/academics/settings',     icon: 'cog' },
-];
-
-const socials = [
-  { label: 'Facebook', href: SITE.socials.facebook, icon: 'fa-facebook',  color: 'hover:text-[#1877F2]' },
-  { label: 'X',        href: SITE.socials.x,        icon: 'fa-x-twitter', color: 'hover:text-black' },
-  { label: 'TikTok',   href: SITE.socials.tiktok,   icon: 'fa-tiktok',    color: 'hover:text-[#FE2C55]' },
-  { label: 'LinkedIn', href: SITE.socials.linkedin, icon: 'fa-linkedin',  color: 'hover:text-[#0A66C2]' },
 ];
 ---
 
@@ -44,7 +43,7 @@ const socials = [
        TOP BAR — identity + socials
        ============================================================ -->
   <div class="border-b border-slate-200 bg-white">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between gap-2">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between gap-3">
 
       <!-- Identity -->
       <a href={SITE.paths.home} class="flex items-center gap-2 md:gap-4 min-w-0" aria-label={`${SITE.name} — home`}>
@@ -62,14 +61,14 @@ const socials = [
           <span class="text-[#860f0f] font-bold text-[8px] sm:text-[10px] md:text-sm uppercase tracking-wider truncate">
             Academics, Research &amp; Training
           </span>
-          <span class="hidden sm:block text-[#1565c0] text-[10px] md:text-xs font-medium truncate">
+          <span class="hidden md:block text-[#1565c0] text-[10px] md:text-xs font-medium truncate">
             Level 5-Ready Teaching Hospital
           </span>
         </span>
       </a>
 
-      <!-- Socials -->
-      <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+      <!-- Socials — hidden on very small screens to save room -->
+      <div class="hidden sm:flex items-center gap-1 md:gap-2 flex-shrink-0">
         {socials.map((s) => (
           <a
             href={s.href}
@@ -86,17 +85,19 @@ const socials = [
   </div>
 
   <!-- ============================================================
-       MAIN NAV — primary blue, mouseleave on <nav> closes panels
+       MAIN NAV
        ============================================================ -->
   <nav
     class="bg-primary text-white relative"
     aria-label="Primary"
     @mouseleave="desktopDropdown = null"
   >
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-8 h-14 flex items-center justify-between gap-4 relative">
 
-      <!-- Desktop nav items -->
-      <div class="hidden lg:flex items-center gap-1">
+      <!-- ============================================================
+           DESKTOP LEFT — primary nav items (lg and up)
+           ============================================================ -->
+      <div class="hidden lg:flex items-center gap-0.5 xl:gap-1 flex-shrink-0">
         {navItems.map((item) => {
           const active = isActive(item.href);
           return (
@@ -111,7 +112,10 @@ const socials = [
                 href={item.href}
                 aria-current={active ? 'page' : undefined}
                 aria-haspopup={item.submenu ? 'true' : undefined}
-                class={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium tracking-wide uppercase transition-colors ${
+                class={`flex items-center gap-1 whitespace-nowrap
+                        px-2.5 xl:px-4 py-2
+                        text-xs xl:text-sm font-medium tracking-wide uppercase
+                        transition-colors ${
                   active
                     ? 'text-white bg-primary-dark'
                     : 'text-blue-100 hover:text-white hover:bg-primary-dark/70'
@@ -120,7 +124,7 @@ const socials = [
                 {item.label}
                 {item.submenu && (
                   <i
-                    class="fas fa-chevron-down text-[10px] transition-transform"
+                    class="fas fa-chevron-down text-[9px] xl:text-[10px] transition-transform"
                     :class={`desktopDropdown === '${item.submenu}' ? 'rotate-180' : ''`}
                     aria-hidden="true"
                   />
@@ -138,9 +142,11 @@ const socials = [
                   x-transition:leave="transition ease-in duration-100"
                   x-transition:leave-start="opacity-100 translate-y-0"
                   x-transition:leave-end="opacity-0 translate-y-1"
-                  class={`absolute top-full left-0 right-0 bg-white text-slate-900 rounded-b-2xl shadow-2xl border-t-4 border-primary-dark p-8 grid ${colsFor(
-                    megamenus[item.submenu].sections.length,
-                  )} gap-8 z-50`}
+                  class={`absolute top-full left-0 right-0 bg-white text-slate-900
+                          rounded-b-2xl shadow-2xl border-t-4 border-primary-dark
+                          p-6 xl:p-8 grid ${colsFor(
+                            megamenus[item.submenu].sections.length,
+                          )} gap-6 xl:gap-8 z-50`}
                 >
                   {megamenus[item.submenu].sections.map((section) => (
                     <div class="space-y-3">
@@ -197,26 +203,114 @@ const socials = [
         })}
       </div>
 
-      <!-- Search + Admin -->
-      <div class="hidden lg:flex items-center flex-1 justify-end gap-4 pl-8">
-        <form class="relative" role="search" @mouseenter="desktopDropdown = null">
-          <label for="site-search" class="sr-only">Search</label>
-          <input
-            id="site-search"
-            type="search"
-            placeholder="Search…"
-            class="bg-white/10 border border-white/20 rounded-full pl-4 pr-10 py-2 text-sm text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/15 w-48 transition-colors"
-          />
-          <button
-            type="submit"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-blue-200 hover:text-white"
-            aria-label="Search"
-          >
-            <i class="fas fa-search text-sm" aria-hidden="true" />
-          </button>
-        </form>
+      <!-- ============================================================
+           DESKTOP RIGHT — Search + Admin (all inside hidden lg:flex)
+           ============================================================ -->
+      <div class="hidden lg:flex items-center gap-2 xl:gap-4 ml-auto flex-shrink-0">
 
-        <!-- Admin dropdown — anchored to its own button -->
+        <!-- Search -->
+        <div class="relative" x-data="searchBar" @mouseenter="desktopDropdown = null">
+          <form @submit.prevent="goToSelected()" class="relative" role="search">
+            <label for="site-search" class="sr-only">Search</label>
+            <input
+              id="site-search"
+              type="search"
+              placeholder="Search…"
+              x-ref="searchInput"
+              x-model="query"
+              @focus="open()"
+              @input.debounce.120ms="performSearch()"
+              @keydown.down.prevent="moveDown()"
+              @keydown.up.prevent="moveUp()"
+              @keydown.enter.prevent="goToSelected()"
+              :aria-expanded="isOpen"
+              autocomplete="off"
+              spellcheck="false"
+              class="bg-white/10 border border-white/20 rounded-full
+                     pl-3 xl:pl-4 pr-9 py-1.5 xl:py-2
+                     text-xs xl:text-sm text-white
+                     placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/15
+                     w-36 xl:w-56 transition-all"
+            />
+            <button
+              type="submit"
+              class="absolute right-2.5 xl:right-3 top-1/2 -translate-y-1/2 text-blue-200 hover:text-white"
+              aria-label="Search"
+            >
+              <i class="fas fa-search text-xs xl:text-sm" aria-hidden="true" />
+            </button>
+          </form>
+
+          <!-- Results dropdown -->
+          <div
+            x-show="isOpen"
+            x-cloak
+            x-transition:enter="transition ease-out duration-120"
+            x-transition:enter-start="opacity-0 translate-y-1"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            @click.away="close()"
+            role="listbox"
+            class="absolute top-full right-0 mt-2 w-[min(28rem,calc(100vw-2rem))]
+                   bg-white text-slate-900 rounded-xl shadow-2xl
+                   border border-slate-200 overflow-hidden z-[60]"
+          >
+            <template x-if="query.length === 0">
+              <div class="px-5 py-6 text-center">
+                <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-3">Popular searches</p>
+                <div class="flex flex-wrap justify-center gap-2">
+                  <button type="button" @click="setQuery('clinical attachment')" class="px-3 py-1 rounded-full bg-slate-100 text-xs text-slate-700 hover:bg-slate-200 transition-colors">Clinical attachment</button>
+                  <button type="button" @click="setQuery('internship')" class="px-3 py-1 rounded-full bg-slate-100 text-xs text-slate-700 hover:bg-slate-200 transition-colors">Internship</button>
+                  <button type="button" @click="setQuery('ethics')" class="px-3 py-1 rounded-full bg-slate-100 text-xs text-slate-700 hover:bg-slate-200 transition-colors">Ethics</button>
+                  <button type="button" @click="setQuery('level 5')" class="px-3 py-1 rounded-full bg-slate-100 text-xs text-slate-700 hover:bg-slate-200 transition-colors">Level 5</button>
+                </div>
+              </div>
+            </template>
+
+            <template x-if="query.length > 0 && query.length < 2">
+              <div class="px-5 py-6 text-center">
+                <p class="text-xs text-slate-500">Type at least 2 characters to search.</p>
+              </div>
+            </template>
+
+            <template x-if="query.length >= 2 && results.length === 0">
+              <div class="px-5 py-8 text-center">
+                <i class="fas fa-magnifying-glass text-2xl text-slate-300 mb-3" aria-hidden="true" />
+                <p class="text-sm text-slate-600">No results for &ldquo;<span class="font-semibold" x-text="query"></span>&rdquo;</p>
+                <a href="/faq" class="mt-3 inline-block text-xs text-primary hover:underline">Try the FAQ</a>
+              </div>
+            </template>
+
+            <template x-if="query.length >= 2 && results.length > 0">
+              <ul class="max-h-[24rem] overflow-y-auto py-1">
+                <template x-for="(result, i) in results" :key="result.href + i">
+                  <li role="option" :aria-selected="selectedIndex === i">
+                    <a :href="result.href" @mouseenter="selectedIndex = i" @click="close()"
+                       :class="selectedIndex === i ? 'bg-slate-50' : ''"
+                       class="flex items-start gap-3 px-4 py-2.5 transition-colors">
+                      <span class="w-8 h-8 rounded-md bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
+                        <i class="fas text-xs" :class="`fa-${result.icon || 'file'}`" aria-hidden="true"></i>
+                      </span>
+                      <span class="min-w-0 flex-1">
+                        <span class="block text-sm font-semibold text-secondary truncate" x-text="result.title"></span>
+                        <span class="block text-xs text-slate-500 mt-0.5 truncate" x-text="result.section"></span>
+                      </span>
+                    </a>
+                  </li>
+                </template>
+              </ul>
+            </template>
+
+            <template x-if="query.length >= 2 && results.length > 0">
+              <div class="px-4 py-2 border-t border-slate-100 bg-slate-50 text-[10px] text-slate-400 flex items-center gap-3">
+                <span><kbd class="px-1.5 py-0.5 bg-white rounded border border-slate-200 font-mono">↑↓</kbd> navigate</span>
+                <span><kbd class="px-1.5 py-0.5 bg-white rounded border border-slate-200 font-mono">↵</kbd> open</span>
+                <span><kbd class="px-1.5 py-0.5 bg-white rounded border border-slate-200 font-mono">Esc</kbd> close</span>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <!-- Admin dropdown -->
         <div
           class="relative"
           @mouseenter="desktopDropdown = 'admin'"
@@ -224,13 +318,19 @@ const socials = [
         >
           <button
             type="button"
-            class="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-blue-100 hover:text-white hover:bg-primary-dark/70 rounded transition-colors"
+            aria-label="Admin menu"
+            class="flex items-center gap-1 xl:gap-1.5
+                   px-2.5 xl:px-4 py-2
+                   text-xs xl:text-sm font-medium
+                   text-blue-100 hover:text-white hover:bg-primary-dark/70
+                   rounded transition-colors"
             aria-haspopup="menu"
           >
-            <i class="fas fa-lock text-xs" aria-hidden="true" />
-            Admin
+            <i class="fas fa-lock text-[10px] xl:text-xs" aria-hidden="true" />
+            <!-- Label hidden on lg, shown on xl -->
+            <span class="hidden xl:inline">Admin</span>
             <i
-              class="fas fa-chevron-down text-[10px] transition-transform"
+              class="fas fa-chevron-down text-[9px] xl:text-[10px] transition-transform"
               :class={`desktopDropdown === 'admin' ? 'rotate-180' : ''`}
               aria-hidden="true"
             />
@@ -241,7 +341,7 @@ const socials = [
             x-cloak
             x-transition
             role="menu"
-            class="absolute top-full right-0 mt-0 w-60 bg-white text-slate-900 rounded-xl shadow-xl border border-slate-200 py-2 z-50"
+            class="absolute top-full right-0 mt-1 w-60 bg-white text-slate-900 rounded-xl shadow-xl border border-slate-200 py-2 z-50"
           >
             {adminLinks.map((link) => (
               <a
@@ -257,7 +357,9 @@ const socials = [
         </div>
       </div>
 
-      <!-- Mobile menu button -->
+      <!-- ============================================================
+           MOBILE MENU BUTTON (< lg)
+           ============================================================ -->
       <button
         type="button"
         @click="mobileOpen = !mobileOpen"
@@ -267,10 +369,7 @@ const socials = [
         aria-controls="mobile-drawer"
         aria-label="Toggle navigation"
       >
-        <!-- Bars: shown when drawer is closed. Static, no Alpine — always renders. -->
         <i class="fas fa-bars text-lg" x-show="!mobileOpen" aria-hidden="true"></i>
-
-        <!-- Cross: hidden by x-cloak until Alpine boots, then toggled by x-show. -->
         <i class="fas fa-times text-lg" x-show="mobileOpen" x-cloak aria-hidden="true"></i>
       </button>
     </div>
@@ -307,6 +406,62 @@ const socials = [
       >
         <i class="fas fa-times" aria-hidden="true" />
       </button>
+    </div>
+
+    <!-- Search in mobile drawer -->
+    <div class="px-4 pt-4 pb-2 border-b border-slate-800/60">
+      <div class="relative" x-data="searchBar">
+        <form @submit.prevent="goToSelected()" class="relative" role="search">
+          <label for="mobile-search" class="sr-only">Search</label>
+          <input
+            id="mobile-search"
+            type="search"
+            placeholder="Search site…"
+            x-ref="searchInput"
+            x-model="query"
+            @focus="open()"
+            @input.debounce.120ms="performSearch()"
+            @keydown.down.prevent="moveDown()"
+            @keydown.up.prevent="moveUp()"
+            @keydown.enter.prevent="goToSelected()"
+            autocomplete="off"
+            spellcheck="false"
+            class="w-full bg-white/10 border border-white/20 rounded-full
+                   pl-4 pr-10 py-2.5 text-sm text-white
+                   placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-white/50"
+          />
+          <button
+            type="submit"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+            aria-label="Search"
+          >
+            <i class="fas fa-search text-sm" aria-hidden="true" />
+          </button>
+        </form>
+
+        <!-- Compact results (inline, not floating) -->
+        <div x-show="isOpen" x-cloak class="mt-2">
+          <template x-if="query.length >= 2 && results.length === 0">
+            <p class="text-xs text-slate-400 px-3 py-2">No results — try the <a href="/faq" class="text-primary-light underline">FAQ</a>.</p>
+          </template>
+          <template x-if="query.length >= 2 && results.length > 0">
+            <ul class="bg-slate-950/80 rounded-md border border-slate-800 overflow-hidden">
+              <template x-for="(result, i) in results.slice(0, 6)" :key="result.href + i">
+                <li>
+                  <a :href="result.href" @click="mobileOpen = false"
+                     class="flex items-center gap-2.5 px-3 py-2.5 text-xs text-slate-200 hover:bg-slate-800/80 border-b border-slate-800/60 last:border-0">
+                    <i class="fas text-[10px] text-primary-light" :class="`fa-${result.icon || 'file'}`" aria-hidden="true"></i>
+                    <span class="min-w-0 flex-1">
+                      <span class="block font-semibold truncate" x-text="result.title"></span>
+                      <span class="block text-[10px] text-slate-500 truncate" x-text="result.section"></span>
+                    </span>
+                  </a>
+                </li>
+              </template>
+            </ul>
+          </template>
+        </div>
+      </div>
     </div>
 
     <div class="flex-1 px-4 py-4 overflow-y-auto divide-y divide-slate-800/60">
@@ -382,5 +537,99 @@ const socials = [
   </div>
 </header>
 
-<!-- Alpine.js — deferred, self-contained. Swap for npm install + import in the layout when ready. -->
+<!-- ============================================================
+     Alpine — register searchBar BEFORE Alpine boots.
+     Order matters: listener must be attached before `alpine:init` fires.
+     ============================================================ -->
+<script is:inline>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('searchBar', () => ({
+      query: '',
+      results: [],
+      selectedIndex: 0,
+      isOpen: false,
+      index: null,
+      loading: false,
+
+      async loadIndex() {
+        if (this.index || this.loading) return;
+        this.loading = true;
+        try {
+          const res = await fetch('/search.json');
+          this.index = res.ok ? await res.json() : [];
+        } catch {
+          this.index = [];
+        } finally {
+          this.loading = false;
+        }
+      },
+
+      open() {
+        this.loadIndex();
+        this.isOpen = true;
+      },
+
+      close() {
+        this.isOpen = false;
+        this.selectedIndex = 0;
+      },
+
+      setQuery(q) {
+        this.query = q;
+        this.performSearch();
+        if (this.$refs.searchInput) this.$refs.searchInput.focus();
+      },
+
+      performSearch() {
+        const q = this.query.trim().toLowerCase();
+        if (q.length < 2 || !this.index) {
+          this.results = [];
+          this.selectedIndex = 0;
+          return;
+        }
+        const words = q.split(/\s+/).filter(Boolean);
+        this.results = this.index
+          .map((e) => ({ ...e, score: this.score(e, q, words) }))
+          .filter((e) => e.score > 0)
+          .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))
+          .slice(0, 8);
+        this.selectedIndex = 0;
+      },
+
+      score(entry, q, words) {
+        const title = entry.title.toLowerCase();
+        const section = entry.section.toLowerCase();
+        const desc = entry.description.toLowerCase();
+        const keys = (entry.keywords || []).join(' ').toLowerCase();
+        let s = 0;
+        if (title === q) s += 200;
+        else if (title.startsWith(q)) s += 120;
+        else if (title.includes(q)) s += 70;
+        if (words.length > 1 && words.every((w) => title.includes(w))) s += 60;
+        if (section.includes(q)) s += 40;
+        else if (words.some((w) => section.includes(w))) s += 20;
+        if (keys.includes(q)) s += 30;
+        else if (words.some((w) => keys.includes(w))) s += 15;
+        if (desc.includes(q)) s += 15;
+        else if (words.every((w) => desc.includes(w))) s += 10;
+        return s;
+      },
+
+      moveDown() {
+        if (this.results.length) this.selectedIndex = (this.selectedIndex + 1) % this.results.length;
+      },
+
+      moveUp() {
+        if (this.results.length) this.selectedIndex = (this.selectedIndex - 1 + this.results.length) % this.results.length;
+      },
+
+      goToSelected() {
+        const r = this.results[this.selectedIndex];
+        window.location.href = r ? r.href : '/faq';
+      },
+    }));
+  });
+</script>
+
+<!-- Alpine CDN — must come AFTER the alpine:init listener above. -->
 <script is:inline defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>

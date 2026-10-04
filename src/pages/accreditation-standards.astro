@@ -1,0 +1,326 @@
+---
+import LandingLayout from '../layout/LandingLayout.astro';
+import BaseHead from '../components/seo/BaseHead.astro';
+import { buildWebPage } from '../components/seo/schema/webpage';
+import { buildBreadcrumbs } from '../components/seo/schema/breadcrumbs';
+import { SITE } from '../data/site';
+
+const title = 'Accreditation Standards — Level 5 Teaching Hospital | SPMH';
+const description =
+  "The MoH, KMPDC, and Kenya teaching hospital standards against which St. Paul's Mission Hospital measures its Level 5 pathway.";
+const path = '/accreditation-standards';
+const canonical = `${SITE.url}${path}`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    buildWebPage({ title, description, path }),
+    buildBreadcrumbs([
+      { name: 'Home', item: `${SITE.mainSite.url}/` },
+      { name: 'Training & Research', item: `${SITE.url}/` },
+      {
+        name: 'Accreditation Standards',
+        item: `${SITE.url}/accreditation-standards`,
+      },
+    ]),
+  ],
+};
+
+const lastUpdated = 'October 2026';
+
+const referenceDocs = [
+  {
+    title: 'Kenya Primary Care Hospital Standards',
+    issuer: 'Ministry of Health, Republic of Kenya',
+    detail:
+      'Defines the standards for primary care hospitals, including Level 4 and Level 5 facilities. Sets expectations for clinical services, staffing, infrastructure, quality systems, and governance.',
+  },
+  {
+    title: 'KMPDC Level 5 Teaching Hospital Guidelines',
+    issuer: 'Kenya Medical Practitioners and Dentists Council',
+    detail:
+      'Defines the criteria for a facility to be accredited as a teaching hospital, including student-to-bed ratios, theatre ratios, tutorial facilities, and CPD provider accreditation.',
+  },
+  {
+    title: 'Kenya Health Sector Strategic Plan',
+    issuer: 'Ministry of Health, Republic of Kenya',
+    detail:
+      'National health sector priorities that inform the service package expected at each level of the health system, aligned to Universal Health Coverage.',
+  },
+  {
+    title: 'Catholic Health Commission of Kenya Standards',
+    issuer: 'Catholic Health Commission of Kenya (CHCK)',
+    detail:
+      'Faith-based health facility standards grounded in Catholic Social Teaching, addressing mission integration, ethics, and holistic care.',
+  },
+  {
+    title: 'SPMH Strategic Plan 2026–2030',
+    issuer: "St. Paul's Mission Hospital",
+    detail:
+      'Internal transformation roadmap that measures our current readiness against Level 5 standards and phases the pathway to accreditation by 2030.',
+  },
+];
+
+const requirements = [
+  {
+    category: 'Facility & Infrastructure',
+    items: [
+      {
+        requirement: 'ICU — minimum 12-bed fully functional unit',
+        target: '2028',
+      },
+      { requirement: 'HDU — minimum 12-bed unit', target: '2028' },
+      { requirement: '7 fully equipped theatres', target: '2028–2029' },
+      {
+        requirement: '500-bed structured inpatient capacity',
+        target: 'Phased',
+      },
+      { requirement: 'CT, MRI, and advanced imaging', target: '2027–2029' },
+      {
+        requirement: 'Advanced laboratory (PCR, histopathology, molecular)',
+        target: '2028',
+      },
+      {
+        requirement: 'Dedicated dialysis and oncology units',
+        target: '2028–2029',
+      },
+      {
+        requirement: 'Separation of OPD and Accident & Emergency',
+        target: '2026–2027',
+      },
+      {
+        requirement: 'Sterile Processing Unit (SPU) and fully functional CSSD',
+        target: '2027',
+      },
+    ],
+  },
+  {
+    category: 'Clinical Services',
+    items: [
+      {
+        requirement:
+          'Fully functional Medicine, Surgery, Paediatrics, O&G departments',
+        target: 'Met',
+      },
+      {
+        requirement:
+          'Specialist services: dialysis, chemotherapy, radiotherapy, maxillofacial',
+        target: '2028–2029',
+      },
+      {
+        requirement:
+          '24-hour differentiated pharmacy (OPD, inpatient, ward-based)',
+        target: '2027',
+      },
+      {
+        requirement: 'Forensic pathology and medico-legal services',
+        target: '2028',
+      },
+      { requirement: 'Gender-Based Violence recovery centre', target: '2027' },
+    ],
+  },
+  {
+    category: 'Teaching & Training',
+    items: [
+      {
+        requirement: 'Student-to-bed ratio of 1:4 minimum',
+        target: 'Progress',
+      },
+      { requirement: 'Bed occupancy of at least 80%', target: 'Currently 71%' },
+      {
+        requirement: 'Theatre-to-bed ratio of 1:50 maximum',
+        target: 'After theatre expansion',
+      },
+      {
+        requirement: 'Tutorial rooms and side labs in each clinical unit',
+        target: 'With expansion',
+      },
+      {
+        requirement: 'Accreditation as a CPD provider',
+        target: 'In application',
+      },
+      {
+        requirement: 'Accredited internship training hospital status',
+        target: '2030',
+      },
+    ],
+  },
+  {
+    category: 'Digital Health',
+    items: [
+      {
+        requirement: 'Fully integrated hospital information system',
+        target: '2028–2029',
+      },
+      {
+        requirement: 'Electronic Medical Records (EMR) hospital-wide',
+        target: '2028',
+      },
+      {
+        requirement: 'Telemedicine platform integrated with county referral',
+        target: '2029',
+      },
+      {
+        requirement: 'ICT services and infrastructure to national standards',
+        target: '2027',
+      },
+    ],
+  },
+  {
+    category: 'Governance & Quality',
+    items: [
+      {
+        requirement: 'Board of Management with documented governance framework',
+        target: 'Met',
+      },
+      {
+        requirement:
+          'Clinical governance committees (quality, ethics, safety, audit)',
+        target: 'Progress',
+      },
+      {
+        requirement: 'Infection Prevention and Control system',
+        target: 'Progress',
+      },
+      {
+        requirement: 'Accreditation-aligned quality management system',
+        target: '2028–2030',
+      },
+      {
+        requirement: 'Ethical framework aligned to Catholic Social Teaching',
+        target: 'Met',
+      },
+    ],
+  },
+];
+---
+
+<LandingLayout>
+  <BaseHead
+    slot='head'
+    title={title}
+    description={description}
+    canonical={canonical}
+    jsonLd={schema}
+  />
+
+  <section class='relative bg-[#0A1730] text-white'>
+    <div
+      class='absolute inset-0 bg-gradient-to-br from-[#0A1730] via-[#0B1E3A] to-[#0E2549]'>
+    </div>
+    <div
+      class='relative max-w-5xl mx-auto px-5 sm:px-8 lg:px-12 pt-20 pb-16 sm:pt-24 sm:pb-20'>
+      <nav aria-label='Breadcrumb' class='mb-10'>
+        <ol
+          class='flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.24em] font-medium text-slate-500'>
+          <li><a href='/' class='hover:text-white'>Home</a></li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li class='text-gold'>Accreditation Standards</li>
+        </ol>
+      </nav>
+      <div class='flex items-center gap-4 mb-6'>
+        <span class='h-px w-12 bg-gold/70'></span>
+        <span
+          class='text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-gold'>
+          Last updated · {lastUpdated}
+        </span>
+      </div>
+      <h1
+        class='font-display font-light text-white text-4xl sm:text-5xl lg:text-6xl tracking-[-0.03em] text-balance'>
+        Accreditation standards.
+      </h1>
+      <p
+        class='mt-6 text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed'>
+        The MoH, KMPDC, and Catholic Health Commission standards against which
+        SPMH measures its pathway to Level 5 teaching hospital status.
+      </p>
+    </div>
+  </section>
+
+  <section class='py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white'>
+    <div class='max-w-5xl mx-auto'>
+      <div class='prose-spmh'>
+        <h2 class='!mt-0 text-2xl font-bold text-secondary mb-4'>
+          Reference documents
+        </h2>
+        <p class='text-slate-700 leading-relaxed mb-8'>
+          SPMH's pathway to Level 5 accreditation is measured against the
+          following national and church standards. We publish these openly so
+          that students, partners, and regulators can see the frame we work
+          within.
+        </p>
+      </div>
+
+      <ul class='divide-y divide-slate-100 border-y border-slate-100'>
+        {
+          referenceDocs.map((doc) => (
+            <li class='py-5'>
+              <h3 class='text-base font-bold text-secondary'>{doc.title}</h3>
+              <p class='text-xs text-slate-500 mt-1 uppercase tracking-wider font-medium'>
+                {doc.issuer}
+              </p>
+              <p class='mt-2 text-sm text-slate-600 leading-relaxed'>
+                {doc.detail}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class='mt-16'>
+        <div class='prose-spmh'>
+          <h2 class='!mt-0 text-2xl font-bold text-secondary mb-4'>
+            Requirements we are working against
+          </h2>
+          <p class='text-slate-700 leading-relaxed mb-8'>
+            The following requirements are drawn from the reference documents
+            above. Target dates reflect the SPMH Strategic Plan 2026&ndash;2030.
+          </p>
+        </div>
+
+        <div class='space-y-8'>
+          {
+            requirements.map((group) => (
+              <div>
+                <h3 class='text-sm font-semibold uppercase tracking-[0.22em] text-slate-400 mb-4'>
+                  {group.category}
+                </h3>
+                <ul class='rounded-2xl border border-slate-200 bg-white overflow-hidden'>
+                  {group.items.map((item) => (
+                    <li class='grid grid-cols-1 sm:grid-cols-12 gap-3 sm:gap-6 items-center px-6 py-4 border-b border-slate-100 last:border-0'>
+                      <p class='sm:col-span-8 text-sm text-slate-700 leading-snug'>
+                        {item.requirement}
+                      </p>
+                      <div class='sm:col-span-4 flex sm:justify-end'>
+                        <span
+                          class='inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider
+                                   bg-slate-50 text-slate-600 ring-1 ring-slate-200'>
+                          {item.target}
+                        </span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class='mt-12 pt-8 border-t border-slate-200'>
+          <p class='text-sm text-slate-600'>
+            Questions about our accreditation pathway? See our
+            <a href='/level-5/roadmap' class='text-primary hover:underline'
+              > roadmap </a
+            >
+            or
+            <a
+              href='/level-5/accreditation'
+              class='text-primary hover:underline'
+              > accreditation progress page</a
+            >.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</LandingLayout>

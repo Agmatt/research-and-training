@@ -1,0 +1,337 @@
+---
+/**
+ * SearchBar — interactive navbar search.
+ * - Fetches /search.json once on first focus.
+ * - Filters + ranks client-side.
+ * - Full keyboard support (↑ ↓ ⏎ Esc).
+ * - Click-outside to dismiss.
+ */
+---
+
+<div class='relative' x-data='searchBar' @keydown.escape.window='close()'>
+  <!-- Input -->
+  <form @submit.prevent='goToSelected()' class='relative' role='search'>
+    <label for='site-search' class='sr-only'>Search</label>
+    <input
+      id='site-search'
+      type='search'
+      placeholder='Search…'
+      x-ref='input'
+      x-model='query'
+      @focus='open()'
+      @input.debounce.120ms='performSearch()'
+      @keydown.down.prevent='moveDown()'
+      @keydown.up.prevent='moveUp()'
+      @keydown.enter.prevent='goToSelected()'
+      :aria-expanded='isOpen'
+      aria-controls='search-results'
+      aria-autocomplete='list'
+      autocomplete='off'
+      spellcheck='false'
+      class='bg-white/10 border border-white/20 rounded-full pl-4 pr-10 py-2 text-sm text-white
+             placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/15
+             w-52 lg:w-60 transition-all'
+    />
+    <button
+      type='submit'
+      class='absolute right-3 top-1/2 -translate-y-1/2 text-blue-200 hover:text-white transition-colors'
+      aria-label='Search'>
+      <i class='fas fa-search text-sm' aria-hidden='true'></i>
+    </button>
+  </form>
+
+  <!-- Results dropdown -->
+  <div
+    id='search-results'
+    x-show='isOpen'
+    x-cloak
+    x-transition:enter='transition ease-out duration-120'
+    x-transition:enter-start='opacity-0 translate-y-1'
+    x-transition:enter-end='opacity-100 translate-y-0'
+    x-transition:leave='transition ease-in duration-80'
+    x-transition:leave-start='opacity-100 translate-y-0'
+    x-transition:leave-end='opacity-0 translate-y-1'
+    @click.away='close()'
+    role='listbox'
+    aria-label='Search results'
+    class='absolute top-full right-0 mt-2
+           w-[min(28rem,calc(100vw-2rem))]
+           bg-white text-slate-900 rounded-xl shadow-2xl
+           border border-slate-200 overflow-hidden z-[60]'>
+    <!-- Query too short -->
+    <template x-if='query.length > 0 && query.length < 2'>
+      <div class='px-5 py-6 text-center'>
+        <p class='text-xs text-slate-500'>
+          Type at least 2 characters to search.
+        </p>
+      </div>
+    </template>
+
+    <!-- Empty query — show hints -->
+    <template x-if='query.length === 0'>
+      <div class='px-5 py-6 text-center'>
+        <p
+          class='text-xs uppercase tracking-wider text-slate-400 font-semibold mb-3'>
+          Popular searches
+        </p>
+        <div class='flex flex-wrap justify-center gap-2'>
+          <button
+            type='button'
+            @click="setQuery('clinical attachment')"
+            class='px-3 py-1 rounded-full bg-slate-100 text-xs text-slate-700 hover:bg-slate-200 transition-colors'>
+            Clinical attachment
+          </button>
+          <button
+            type='button'
+            @click="setQuery('internship')"
+            class='px-3 py-1 rounded-full bg-slate-100 text-xs text-slate-700 hover:bg-slate-200 transition-colors'>
+            Internship
+          </button>
+          <button
+            type='button'
+            @click="setQuery('ethics')"
+            class='px-3 py-1 rounded-full bg-slate-100 text-xs text-slate-700 hover:bg-slate-200 transition-colors'>
+            Ethics
+          </button>
+          <button
+            type='button'
+            @click="setQuery('level 5')"
+            class='px-3 py-1 rounded-full bg-slate-100 text-xs text-slate-700 hover:bg-slate-200 transition-colors'>
+            Level 5
+          </button>
+        </div>
+      </div>
+    </template>
+
+    <!-- No results -->
+    <template x-if='query.length >= 2 && results.length === 0'>
+      <div class='px-5 py-8 text-center'>
+        <i
+          class='fas fa-magnifying-glass text-2xl text-slate-300 mb-3'
+          aria-hidden='true'></i>
+        <p class='text-sm text-slate-600'>
+          No results for &ldquo;<span class='font-semibold' x-text='query'
+          ></span>&rdquo;
+        </p>
+        <a
+          href='/faq'
+          class='mt-3 inline-block text-xs text-primary hover:underline'>
+          Try the FAQ
+        </a>
+      </div>
+    </template>
+
+    <!-- Results -->
+    <template x-if='query.length >= 2 && results.length > 0'>
+      <ul class='max-h-[24rem] overflow-y-auto py-1'>
+        <template x-for='(result, i) in results' :key='result.href + i'>
+          <li role='option' :aria-selected='selectedIndex === i'>
+            <a
+              :href='result.href'
+              @mouseenter='selectedIndex = i'
+              @click='close()'
+              :class="selectedIndex === i ? 'bg-slate-50' : ''"
+              class='flex items-start gap-3 px-4 py-2.5 transition-colors'>
+              <span
+                class='w-8 h-8 rounded-md bg-primary/10 text-primary
+                           flex items-center justify-center shrink-0 mt-0.5'>
+                <i
+                  class='fas text-xs'
+                  :class="`fa-${result.icon || 'file'}`"
+                  aria-hidden='true'></i>
+              </span>
+              <span class='min-w-0 flex-1'>
+                <span
+                  class='block text-sm font-semibold text-secondary truncate'
+                  x-text='result.title'></span>
+                <span
+                  class='block text-xs text-slate-500 mt-0.5 truncate'
+                  x-text='result.section'></span>
+              </span>
+              <i
+                class='fas fa-arrow-right text-[10px] text-slate-300 mt-3'
+                :class="selectedIndex === i ? 'text-primary' : 'text-slate-300'"
+                aria-hidden='true'></i>
+            </a>
+          </li>
+        </template>
+      </ul>
+    </template>
+
+    <!-- Footer hint -->
+    <template x-if='query.length >= 2 && results.length > 0'>
+      <div
+        class='px-4 py-2 border-t border-slate-100 bg-slate-50 text-[10px] text-slate-400 flex items-center gap-3'>
+        <span
+          ><kbd
+            class='px-1.5 py-0.5 bg-white rounded border border-slate-200 font-mono'
+            >↑↓</kbd
+          > navigate</span
+        >
+        <span
+          ><kbd
+            class='px-1.5 py-0.5 bg-white rounded border border-slate-200 font-mono'
+            >↵</kbd
+          > open</span
+        >
+        <span
+          ><kbd
+            class='px-1.5 py-0.5 bg-white rounded border border-slate-200 font-mono'
+            >Esc</kbd
+          > close</span
+        >
+      </div>
+    </template>
+  </div>
+</div>
+
+<script>
+  type SearchEntry = {
+    title: string;
+    href: string;
+    section: string;
+    description: string;
+    keywords?: string[];
+    icon?: string;
+  };
+
+  type SearchResult = SearchEntry & { score: number };
+
+  function registerSearchBar() {
+    // Guard against double-registration on hot reload
+    if ((window as any).__searchBarRegistered) return;
+    (window as any).__searchBarRegistered = true;
+
+    (window as any).Alpine.data('searchBar', () => ({
+      query: '',
+      results: [] as SearchResult[],
+      selectedIndex: 0,
+      isOpen: false,
+      index: null as SearchEntry[] | null,
+      loading: false,
+
+      async loadIndex() {
+        if (this.index || this.loading) return;
+        this.loading = true;
+        try {
+          const res = await fetch('/search.json');
+          this.index = res.ok ? await res.json() : [];
+        } catch {
+          this.index = [];
+        } finally {
+          this.loading = false;
+        }
+      },
+
+      open() {
+        this.loadIndex();
+        this.isOpen = true;
+      },
+
+      close() {
+        this.isOpen = false;
+        this.selectedIndex = 0;
+      },
+
+      setQuery(q: string) {
+        this.query = q;
+        this.performSearch();
+        const input = (this.$refs as any).input as HTMLInputElement | undefined;
+        input?.focus();
+      },
+
+      performSearch() {
+        const q = this.query.trim().toLowerCase();
+        if (q.length < 2 || !this.index) {
+          this.results = [];
+          this.selectedIndex = 0;
+          return;
+        }
+
+        const words = q.split(/\s+/).filter(Boolean);
+
+        const scored = this.index
+          .map((entry) => ({
+            ...entry,
+            score: this.scoreEntry(entry, q, words),
+          }))
+          .filter((e) => e.score > 0)
+          .sort((a, b) => {
+            if (b.score !== a.score) return b.score - a.score;
+            return a.title.localeCompare(b.title);
+          })
+          .slice(0, 8);
+
+        this.results = scored;
+        this.selectedIndex = 0;
+      },
+
+      scoreEntry(entry: SearchEntry, q: string, words: string[]): number {
+        const title = entry.title.toLowerCase();
+        const section = entry.section.toLowerCase();
+        const description = entry.description.toLowerCase();
+        const keywords = (entry.keywords || []).join(' ').toLowerCase();
+
+        let s = 0;
+
+        // Title matches
+        if (title === q) s += 200;
+        else if (title.startsWith(q)) s += 120;
+        else if (title.includes(q)) s += 70;
+
+        // Word-boundary title bonus
+        if (words.length > 1) {
+          const allInTitle = words.every((w) => title.includes(w));
+          if (allInTitle) s += 60;
+        }
+
+        // Section/description/keywords
+        if (section.includes(q)) s += 40;
+        else if (words.some((w) => section.includes(w))) s += 20;
+
+        if (keywords.includes(q)) s += 30;
+        else if (words.some((w) => keywords.includes(w))) s += 15;
+
+        if (description.includes(q)) s += 15;
+        else if (words.every((w) => description.includes(w))) s += 10;
+
+        // Require at least some positive score
+        return s;
+      },
+
+      moveDown() {
+        if (this.results.length === 0) return;
+        this.selectedIndex = (this.selectedIndex + 1) % this.results.length;
+        this.scrollSelectedIntoView();
+      },
+
+      moveUp() {
+        if (this.results.length === 0) return;
+        this.selectedIndex =
+          (this.selectedIndex - 1 + this.results.length) % this.results.length;
+        this.scrollSelectedIntoView();
+      },
+
+      scrollSelectedIntoView() {
+        const list = document.querySelector('#search-results ul');
+        const selected = list?.children[this.selectedIndex] as
+          HTMLElement | undefined;
+        selected?.scrollIntoView({ block: 'nearest' });
+      },
+
+      goToSelected() {
+        const r = this.results[this.selectedIndex];
+        if (r) {
+          window.location.href = r.href;
+        } else if (this.query.length >= 2) {
+          window.location.href = '/faq';
+        }
+      },
+    }));
+  }
+
+  // Register immediately if Alpine is already loaded, otherwise wait.
+  const w = window as any;
+  if (w.Alpine?.data) registerSearchBar();
+  else document.addEventListener('alpine:init', registerSearchBar);
+</script>

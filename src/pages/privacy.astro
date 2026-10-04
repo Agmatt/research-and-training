@@ -1,0 +1,184 @@
+---
+import LandingLayout from '../layout/LandingLayout.astro';
+import BaseHead from '../components/seo/BaseHead.astro';
+import { buildWebPage } from '../components/seo/schema/webpage';
+import { buildBreadcrumbs } from '../components/seo/schema/breadcrumbs';
+import { SITE } from '../data/site';
+
+const title = 'Privacy Policy — SPMH Training & Research';
+const description =
+  "How St. Paul's Mission Hospital collects, uses, and protects personal data submitted through this website, in compliance with the Kenya Data Protection Act 2019.";
+const path = '/privacy';
+const canonical = `${SITE.url}${path}`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    buildWebPage({ title, description, path }),
+    buildBreadcrumbs([
+      { name: 'Home', item: `${SITE.mainSite.url}/` },
+      { name: 'Training & Research', item: `${SITE.url}/` },
+      { name: 'Privacy', item: `${SITE.url}/privacy` },
+    ]),
+  ],
+};
+
+const lastUpdated = 'October 2026';
+
+const sections = [
+  {
+    title: 'Who we are',
+    body: `St. Paul's Mission Hospital is a faith-based Level 4 mission hospital owned by the Catholic Diocese of Homa Bay, operating under the oversight of the Ministry of Health, the Homa Bay County Department of Health, and the Catholic Health Commission of Kenya. Our registered address is P.O. Box 426, Homa Bay, Homa Bay County, Kenya. For data protection matters, contact our Data Protection Officer at privacy@spmh.co.ke.`,
+  },
+  {
+    title: 'What this policy covers',
+    body: `This policy explains how we handle personal data collected through the training-and-research.spmh.co.ke subdomain and the main hospital website at www.spmh.co.ke. It applies to students, applicants, institutional partners, researchers, and other visitors. It does not cover data collected offline, or data processed by third-party services we do not control.`,
+  },
+  {
+    title: 'What we collect',
+    body: `We collect three categories of personal data:
+
+1. Information you provide directly — for example, when you submit a clinical attachment or internship application, submit a partnership inquiry, or contact us by email. This includes your name, email address, phone number, academic institution, programme of study, and any documents you upload or details you supply in your message.
+
+2. Information collected automatically — when you visit our site, our hosting provider (Vercel) records standard server logs including your IP address, browser type, and pages visited. We use this for security and performance monitoring.
+
+3. Information from institutional partners — when an academic institution submits an application on your behalf, we record the details included in that submission.`,
+  },
+  {
+    title: 'Why we collect it (lawful basis)',
+    body: `We process personal data on the following lawful bases under the Kenya Data Protection Act 2019:
+
+- Performance of a contract or pre-contractual steps — processing your application for attachment or internship.
+- Legitimate interests — responding to inquiries, maintaining institutional records, protecting our systems.
+- Legal obligation — compliance with Ministry of Health, KMPDC, and other regulatory requirements.
+- Consent — where you have expressly agreed to receive communications or where we ask for specific permissions.`,
+  },
+  {
+    title: 'How we use it',
+    body: `We use personal data to:
+
+- Assess and process applications for clinical attachment, internship, and community health placements.
+- Verify academic status and match applicants with appropriate preceptors.
+- Respond to partnership and research inquiries.
+- Maintain records required for accreditation, regulatory, and audit purposes.
+- Communicate administrative updates about your application or placement.
+- Improve the website, forms, and services we offer.
+
+We do not sell personal data. We do not use your data for advertising. We do not share it with third parties for their own marketing purposes.`,
+  },
+  {
+    title: 'Who we share it with',
+    body: `We may share personal data with:
+
+- Your academic institution — where verification of your status is required as part of your application.
+- Regulatory bodies (Ministry of Health, KMPDC, professional councils) — where required for accreditation, audit, or legal compliance.
+- Our technology providers — Vercel (hosting) and Supabase (secure database infrastructure). Both providers are contractually bound to confidentiality and may not use your data for their own purposes.
+- Other parties — only where you have given explicit consent, or where required by law.`,
+  },
+  {
+    title: 'How long we keep it',
+    body: `Application records are retained for the duration of your placement and for a further period to comply with institutional record-keeping requirements. Partnership and research records are retained for the duration of the collaboration and any subsequent regulatory retention period. Server logs are retained for a maximum of 90 days. Where data is no longer needed, it is securely deleted.`,
+  },
+  {
+    title: 'Your rights',
+    body: `Under the Kenya Data Protection Act 2019 you have the right to:
+
+- Be informed about how your data is used (this policy).
+- Access a copy of the personal data we hold about you.
+- Request correction of inaccurate data.
+- Request deletion of your data, where there is no overriding legal basis for retention.
+- Object to processing in certain circumstances.
+- Lodge a complaint with the Office of the Data Protection Commissioner (Kenya).
+
+To exercise any of these rights, contact our Data Protection Officer at privacy@spmh.co.ke. We respond within 30 days.`,
+  },
+  {
+    title: 'Security',
+    body: `We take reasonable technical and organisational measures to protect personal data — encrypted connections (HTTPS), access controls, secure database infrastructure, and staff confidentiality obligations. No system is completely secure; we encourage you to contact us immediately if you believe your data has been compromised.`,
+  },
+  {
+    title: 'Cookies and analytics',
+    body: `This site does not use advertising cookies or third-party tracking. We do not embed Google Analytics, Meta Pixel, or similar. Hosting-level logs (Vercel) are anonymised for security and performance monitoring only.`,
+  },
+  {
+    title: 'Changes to this policy',
+    body: `We may update this policy from time to time. The "last updated" date at the top reflects the most recent change. Material changes will be announced on the site.`,
+  },
+];
+---
+
+<LandingLayout>
+  <BaseHead
+    slot='head'
+    title={title}
+    description={description}
+    canonical={canonical}
+    jsonLd={schema}
+  />
+
+  <!-- Hero -->
+  <section class='relative bg-[#0A1730] text-white'>
+    <div
+      class='absolute inset-0 bg-gradient-to-br from-[#0A1730] via-[#0B1E3A] to-[#0E2549]'>
+    </div>
+    <div
+      class='relative max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 pt-20 pb-16 sm:pt-24 sm:pb-20'>
+      <nav aria-label='Breadcrumb' class='mb-10'>
+        <ol
+          class='flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.24em] font-medium text-slate-500'>
+          <li><a href='/' class='hover:text-white'>Home</a></li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li class='text-gold'>Privacy</li>
+        </ol>
+      </nav>
+      <div class='flex items-center gap-4 mb-6'>
+        <span class='h-px w-12 bg-gold/70'></span>
+        <span
+          class='text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-gold'>
+          Last updated · {lastUpdated}
+        </span>
+      </div>
+      <h1
+        class='font-display font-light text-white text-4xl sm:text-5xl lg:text-6xl tracking-[-0.03em] text-balance'>
+        Privacy policy.
+      </h1>
+      <p
+        class='mt-6 text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed'>
+        How we collect, use, and protect personal data submitted through this
+        website. Compliant with the Kenya Data Protection Act 2019.
+      </p>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class='py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white'>
+    <div class='max-w-4xl mx-auto'>
+      <div class='prose-spmh'>
+        {
+          sections.map((s) => (
+            <div class='mb-10'>
+              <h2 class='!mt-0 text-2xl font-bold text-secondary mb-4'>
+                {s.title}
+              </h2>
+              {s.body.split('\n\n').map((para) => (
+                <p class='text-slate-700 leading-relaxed mb-4 whitespace-pre-line'>
+                  {para}
+                </p>
+              ))}
+            </div>
+          ))
+        }
+
+        <div class='mt-12 pt-8 border-t border-slate-200'>
+          <p class='text-sm text-slate-600'>
+            Questions about this policy? Contact our Data Protection Officer at
+            <a
+              href='mailto:info@spmh.co.ke'
+              class='text-primary hover:underline'> info@spmh.co.ke</a
+            >.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</LandingLayout>
