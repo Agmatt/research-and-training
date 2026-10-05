@@ -1,0 +1,30 @@
+---
+import BaseHead from '../../../components/seo/BaseHead.astro';
+import AdminPage from '../../../components/admin/AdminPage.jsx';
+import Dashboard from '../../../components/admin/Dashboard.jsx';
+import { SITE } from '../../../data/site';
+import '../../../styles/global.css';
+
+const title = 'Dashboard — SPMH Admin';
+const canonical = `${SITE.url}/admin/academics/dashboard`;
+---
+
+<!doctype html>
+<html lang='en-KE' class='scroll-smooth'>
+  <head>
+    <BaseHead
+      title={title}
+      description='Admin dashboard.'
+      canonical={canonical}
+      noindex={true}
+    />
+  </head>
+  <body class='antialiased'>
+    <AdminPage
+      client:load
+      currentPath='/admin/academics/dashboard'
+      pageTitle='Dashboard'>
+      <Dashboard client:load />
+    </AdminPage>
+  </body>
+</html>

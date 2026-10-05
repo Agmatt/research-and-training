@@ -1,0 +1,111 @@
+---
+import BaseHead from '../../components/seo/BaseHead.astro';
+import LoginForm from '../../components/admin/LoginForm.jsx';
+import { SITE } from '../../data/site';
+import '../../styles/global.css';
+
+const title = 'Sign in — SPMH Admin';
+const description =
+  'Sign in to the SPMH Academics & Research administrative console.';
+const canonical = `${SITE.url}/admin/login`;
+
+const url = new URL(Astro.request.url);
+const errorParam = url.searchParams.get('error') || '';
+---
+
+<!doctype html>
+<html lang='en-KE' class='scroll-smooth'>
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      canonical={canonical}
+      noindex={true}
+    />
+  </head>
+  <body class='bg-admin-bg text-slate-900 antialiased'>
+    <div class='min-h-screen flex flex-col lg:flex-row'>
+      <!-- Left panel — brand, dark -->
+      <div
+        class='hidden lg:flex lg:w-1/2 relative overflow-hidden bg-admin-sidebar text-white'>
+        <div
+          class='absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-[#0A1730]'>
+        </div>
+        <div
+          class='absolute -bottom-40 -left-40 w-[40rem] h-[40rem] rounded-full bg-primary/[0.12] blur-[140px]'>
+        </div>
+
+        <div
+          class='relative flex flex-col justify-between px-4 sm:px-8 py-12 xl:py-16 mt-8 w-full'>
+          <a
+            href='/'
+            class='inline-flex items-center gap-3 group'
+            aria-label='Back to public site'>
+            <img src='/logos/logo.png' alt='' class='h-10 w-auto' />
+            <span class='flex flex-col'>
+              <span class='text-sm font-bold'
+                >St. Paul&rsquo;s Mission Hospital</span
+              >
+              <span class='text-[10px] uppercase tracking-wider text-slate-400'>
+                Academics, Research &amp; Training
+              </span>
+            </span>
+          </a>
+
+          <div>
+            <div class='h-px w-16 bg-gold/70 mb-6'></div>
+            <h2
+              class='font-display font-bold text-surface-2 text-4xl xl:text-5xl leading-tight'>
+              Administrative<br />console.
+            </h2>
+            <p class='mt-6 text-surface-2 text-sm leading-relaxed max-w-md'>
+              For academic staff, HR officers, and preceptors of
+              St.&nbsp;Paul&rsquo;s Mission Hospital. Applications,
+              partnerships, and supervisor tools live here.
+            </p>
+          </div>
+
+          <p class='text-[10px] uppercase tracking-[0.24em] text-slate-500'>
+            Level 5-Ready Teaching Hospital &middot; Homa Bay
+          </p>
+        </div>
+      </div>
+
+      <!-- Right panel — login form -->
+      <div
+        class='flex-1 flex items-center justify-center px-4 sm:px-6 py-12 lg:py-18 mt-8'>
+        <div class='w-full max-w-sm'>
+          <!-- Mobile brand -->
+          <div class='lg:hidden mb-10 text-center'>
+            <img
+              src='/logos/logo.png'
+              alt=''
+              class='h-12 w-auto mx-auto mb-4'
+            />
+            <h1 class='text-lg font-bold text-slate-900'>SPMH Admin</h1>
+            <p class='text-xs text-slate-500 mt-1'>
+              Academics, Research &amp; Training
+            </p>
+          </div>
+
+          <div class='hidden lg:block mb-8'>
+            <h1 class='text-2xl font-bold text-slate-900'>Welcome back</h1>
+            <p className='text-sm text-slate-500 mt-1'>Sign in to continue</p>
+          </div>
+
+          <div
+            class='bg-white rounded-2xl border border-admin-border shadow-sm p-6 sm:p-8'>
+            <LoginForm client:load initialError={errorParam} />
+          </div>
+
+          <p
+            class='mt-6 text-center text-[10px] uppercase tracking-[0.2em] text-slate-600'>
+            <a href='/' class='hover:text-slate-600 transition-colors'>
+              ← Back to public site
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

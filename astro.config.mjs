@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   site: 'https://training-and-research.spmh.co.ke',
@@ -11,12 +12,14 @@ export default defineConfig({
       filter: (page) =>
         !page.includes('/admin/') &&
         !page.includes('/404') &&
+        !page.includes('/api/') &&
         !page.includes('/preview/'),
       changefreq: 'weekly',
       priority: 0.7,
     }),
   ],
   output: 'static',
+  adapter: vercel(),
   build: {
     inlineStylesheets: 'auto',
   },
