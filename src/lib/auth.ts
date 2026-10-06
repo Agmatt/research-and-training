@@ -9,6 +9,7 @@ export interface AdminUser {
   full_name: string;
   role: AdminRole;
   is_active: boolean;
+  password_set: boolean;
 }
 
 export async function getSession(): Promise<Session | null> {
@@ -34,8 +35,11 @@ export async function signInWithPassword(email: string, password: string) {
 export async function signInWithMagicLink(email: string, redirectTo?: string) {
   const supabase = getSupabase();
   if (!supabase) throw new Error('Supabase not configured');
-  const target = redirectTo
-    ?? (typeof window !== 'undefined' ? `${window.location.origin}/admin/academics/dashboard` : undefined);
+  const target =
+    redirectTo ??
+    (typeof window !== 'undefined'
+      ? `${window.location.origin}/admin/academics/dashboard`
+      : undefined);
   const { data, error } = await supabase.auth.signInWithOtp({
     email,
     options: { emailRedirectTo: target },
@@ -55,7 +59,7 @@ export async function fetchAdminUser(userId: string): Promise<AdminUser | null> 
   if (!supabase) return null;
   const { data, error } = await supabase
     .from('admin_users')
-    .select('id, email, full_name, role, is_active')
+    .select('id, email, full_name, role, is_active, password_set')
     .eq('id', userId)
     .maybeSingle();
   if (error) {

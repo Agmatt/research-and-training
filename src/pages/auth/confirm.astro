@@ -1,0 +1,23 @@
+---
+import BaseHead from '../../components/seo/BaseHead.astro';
+import ConfirmPage from '../../components/admin/auth/ConfirmPage.jsx';
+import { SITE } from '../../data/site';
+
+const title = 'Confirming your account — SPMH';
+const canonical = `${SITE.url}/auth/confirm`;
+---
+
+<!doctype html>
+<html lang='en-KE' class='scroll-smooth'>
+  <head>
+    <BaseHead
+      title={title}
+      description='Confirming your account.'
+      canonical={canonical}
+      noindex={true}
+    />
+  </head>
+  <body class='antialiased'>
+    <ConfirmPage client:load />
+  </body>
+</html>

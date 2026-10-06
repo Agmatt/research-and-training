@@ -128,15 +128,15 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   /* ---- Provision in admin_users ---- */
-  const { error: insertErr } = await adminClient
-    .from('admin_users')
-    .insert([{
-      id: newUser.id,
-      email,
-      full_name: fullName,
-      role,
-      is_active: true,
-    }]);
+    const { error: insertErr } = await adminClient
+     .from('admin_users')
+     .insert([{
+       id: newUser.id,
+       email,
+       full_name: fullName,
+       role,
+       is_active: true,      password_set: mode === 'password',
+     }]);
 
   if (insertErr) {
     // Roll back the auth user so we don't leave orphans
