@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getSupabase } from '../../../lib/supabase';
-import { validatePassword } from '../../../lib/admin/settings';+
-import '../../../styles/global.css'
+import { validatePassword } from '../../../lib/admin/settings';
+import '../../../styles/global.css';
   
 const inputCls =
   'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 ' +
