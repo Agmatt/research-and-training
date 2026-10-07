@@ -1,0 +1,237 @@
+---
+import LandingLayout from '../../../../layout/LandingLayout.astro';
+import BaseHead from '../../../../components/seo/BaseHead.astro';
+import { buildWebPage } from '../../../../components/seo/schema/webpage';
+import { buildBreadcrumbs } from '../../../../components/seo/schema/breadcrumbs';
+import { getCollection, render } from 'astro:content';
+import { SITE } from '../../../../data/site';
+
+export async function getStaticPaths() {
+  const sessions = await getCollection('cme');
+  return sessions.map((session) => ({
+    params: { slug: session.id }, // ← was session.slug
+    props: { session },
+  }));
+}
+
+const { session } = Astro.props;
+
+const title = `${session.data.title} — CME Session | SPMH`;
+const description = session.data.description.slice(0, 155);
+const path = `/teach/cme/sessions/${session.id}`; // ← was session.slug
+const canonical = `${SITE.url}${path}`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Event',
+      name: session.data.title,
+      description: session.data.description,
+      startDate: session.data.date.toISOString(),
+      endDate: session.data.endDate?.toISOString(),
+      eventAttendanceMode:
+        session.data.format === 'Online'
+          ? 'https://schema.org/OnlineEventAttendanceMode'
+          : session.data.format === 'Hybrid'
+            ? 'https://schema.org/MixedEventAttendanceMode'
+            : 'https://schema.org/OfflineEventAttendanceMode',
+      location: {
+        '@type': 'Place',
+        name: session.data.location,
+      },
+      organizer: {
+        '@type': 'Organization',
+        name: "St. Paul's Mission Hospital",
+        url: SITE.url,
+      },
+    },
+    buildBreadcrumbs([
+      { name: 'Home', item: `${SITE.mainSite.url}/` },
+      { name: 'Training & Research', item: `${SITE.url}/` },
+      { name: 'Teach', item: `${SITE.url}/teach` },
+      { name: 'CME', item: `${SITE.url}/teach/cme` },
+      { name: 'Calendar', item: `${SITE.url}/teach/cme/calendar` },
+      { name: session.data.title, item: `${SITE.url}${path}` },
+    ]),
+  ],
+};
+
+const dateFmt = new Intl.DateTimeFormat('en-KE', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const { Content } = await render(session); // ← was session.render()
+
+const registrationEmail = `mailto:academics@spmh.co.ke?subject=${encodeURIComponent(
+  'Registration: ' + session.data.title,
+)}`;
+---
+
+<LandingLayout currentPage='Teach'>
+  <BaseHead
+    slot='head'
+    title={title}
+    description={description}
+    canonical={canonical}
+    jsonLd={schema}
+  />
+
+  <section class='relative overflow-hidden bg-[#0A1730] text-white'>
+    <div class='absolute inset-0 pointer-events-none' aria-hidden='true'>
+      <div
+        class='absolute inset-0 bg-gradient-to-br from-[#0A1730] via-[#0B1E3A] to-[#0E2549]'>
+      </div>
+      <div
+        class='absolute -top-[30%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-[#1565c0]/[0.10] blur-[140px]'>
+      </div>
+    </div>
+
+    <div
+      class='relative max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 pt-20 pb-16 sm:pt-24 sm:pb-20'>
+      <nav aria-label='Breadcrumb' class='mb-10'>
+        <ol
+          class='flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.24em] font-medium text-slate-500'>
+          <li>
+            <a href='/' class='hover:text-white transition-colors'>Home</a>
+          </li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li>
+            <a href='/teach' class='hover:text-white transition-colors'
+              >Teach</a>
+          </li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li>
+            <a href='/teach/cme' class='hover:text-white transition-colors'
+              >CME</a>
+          </li>
+          <li aria-hidden='true' class='text-slate-700'>/</li>
+          <li>
+            <a
+              href='/teach/cme/calendar'
+              class='hover:text-white transition-colors'>Calendar</a>
+          </li>
+        </ol>
+      </nav>
+
+      <div class='flex flex-wrap items-center gap-2 mb-5'>
+        <span
+          class='inline-flex items-center px-2.5 py-0.5 rounded-full
+                     text-[10px] font-semibold uppercase tracking-wider
+                     bg-primary-light/20 text-primary-light'>
+          {session.data.category}
+        </span>
+        {
+          session.data.credits && (
+            <span
+              class='inline-flex items-center px-2.5 py-0.5 rounded-full
+                       text-[10px] font-semibold uppercase tracking-wider
+                       bg-emerald-500/20 text-emerald-300'>
+              {session.data.credits}
+            </span>
+          )
+        }
+      </div>
+
+      <h1
+        class='font-display font-light text-white text-3xl sm:text-4xl lg:text-5xl tracking-[-0.03em] text-balance'>
+        {session.data.title}
+      </h1>
+
+      <div class='mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm'>
+        <div class='flex items-start gap-3 text-slate-300'>
+          <i class='fas fa-calendar text-primary-light mt-1' aria-hidden='true'
+          ></i>
+          <div>
+            <div class='text-white font-medium'>
+              {dateFmt.format(session.data.date)}
+            </div>
+            <div class='text-xs text-slate-400'>{session.data.time}</div>
+          </div>
+        </div>
+
+        <div class='flex items-start gap-3 text-slate-300'>
+          <i
+            class='fas fa-location-dot text-primary-light mt-1'
+            aria-hidden='true'></i>
+          <div>
+            <div class='text-white font-medium'>{session.data.location}</div>
+            <div class='text-xs text-slate-400'>{session.data.format}</div>
+          </div>
+        </div>
+
+        {
+          session.data.facilitator && (
+            <div class='flex items-start gap-3 text-slate-300'>
+              <i
+                class='fas fa-user-tie text-primary-light mt-1'
+                aria-hidden='true'
+              />
+              <div>
+                <div class='text-white font-medium'>
+                  {session.data.facilitator}
+                </div>
+                <div class='text-xs text-slate-400'>Facilitator</div>
+              </div>
+            </div>
+          )
+        }
+
+        {
+          session.data.audience.length > 0 && (
+            <div class='flex items-start gap-3 text-slate-300'>
+              <i
+                class='fas fa-users text-primary-light mt-1'
+                aria-hidden='true'
+              />
+              <div>
+                <div class='text-white font-medium'>
+                  {session.data.audience.join(', ')}
+                </div>
+                <div class='text-xs text-slate-400'>Target audience</div>
+              </div>
+            </div>
+          )
+        }
+      </div>
+
+      <div class='mt-10 flex flex-wrap gap-3'>
+        <a
+          href={registrationEmail}
+          class='group inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full
+                  bg-white text-[#0A1730] font-semibold text-sm
+                  hover:bg-blue-50 transition-colors shadow-lg shadow-black/30'>
+          <span>Register for this session</span>
+          <span
+            class='inline-flex items-center justify-center w-9 h-9 rounded-full
+                       bg-[#0A1730] text-white
+                       group-hover:translate-x-0.5 transition-transform'>
+            <i class='fas fa-arrow-right text-xs' aria-hidden='true'></i>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class='py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white'>
+    <div class='max-w-3xl mx-auto prose-spmh'>
+      <Content />
+    </div>
+  </section>
+
+  <section
+    class='py-12 px-4 sm:px-6 lg:px-8 bg-slate-50 border-t border-slate-200'>
+    <div class='max-w-3xl mx-auto text-center'>
+      <a
+        href='/teach/cme/calendar'
+        class='inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all'>
+        <i class='fas fa-arrow-left text-xs' aria-hidden='true'></i>
+        Back to calendar
+      </a>
+    </div>
+  </section>
+</LandingLayout>

@@ -15,10 +15,10 @@ export const SITE = {
   mainSite: {
     url: 'https://www.spmh.co.ke',
     name: "St. Paul's Mission Hospital",
-    about: 'https://www.spmh.co.ke/about',
-    contact: 'https://www.spmh.co.ke/contact',
+    about: 'https://www.spmh.co.ke/about-us/history',
+    contact: 'https://www.spmh.co.ke/about-us/contact',
     governance: 'https://www.spmh.co.ke/governance',
-    strategicPlan: 'https://www.spmh.co.ke/strategic-plan',
+    strategicPlan: 'https://www.spmh.co.ke/about-us/strategic-plan',
     services: 'https://www.spmh.co.ke/services',
     donate: 'https://www.spmh.co.ke/donate',
   },
@@ -78,7 +78,8 @@ export const SITE = {
     researchPropose:   '/research/propose',
 
     teach:             '/teach',
-    teachCme:          '/teach/cme',
+    teachCme: '/teach/cme',
+     teachCmeCalendar:  '/teach/cme/calendar',
     teachFaculty:      '/teach/faculty-directory',
     teachResources:    '/teach/resources',
 

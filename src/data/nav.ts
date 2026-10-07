@@ -153,10 +153,10 @@ export const megamenus: Record<SubmenuKey, Megamenu> = {
         title: 'Continuing Education',
         icon: 'chalkboard-user',
         items: [
-          { label: 'CME Calendar',       href: `${P.teachCme}#calendar` },
-          { label: 'Upcoming Trainings', href: P.teachCme },
-          { label: 'CPD Credits',        href: `${P.teachCme}#credits` },
-          { label: 'Register →',         href: `${P.teachCme}#register`, cta: true },
+          { label: 'CME Calendar',  href: P.teachCmeCalendar },
+          { label: 'CME Overview',  href: P.teachCme },
+          { label: 'CPD Credits',   href: `${P.teachCme}#credits` },
+          { label: 'Register →',    href: `${P.teachCme}#register`, cta: true },
         ],
       },
       {
