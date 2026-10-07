@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { signInWithPassword, signInWithMagicLink } from '../../lib/auth';
 
 const inputCls =
@@ -15,6 +15,20 @@ export default function LoginForm({ initialError }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(initialError || '');
   const [magicSent, setMagicSent] = useState(false);
+  const [idleMsg, setIdleMsg] = useState(false);
+
+  /* Detect ?reason=idle and show a friendly banner, then clean the URL */
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('reason') === 'idle') {
+      setIdleMsg(true);
+      params.delete('reason');
+      const next =
+        window.location.pathname +
+        (params.toString() ? '?' + params.toString() : '');
+      window.history.replaceState({}, '', next);
+    }
+  }, []);
 
   const submitPassword = async (e) => {
     e.preventDefault();
@@ -60,8 +74,8 @@ export default function LoginForm({ initialError }) {
         </h2>
         <p className='text-sm text-slate-600 mb-6'>
           We sent a sign-in link to{' '}
-          <strong className='text-slate-900'>{email}</strong>. It expires in 60
-          minutes.
+          <strong className='text-slate-900'>{email}</strong>. It expires in 2
+          hours.
         </p>
         <button
           type='button'
@@ -78,6 +92,19 @@ export default function LoginForm({ initialError }) {
 
   return (
     <div>
+      {/* Idle-logout banner */}
+      {idleMsg && (
+        <div className='mb-5 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 flex items-start gap-2.5'>
+          <i
+            className='fas fa-clock mt-0.5 text-xs shrink-0'
+            aria-hidden='true'
+          />
+          <span className='leading-relaxed'>
+            You were signed out after 15 minutes of inactivity.
+          </span>
+        </div>
+      )}
+
       {/* Tabs */}
       <div className='flex items-center gap-1 mb-6 border-b border-slate-200'>
         {[
@@ -162,7 +189,7 @@ export default function LoginForm({ initialError }) {
           </label>
 
           <p className='text-xs text-slate-500'>
-            We'll email you a one-time sign-in link. No password needed.
+            We&rsquo;ll email you a one-time sign-in link. No password needed.
           </p>
 
           <button
@@ -178,8 +205,8 @@ export default function LoginForm({ initialError }) {
         Access is by invitation. To request an account, contact
         <a
           href='mailto:academics@spmh.co.ke'
-          className='text-primary hover:underline ml-1'>
-           academics@spmh.co.ke
+          className='text-primary hover:underline ml-1'> 
+          academics@spmh.co.ke
         </a>
         .
       </p>

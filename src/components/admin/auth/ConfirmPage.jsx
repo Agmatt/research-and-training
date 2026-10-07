@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getSupabase } from '../../../lib/supabase';
+import '../../../styles/global.css'
 
 /**
  * ConfirmPage — handles token_hash-based email confirmation.

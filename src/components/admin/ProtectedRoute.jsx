@@ -11,17 +11,16 @@ export default function ProtectedRoute({ children }) {
       window.location.href = '/admin/login';
       return;
     }
-
     if (!adminUser || !adminUser.is_active) {
       window.location.href = '/admin/login?error=not_provisioned';
       return;
     }
 
-    // Force first-time invited users to set a password
+    // First-time users go to /admin/set-password — done here so it applies
+    // to every protected page, not just the ones inside AdminShell.
     const onSetPassword = window.location.pathname === '/admin/set-password';
     if (adminUser.password_set === false && !onSetPassword) {
       window.location.href = '/admin/set-password';
-      return;
     }
   }, [loading, session, adminUser]);
 
@@ -36,9 +35,7 @@ export default function ProtectedRoute({ children }) {
     );
   }
 
-  if (!session || !adminUser || !adminUser.is_active) {
-    return null; // redirect in progress
-  }
+  if (!session || !adminUser || !adminUser.is_active) return null;
 
   return children;
 }

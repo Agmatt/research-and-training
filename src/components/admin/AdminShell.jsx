@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import AdminSidebar from './AdminSidebar';
+import IdleWarning from './IdleWarningModal';
 
 export default function AdminShell({
   children,
@@ -64,6 +65,9 @@ export default function AdminShell({
           <div className='max-w-7xl mx-auto'>{children}</div>
         </main>
       </div>
+
+      {/* Idle timeout — active on every admin page */}
+      <IdleWarning />
     </div>
   );
 }

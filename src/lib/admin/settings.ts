@@ -171,3 +171,25 @@ export function validatePassword(pw: string): string | null {
   if (!/[0-9]/.test(pw)) return 'Password must contain a number.';
   return null;
 }
+
+export async function deleteTeamMember(userId: string): Promise<void> {
+  const supabase = getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) throw new Error('Not authenticated.');
+
+  const res = await fetch('/api/admin/delete-user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${session.access_token}`,
+    },
+    body: JSON.stringify({ user_id: userId }),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err?.error || `Request failed (${res.status}).`);
+  }
+}
